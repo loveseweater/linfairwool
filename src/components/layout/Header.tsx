@@ -9,6 +9,7 @@ const navLinks = [
   { path: '/about', labelKey: 'nav.about' },
   { path: '/products', labelKey: 'nav.products' },
   { path: '/blog', labelKey: 'nav.blog' },
+  { path: '/videos', labelKey: 'nav.videos' },
   { path: '/contact', labelKey: 'nav.contact' },
 ]
 
@@ -232,6 +233,7 @@ export default function Header() {
             { path: '/', icon: 'home', labelKey: 'nav.home' },
             { path: '/products', icon: 'grid', labelKey: 'nav.products' },
             { path: '/blog', icon: 'file', labelKey: 'nav.blog' },
+            { path: '/videos', icon: 'play', labelKey: 'nav.videos' },
             { path: '/contact', icon: 'chat', labelKey: 'nav.contact' },
           ].map((item) => {
             const isActive = location.pathname === item.path

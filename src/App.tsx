@@ -10,6 +10,7 @@ const Products = lazy(() => import('./pages/Products'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
+const Videos = lazy(() => import('./pages/Videos'))
 const AdminPage = lazy(() => import('./pages/admin'))
 
 const pageVariants = {
@@ -72,6 +73,11 @@ export default function App() {
               <Route path="/blog/:id" element={
                 <Suspense fallback={<PageLoader />}>
                   <AnimatedPage><BlogPost /></AnimatedPage>
+                </Suspense>
+              } />
+              <Route path="/videos" element={
+                <Suspense fallback={<PageLoader />}>
+                  <AnimatedPage><Videos /></AnimatedPage>
                 </Suspense>
               } />
             </Routes>

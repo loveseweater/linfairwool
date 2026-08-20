@@ -1,8 +1,37 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/ui/Button'
 import { useLang } from '../context/LanguageContext'
 import { videos, type Video } from '../data/videos'
+
+// 为谷歌收录注入 VideoObject 结构化数据
+function VideoSchema({ list }: { list: Video[] }) {
+  useEffect(() => {
+    const id = 'video-jsonld'
+    const old = document.getElementById(id)
+    if (old) old.remove()
+    if (list.length === 0) return
+    const items = list.map((v) => ({
+      '@type': 'VideoObject',
+      name: v.title,
+      description: v.description,
+      thumbnailUrl: v.thumbnail,
+      embedUrl: v.embedUrl,
+      uploadDate: v.date,
+      contentUrl: v.embedUrl,
+    }))
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.id = id
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': items })
+    document.head.appendChild(script)
+    return () => {
+      const el = document.getElementById(id)
+      if (el) el.remove()
+    }
+  }, [list])
+  return null
+}
 
 export default function Videos() {
   const { t } = useLang()
@@ -19,6 +48,7 @@ export default function Videos() {
 
   return (
     <>
+      <VideoSchema list={videos} />
       {/* Hero */}
       <section className="relative py-20 md:py-32 bg-primary overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/80" />

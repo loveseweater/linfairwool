@@ -45,6 +45,13 @@
     <changefreq>monthly</changefreq>
   </url>
 
+  <!-- Videos -->
+  <url>
+    <loc>https://www.linfairwool.cn/videos</loc>
+    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+
   <!-- Blog Posts -->
   <url>
     <loc>https://www.linfairwool.cn/blog/blog-1</loc>
