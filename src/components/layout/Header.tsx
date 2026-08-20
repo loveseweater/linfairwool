@@ -19,7 +19,6 @@ const languages: { code: Lang; label: string; flag: string }[] = [
   { code: 'de', label: 'DE', flag: '🇩🇪' },
   { code: 'pt', label: 'PT', flag: '🇧🇷' },
   { code: 'ru', label: 'RU', flag: '🇷🇺' },
-  { code: 'zh', label: '中文', flag: '🇨🇳' },
 ]
 
 const socialIcons: Record<string, JSX.Element> = {
@@ -71,10 +70,10 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-warm/90 backdrop-blur-md border-b border-accent/10">
       <div className="container-custom">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-12 w-auto" />
+            <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-9 md:h-12 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
@@ -182,13 +181,13 @@ export default function Header() {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden bg-warm border-t border-accent/10"
           >
-            <nav className="container-custom py-6 flex flex-col gap-4">
+            <nav className="container-custom py-6 flex flex-col gap-2">
               {navLinks.map((link) => (
                 <Link
                   key={link.path}
                   to={link.path}
                   onClick={() => setMobileOpen(false)}
-                  className={`text-base font-medium py-2 ${
+                  className={`text-base font-medium py-3 ${
                     location.pathname === link.path
                       ? 'text-accent'
                       : 'text-text hover:text-primary'
@@ -198,7 +197,7 @@ export default function Header() {
                 </Link>
               ))}
               {/* Mobile Language */}
-              <div className="flex items-center gap-2 py-2 border-t border-gray-100 pt-4">
+              <div className="flex flex-wrap items-center gap-2 py-2 border-t border-gray-100 pt-4">
                 <span className="text-xs text-text-light mr-1">Language:</span>
                 {languages.map((l) => (
                   <button
@@ -227,7 +226,7 @@ export default function Header() {
       </AnimatePresence>
 
       {/* Mobile Bottom Navigation Bar */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-warm/95 backdrop-blur-md border-t border-accent/10 safe-area-bottom">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-warm/95 backdrop-blur-md border-t border-accent/10" style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}>
         <div className="flex items-center justify-around h-16">
           {[
             { path: '/', icon: 'home', labelKey: 'nav.home' },
@@ -274,7 +273,7 @@ export default function Header() {
       {/* Add padding to main content to account for bottom nav */}
       <style>{`
         @media (max-width: 767px) {
-          .pt-20 { padding-top: 5rem; }
+          .pt-20 { padding-top: 4rem; } @media (min-width: 768px) { .pt-20 { padding-top: 5rem; } }
           .min-h-screen > main { padding-bottom: 4.5rem; }
         }
         .safe-area-bottom {

@@ -31,7 +31,7 @@ export default function Products() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-32 bg-primary overflow-hidden">
+      <section className="relative py-20 md:py-32 bg-primary overflow-hidden">
         <div className="absolute inset-0">
           <HeroCarousel images={siteContent.productsHeroImages} className="opacity-25" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/80" />
@@ -44,12 +44,12 @@ export default function Products() {
             className="max-w-2xl"
           >
             <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{t('products.heroSubtitle')}</span>
-            <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-tight">
+            <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-[1.1]">
               {t('products.heroTitle')}
               <br />
               <span className="text-accent">{t('products.heroHighlight')}</span>
             </h1>
-            <p className="mt-6 text-lg text-warm/60 leading-relaxed">
+            <p className="mt-4 md:mt-6 text-base md:text-lg text-warm/60 leading-relaxed">
               {t('products.heroDesc')}
             </p>
           </motion.div>
@@ -60,12 +60,12 @@ export default function Products() {
       <section className="py-24 bg-warm">
         <div className="container-custom">
           {/* Category Filter */}
-          <div className="flex flex-wrap gap-3 justify-center mb-16">
+          <div className="flex gap-2 md:gap-3 justify-center mb-10 md:mb-16 overflow-x-auto scrollbar-hide pb-2">
             {categories.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-6 py-2.5 text-sm font-medium tracking-wide transition-all duration-200 rounded-full ${
+                className={`px-4 md:px-6 py-2 md:py-2.5 text-xs md:text-sm font-medium tracking-wide transition-all duration-200 rounded-full shrink-0 ${
                   activeCategory === cat
                     ? 'bg-primary text-warm'
                     : 'bg-white text-text hover:bg-primary/10'
@@ -77,7 +77,7 @@ export default function Products() {
           </div>
 
           {/* Products Grid */}
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <motion.div layout className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             <AnimatePresence mode="popLayout">
               {filtered.map((product) => (
                 <ProductCard
@@ -110,7 +110,7 @@ export default function Products() {
       </AnimatePresence>
 
       {/* CTA */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container-custom text-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -118,7 +118,7 @@ export default function Products() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-primary">
               {t('products.ctaTitle')}
             </h2>
             <p className="mt-4 text-text-light max-w-xl mx-auto">
@@ -180,7 +180,7 @@ function ProductCard({
     >
       {/* Image Carousel */}
       <div
-        className="aspect-[3/4] bg-white rounded-2xl overflow-hidden mb-4 relative"
+        className="aspect-[3/4] bg-white rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4 relative"
         onMouseEnter={startAutoPlay}
         onMouseLeave={stopAutoPlay}
       >
@@ -194,7 +194,7 @@ function ProductCard({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            loading="lazy"
+            loading="lazy" decoding="async"
           />
         </AnimatePresence>
 
@@ -223,13 +223,13 @@ function ProductCard({
 
       {/* Product Info */}
       <div className="flex items-center gap-2 mb-1">
-        <span className="text-accent text-xs tracking-wider uppercase font-medium">{product.category}</span>
-        <span className="text-text-light text-xs">|</span>
-        <span className="text-text-light text-xs">{product.subcategory}</span>
+        <span className="text-accent text-[10px] md:text-xs tracking-wider uppercase font-medium">{product.category}</span>
+        <span className="hidden md:inline text-text-light text-xs">|</span>
+        <span className="hidden md:inline text-text-light text-xs">{product.subcategory}</span>
       </div>
-      <h3 className="text-lg font-display font-semibold text-primary">{product.name}</h3>
-      <p className="mt-1 text-sm text-text-light leading-relaxed line-clamp-2">{product.description}</p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
+      <h3 className="text-sm md:text-lg font-display font-semibold text-primary leading-snug line-clamp-2">{product.name}</h3>
+      <p className="mt-1 text-xs md:text-sm text-text-light leading-relaxed line-clamp-2">{product.description}</p>
+      <div className="mt-2 md:mt-3 hidden md:flex flex-wrap gap-1.5">
         {product.specs.slice(0, 3).map((spec: string) => (
           <span key={spec} className="text-[10px] bg-white px-2 py-1 rounded-full text-text-light border border-gray-100">
             {spec}
@@ -239,10 +239,24 @@ function ProductCard({
           <span className="text-[10px] text-accent px-2 py-1">+{product.specs.length - 3} more</span>
         )}
       </div>
-      <div className="mt-4">
-        <Button to="/contact" variant="outline" className="w-full text-xs py-2">
+      <div className="mt-4 space-y-2">
+        <Button to="/contact" variant="outline" className="w-full text-[11px] md:text-xs py-2">
           {t('products.inquire')}
         </Button>
+        {product.amazonUrl && (
+          <a
+            href={product.amazonUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center gap-1.5 w-full py-2 bg-[#FF9900] text-white text-xs font-semibold rounded-xl hover:bg-[#E88F00] transition-all active:scale-[0.98]"
+          >
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.5.5-1.2.7-1.9.7-1.5 0-2.8-.8-3.5-2-.7 1.2-2 2-3.5 2-.7 0-1.4-.2-1.9-.7-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0 .3.3.7.5 1.1.5 1 0 1.9-.6 2.3-1.5.1-.2.1-.5.1-.7V10.5h-1.5c-.4 0-.8-.3-.8-.8s.3-.8.8-.8h1.5V7.5c0-.4.3-.8.8-.8s.8.3.8.8v1.5h1.5c.4 0 .8.3.8.8s-.3.8-.8.8h-1.5v3.5c0 .3.1.5.2.7.3.6.9 1 1.5 1 .4 0 .8-.2 1.1-.5.3-.3.8-.3 1.1 0 .2.3.2.8-.1 1.1z"/>
+            </svg>
+            Buy on Amazon
+          </a>
+        )}
       </div>
     </motion.div>
   )
@@ -277,15 +291,15 @@ function ProductDetail({
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
-        className="bg-white rounded-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto"
+        className="bg-white rounded-t-2xl md:rounded-2xl max-w-5xl w-full max-h-[90vh] md:max-h-[90vh] overflow-y-auto fixed bottom-0 md:relative md:m-0"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="grid md:grid-cols-2 gap-0">
           {/* ── Left: Image Gallery ── */}
-          <div className="bg-gray-50 p-6 md:p-8">
+          <div className="bg-gray-50 p-4 md:p-8">
             <button
               onClick={onClose}
-              className="mb-4 w-10 h-10 bg-black/10 rounded-full flex items-center justify-center text-primary hover:bg-black/20 transition-colors"
+              className="mb-4 w-10 h-10 bg-black/10 rounded-full flex items-center justify-center text-primary hover:bg-black/20 transition-colors touch-manipulation"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -368,14 +382,14 @@ function ProductDetail({
           </div>
 
           {/* ── Right: Product Details ── */}
-          <div className="p-6 md:p-8 flex flex-col">
+          <div className="p-4 md:p-8 flex flex-col">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-accent text-xs tracking-wider uppercase font-medium">{product.category}</span>
               <span className="text-text-light text-xs">|</span>
               <span className="text-text-light text-xs">{product.subcategory}</span>
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-display font-semibold text-primary leading-tight">
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-display font-semibold text-primary leading-tight">
               {product.name}
             </h2>
 
@@ -401,6 +415,19 @@ function ProductDetail({
             </div>
 
             <div className="mt-6 space-y-3">
+              {product.amazonUrl && (
+                <a
+                  href={product.amazonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-[#FF9900] text-white font-semibold rounded-xl hover:bg-[#E88F00] transition-all active:scale-[0.98]"
+                >
+                  <svg className="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.5.5-1.2.7-1.9.7-1.5 0-2.8-.8-3.5-2-.7 1.2-2 2-3.5 2-.7 0-1.4-.2-1.9-.7-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0 .3.3.7.5 1.1.5 1 0 1.9-.6 2.3-1.5.1-.2.1-.5.1-.7V10.5h-1.5c-.4 0-.8-.3-.8-.8s.3-.8.8-.8h1.5V7.5c0-.4.3-.8.8-.8s.8.3.8.8v1.5h1.5c.4 0 .8.3.8.8s-.3.8-.8.8h-1.5v3.5c0 .3.1.5.2.7.3.6.9 1 1.5 1 .4 0 .8-.2 1.1-.5.3-.3.8-.3 1.1 0 .2.3.2.8-.1 1.1z"/>
+                  </svg>
+                  Buy on Amazon
+                </a>
+              )}
               <Button to="/contact" variant="accent" className="w-full py-3">
                 {t('products.inquireAbout')}
               </Button>

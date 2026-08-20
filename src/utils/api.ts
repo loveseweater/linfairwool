@@ -18,6 +18,7 @@ export interface Product {
   image: string
   gallery: string[]
   video?: string
+  amazonUrl?: string
 }
 
 export interface BlogPost {
@@ -115,17 +116,17 @@ export async function saveData(data: { products?: Product[]; blogPosts?: BlogPos
     saveToLocalStorage(current)
   } catch { return false }
 
-  // Try API save to Cloudflare KV (non-blocking)
+  // Try API save to Cloudflare KV (data available to all visitors instantly)
   try {
     const fullData = getStoredData() || { products: staticProducts, blogPosts: staticBlogPosts }
+    const content = getStoredSiteContent() || defaultSiteContent
     await apiFetch('/data', {
       method: 'POST',
       headers: getAuthHeader(),
-      body: JSON.stringify(fullData),
+      body: JSON.stringify({ ...fullData, siteContent: content }),
     })
   } catch { /* API save is optional */ }
 
-  // localStorage save succeeded
   return true
 }
 
@@ -173,7 +174,7 @@ export async function saveSiteContent(content: SiteContent): Promise<boolean> {
     localStorage.setItem(STORAGE_KEY_CONTENT, JSON.stringify(content))
   } catch { return false }
 
-  // Try API save (non-blocking)
+  // Try API save (data available to all visitors instantly)
   try {
     const fullData = getStoredData() || { products: staticProducts, blogPosts: staticBlogPosts }
     await apiFetch('/data', {
@@ -183,7 +184,6 @@ export async function saveSiteContent(content: SiteContent): Promise<boolean> {
     })
   } catch { /* API save is optional */ }
 
-  // localStorage save succeeded
   return true
 }
 

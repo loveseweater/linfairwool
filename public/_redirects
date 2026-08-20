@@ -1,2 +1,9 @@
+# Allow API routes to be handled by Pages Functions
+/api/*  /api/:splat  200
+
+# Allow sitemap and robots to be served directly
+/sitemap.xml  /sitemap.xml  200
+/robots.txt   /robots.txt   200
+
 # SPA fallback - all routes return index.html with 200 status for SEO
 /* /index.html 200

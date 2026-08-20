@@ -89,7 +89,7 @@ export default function Contact() {
   return (
     <>
       {/* Hero */}
-      <section className="relative py-32 bg-primary overflow-hidden">
+      <section className="relative py-20 md:py-32 bg-primary overflow-hidden">
         {/* Background image with gradient overlay */}
         <div className="absolute inset-0">
           <HeroCarousel images={contact.heroImages} className="opacity-25" />
@@ -103,12 +103,12 @@ export default function Contact() {
             className="max-w-2xl"
           >
             <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{contact.subtitle}</span>
-            <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-tight">
+            <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-[1.1]">
               {contact.title}
               <br />
               <span className="text-accent">{contact.titleHighlight}</span>
             </h1>
-            <p className="mt-6 text-lg text-warm/60 leading-relaxed">
+            <p className="mt-4 md:mt-6 text-base md:text-lg text-warm/60 leading-relaxed">
               {contact.description}
             </p>
           </motion.div>
@@ -116,9 +116,9 @@ export default function Contact() {
       </section>
 
       {/* Contact Form & Info */}
-      <section className="py-24 bg-warm">
+      <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
-          <div className="grid lg:grid-cols-5 gap-16">
+          <div className="grid lg:grid-cols-5 gap-10 md:gap-16">
             {/* Form */}
             <motion.div
               initial={{ opacity: 0, x: -20 }}
@@ -239,10 +239,10 @@ export default function Contact() {
               transition={{ duration: 0.6 }}
               className="lg:col-span-2"
             >
-              <div className="bg-white p-10 rounded-2xl">
+              <div className="bg-white p-6 md:p-10 rounded-2xl">
                 <h3 className="text-xl font-display font-semibold text-primary mb-8">{t('contact.infoTitle')}</h3>
 
-                <div className="space-y-8">
+                <div className="space-y-6 md:space-y-8">
                   <div>
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-10 h-10 bg-accent/10 rounded-full flex items-center justify-center shrink-0">

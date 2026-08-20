@@ -55,12 +55,12 @@ export default function Footer() {
 
   return (
     <footer className="bg-primary text-warm">
-      <div className="container-custom py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div className="container-custom py-12 md:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-14 w-auto" />
+              <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-10 md:h-14 w-auto" />
             </div>
             <p className="text-warm/60 text-sm leading-relaxed mb-6">
               {t('footer.brandDesc')}
@@ -87,7 +87,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
+            <h3 className="font-display text-base md:text-lg font-semibold mb-3 md:mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2.5">
               {[
                 { to: '/', labelKey: 'nav.home' },
@@ -105,6 +105,19 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <a
+                  href="https://www.amazon.com/s?i=merchant-items&me=A3TGFVQN3GQ10O"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 text-warm/50 hover:text-[#FF9900] text-sm transition-colors duration-200"
+                >
+                  <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm3.5 14.5c-.5.5-1.2.7-1.9.7-1.5 0-2.8-.8-3.5-2-.7 1.2-2 2-3.5 2-.7 0-1.4-.2-1.9-.7-.3-.3-.3-.8 0-1.1.3-.3.8-.3 1.1 0 .3.3.7.5 1.1.5 1 0 1.9-.6 2.3-1.5.1-.2.1-.5.1-.7V10.5h-1.5c-.4 0-.8-.3-.8-.8s.3-.8.8-.8h1.5V7.5c0-.4.3-.8.8-.8s.8.3.8.8v1.5h1.5c.4 0 .8.3.8.8s-.3.8-.8.8h-1.5v3.5c0 .3.1.5.2.7.3.6.9 1 1.5 1 .4 0 .8-.2 1.1-.5.3-.3.8-.3 1.1 0 .2.3.2.8-.1 1.1z"/>
+                  </svg>
+                  Amazon Store
+                </a>
+              </li>
             </ul>
           </div>
 

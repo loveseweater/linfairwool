@@ -3,6 +3,8 @@ import { fetchData, saveData, resetData, logout, downloadDataFile, importDataFil
 import { motion } from 'framer-motion'
 import type { SiteContent } from '../../data/siteContent'
 import { useLang } from '../../context/LanguageContext'
+import { getEmailConfig, saveEmailConfig, hasEmailConfig, sendNotification } from '../../utils/emailService'
+import type { NotificationPayload } from '../../utils/emailService'
 
 interface Product {
   id: string
@@ -26,7 +28,7 @@ interface BlogPost {
   image: string
 }
 
-type Tab = 'products' | 'blog' | 'siteContent' | 'inquiries' | 'social' | 'navigation' | 'analytics' | 'subscriptions'
+type Tab = 'products' | 'blog' | 'siteContent' | 'inquiries' | 'social' | 'navigation' | 'analytics' | 'subscriptions' | 'email'
 type SiteContentTab = 'home' | 'about' | 'contact'
 
 export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
@@ -40,6 +42,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
   const [saving, setSaving] = useState(false)
   const [message, setMessage] = useState('')
   const [showResetConfirm, setShowResetConfirm] = useState(false)
+  const [notifySubscribers, setNotifySubscribers] = useState(false)
   const importInputRef = useRef<HTMLInputElement>(null)
   useEffect(() => {
     loadData()
@@ -76,6 +79,24 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       } else {
         setMessage(t('admin.saveLocal'))
       }
+
+      // Send email notification if enabled
+      if (notifySubscribers && hasEmailConfig()) {
+        const notification: NotificationPayload = {
+          type: (activeTab === 'products' ? 'product' : 'blog') as 'product' | 'blog',
+          title: activeTab === 'products' ? 'New products updated' : 'New blog post published',
+          summary: activeTab === 'products'
+            ? `${products.length} products available on LINFAIR Wool`
+            : `Check out our latest blog post on LINFAIR Wool`,
+          url: activeTab === 'products' ? 'https://www.linfairwool.cn/products' : 'https://www.linfairwool.cn/blog',
+        }
+        const result = await sendNotification(notification)
+        if (result.success) {
+          setMessage(prev => prev + ' | ' + result.message)
+        }
+        setNotifySubscribers(false)
+      }
+
       setTimeout(() => setMessage(''), 5000)
     } catch (err: any) {
       setMessage('Failed to save: ' + err.message)
@@ -270,6 +291,15 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             >
               {t('admin.export')}
             </button>
+            <label className="flex items-center gap-2 cursor-pointer px-3 py-2 bg-white/5 border border-white/10 rounded-lg hover:bg-white/10 transition-colors">
+              <input
+                type="checkbox"
+                checked={notifySubscribers}
+                onChange={e => setNotifySubscribers(e.target.checked)}
+                className="w-4 h-4 accent-[#D4A574]"
+              />
+              <span className="text-xs text-gray-400">通知订阅用户</span>
+            </label>
             <button
               onClick={handleSave}
               disabled={saving}
@@ -385,6 +415,17 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
             >
               订阅通知
               {activeTab === 'subscriptions' && (
+                <motion.div layoutId="tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#D4A574]" />
+              )}
+            </button>
+            <button
+              onClick={() => setActiveTab('email')}
+              className={`px-6 py-3 text-sm font-medium transition-colors relative ${
+                activeTab === 'email' ? 'text-[#D4A574]' : 'text-gray-400 hover:text-white'
+              }`}
+            >
+              邮件通知
+              {activeTab === 'email' && (
                 <motion.div layoutId="tab-indicator" className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#D4A574]" />
               )}
             </button>
@@ -1063,6 +1104,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
         {activeTab === 'navigation' && siteContent && <NavManager siteContent={siteContent} setSiteContent={setSiteContent} />}
         {activeTab === 'analytics' && <AnalyticsDashboard />}
         {activeTab === 'subscriptions' && <SubscriptionManager />}
+        {activeTab === 'email' && <EmailConfigManager />}
       </div>
 
       {/* Reset Confirm Modal */}
@@ -1076,7 +1118,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
                 onClick={() => setShowResetConfirm(false)}
                 className="px-4 py-2 text-gray-400 hover:text-white transition-colors text-sm"
               >
-                Cancel
+                取消
               </button>
               <button
                 onClick={handleReset}
@@ -1214,7 +1256,7 @@ function InquiriesManager() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-lg text-white font-medium">
-          Inquiries ({inquiries.length})
+          询盘列表 ({inquiries.length})
           {inquiries.filter(i => !i.read).length > 0 && (
             <span className="ml-2 text-xs bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full">
               {inquiries.filter(i => !i.read).length} 未读
@@ -1531,6 +1573,112 @@ function TextAreaField({ label, value, onChange }: { label: string; value: strin
 }
 
 /* ─── Image Upload Component ─── */
+
+/* ─── Email Config Manager ─── */
+function EmailConfigManager() {
+  useLang() // for future translations
+  const [config, setConfig] = useState({ serviceId: '', templateId: '', publicKey: '', fromName: 'LINFAIR Wool', replyTo: 'info@linfairwool.cn' })
+  const [saved, setSaved] = useState(false)
+  const [testStatus, setTestStatus] = useState('')
+
+  useEffect(() => {
+    const existing = getEmailConfig()
+    if (existing) setConfig(existing)
+  }, [])
+
+  const handleSave = () => {
+    saveEmailConfig(config)
+    setSaved(true)
+    setTimeout(() => setSaved(false), 3000)
+  }
+
+  const handleTest = async () => {
+    setTestStatus('发送中...')
+    const result = await sendNotification({
+      type: 'blog',
+      title: 'Test Notification',
+      summary: 'This is a test email from LINFAIR Wool website.',
+      url: 'https://www.linfairwool.cn/',
+    })
+    setTestStatus(result.message)
+    setTimeout(() => setTestStatus(''), 5000)
+  }
+
+  return (
+    <div>
+      <div className="flex items-center justify-between mb-6">
+        <h2 className="text-lg text-white font-medium">邮件通知设置</h2>
+        <div className="flex gap-3">
+          <button onClick={handleTest} className="px-4 py-2 bg-[#D4A574]/20 text-[#D4A574] border border-[#D4A574]/30 rounded-lg hover:bg-[#D4A574]/30 transition-colors text-sm">
+            发送测试邮件
+          </button>
+          <button onClick={handleSave} className="px-4 py-2 bg-[#D4A574] text-white rounded-lg hover:bg-[#D4A574]/90 transition-colors text-sm">
+            保存设置
+          </button>
+        </div>
+      </div>
+
+      {saved && <div className="mb-4 px-4 py-3 bg-green-500/10 border border-green-500/30 rounded-lg text-green-400 text-sm">设置已保存</div>}
+      {testStatus && <div className="mb-4 px-4 py-3 bg-blue-500/10 border border-blue-500/30 rounded-lg text-blue-400 text-sm">{testStatus}</div>}
+
+      <div className="bg-white/5 rounded-xl border border-white/10 p-6 space-y-4">
+        <p className="text-gray-400 text-sm leading-relaxed">
+          配置 EmailJS 服务后，当您发布新产品或博客文章时，系统会自动发送邮件通知给所有订阅用户。
+        </p>
+
+        <div className="p-4 bg-[#D4A574]/10 border border-[#D4A574]/20 rounded-lg">
+          <h3 className="text-white text-sm font-medium mb-2">如何获取？</h3>
+          <ol className="text-gray-400 text-xs space-y-1.5 list-decimal list-inside">
+            <li>打开 <a href="https://www.emailjs.com" target="_blank" rel="noopener noreferrer" className="text-[#D4A574] hover:underline">emailjs.com</a> 注册免费账号</li>
+            <li>创建 Email Service（连接你的邮箱，推荐 Gmail）</li>
+            <li>创建 Email Template，模板变量：to_email, to_name, from_name, reply_to, subject, message, type, title, summary, url</li>
+            <li>在 Account → API Keys 获取 Public Key</li>
+            <li>将 Service ID、Template ID、Public Key 填入下方</li>
+          </ol>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Service ID</label>
+            <input value={config.serviceId} onChange={e => setConfig({...config, serviceId: e.target.value})}
+              placeholder="service_xxxxxxx"
+              className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Template ID</label>
+            <input value={config.templateId} onChange={e => setConfig({...config, templateId: e.target.value})}
+              placeholder="template_xxxxxxx"
+              className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">Public Key</label>
+            <input value={config.publicKey} onChange={e => setConfig({...config, publicKey: e.target.value})}
+              placeholder="xxxxxxxxxxxxx"
+              className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">发件人名称</label>
+            <input value={config.fromName} onChange={e => setConfig({...config, fromName: e.target.value})}
+              placeholder="LINFAIR Wool"
+              className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]" />
+          </div>
+          <div>
+            <label className="block text-xs text-gray-500 mb-1">回复邮箱</label>
+            <input value={config.replyTo} onChange={e => setConfig({...config, replyTo: e.target.value})}
+              placeholder="info@linfairwool.cn"
+              className="w-full px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]" />
+          </div>
+        </div>
+
+        <div className="p-4 bg-[#1B2A4A]/30 border border-white/10 rounded-lg">
+          <h3 className="text-white text-sm font-medium mb-2">订阅用户</h3>
+          <p className="text-gray-400 text-xs">配置完成后，每次保存产品/博客更新时，系统会询问是否发送通知给所有订阅用户。</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function ImageUpload({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
   const { t } = useLang()
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -1628,7 +1776,7 @@ function MultiImageUpload({ label, images, onChange }: { label: string; images: 
             <input
               value={img}
               onChange={(e) => updateImageUrl(i, e.target.value)}
-              placeholder={`Image URL ${i + 1}`}
+              placeholder={`图片链接 ${i + 1}`}
               className="flex-1 px-3 py-2 bg-white/5 border border-white/10 rounded-lg text-white text-sm focus:outline-none focus:border-[#D4A574]"
             />
             {img && (
@@ -1649,7 +1797,7 @@ function MultiImageUpload({ label, images, onChange }: { label: string; images: 
             onClick={addImage}
             className="px-3 py-1.5 bg-[#D4A574]/20 text-[#D4A574] border border-[#D4A574]/30 rounded-lg hover:bg-[#D4A574]/30 transition-colors text-xs"
           >
-            + Add Image URL
+            + 添加图片链接
           </button>
           <button
             onClick={() => fileInputRef.current?.click()}

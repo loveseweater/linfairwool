@@ -37,14 +37,14 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center bg-primary overflow-hidden">
+      <section className="relative min-h-[100svh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0">
           <HeroCarousel images={hero.heroImages} className="opacity-30" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/80" />
         </div>
 
-        <div className="container-custom relative z-10 py-32">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="container-custom relative z-10 py-28 md:py-28 md:py-32">
+          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
             <div>
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
@@ -70,7 +70,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-6 text-lg text-warm/60 max-w-lg leading-relaxed"
+                className="mt-5 md:mt-6 text-base md:text-lg text-warm/60 max-w-lg leading-relaxed"
               >
                 {hero.description}
               </motion.p>
@@ -79,7 +79,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="mt-10 flex flex-wrap gap-4"
+                className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4"
               >
                 <Button to="/products" variant="accent">
                   {hero.button1Text}
@@ -124,9 +124,9 @@ export default function Home() {
       </section>
 
       {/* Stats */}
-      <section className="py-16 bg-white">
+      <section className="py-12 md:py-16 bg-white">
         <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -136,8 +136,8 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="text-3xl md:text-4xl font-display font-bold text-primary">{stat.value}</div>
-                <div className="mt-1 text-sm text-text-light">{stat.label}</div>
+                <div className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-primary">{stat.value}</div>
+                <div className="mt-1 text-xs md:text-sm text-text-light">{stat.label}</div>
               </motion.div>
             ))}
           </div>
@@ -145,7 +145,7 @@ export default function Home() {
       </section>
 
       {/* Featured Products */}
-      <section className="py-24 bg-warm">
+      <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
           <SectionTitle
             subtitle={t('home.featuredSubtitle')}
@@ -153,7 +153,7 @@ export default function Home() {
             description={t('home.featuredDesc')}
           />
 
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mt-10 md:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
             {featuredProducts.map((product, index) => (
               <motion.div
                 key={product.id}
@@ -163,17 +163,17 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="group"
               >
-                <div className="aspect-[3/4] bg-warm-dark rounded-2xl overflow-hidden mb-4">
+                <div className="aspect-[3/4] bg-warm-dark rounded-xl md:rounded-2xl overflow-hidden mb-3 md:mb-4">
                   <img
                     src={product.image}
                     alt={product.name}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
+                    loading="lazy" decoding="async"
                   />
                 </div>
                 <span className="text-accent text-xs tracking-wider uppercase font-medium">{product.category}</span>
-                <h3 className="mt-1 text-lg font-display font-semibold text-primary">{product.name}</h3>
-                <p className="mt-1 text-sm text-text-light leading-relaxed line-clamp-2">{product.description}</p>
+                <h3 className="mt-1 text-sm md:text-lg font-display font-semibold text-primary leading-snug line-clamp-2">{product.name}</h3>
+                <p className="mt-1 text-xs md:text-sm text-text-light leading-relaxed line-clamp-2">{product.description}</p>
               </motion.div>
             ))}
           </div>
@@ -193,9 +193,9 @@ export default function Home() {
       </section>
 
       {/* Brand Story */}
-      <section className="py-24 bg-white">
+      <section className="py-16 md:py-24 bg-white">
         <div className="container-custom">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -205,7 +205,7 @@ export default function Home() {
               <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">
                 {brandStory.subtitle}
               </span>
-              <h2 className="mt-3 text-3xl md:text-4xl font-display font-semibold text-primary leading-tight">
+              <h2 className="mt-3 text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-primary leading-tight">
                 {brandStory.title}
                 <br />
                 <span className="text-accent">{brandStory.titleHighlight}</span>
@@ -232,7 +232,7 @@ export default function Home() {
                   src={brandStory.image}
                   alt="Knitwear craftsmanship"
                   className="w-full h-full object-cover"
-                  loading="lazy"
+                  loading="lazy" decoding="async"
                 />
               </div>
               <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full hidden md:block" />
@@ -242,7 +242,7 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-24 bg-primary">
+      <section className="py-16 md:py-24 bg-primary">
         <div className="container-custom">
           <SectionTitle
             subtitle={t('home.whyUs')}
@@ -251,7 +251,7 @@ export default function Home() {
             light
           />
 
-          <div className="mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="mt-10 md:mt-16 grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             {advantages.map((adv, index) => (
               <motion.div
                 key={adv.title}
@@ -261,11 +261,11 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-accent/10 text-accent mb-5">
+                <div className="inline-flex items-center justify-center w-12 h-12 md:w-14 md:h-14 rounded-full bg-accent/10 text-accent mb-4 md:mb-5">
                   {iconPaths[adv.title] || iconPaths['Premium Materials']}
                 </div>
-                <h3 className="text-warm font-display text-xl font-semibold mb-3">{adv.title}</h3>
-                <p className="text-warm/50 text-sm leading-relaxed">{adv.description}</p>
+                <h3 className="text-warm font-display text-base md:text-xl font-semibold mb-2 md:mb-3">{adv.title}</h3>
+                <p className="text-warm/50 text-xs md:text-sm leading-relaxed">{adv.description}</p>
               </motion.div>
             ))}
           </div>
@@ -273,7 +273,7 @@ export default function Home() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 bg-warm">
+      <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -282,7 +282,7 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center max-w-2xl mx-auto"
           >
-            <h2 className="text-3xl md:text-4xl font-display font-semibold text-primary">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-primary">
               {t('home.ctaTitle')}
             </h2>
             <p className="mt-4 text-text-light leading-relaxed">
