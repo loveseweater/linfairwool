@@ -275,8 +275,8 @@ export const defaultSiteContent: SiteContent = {
     { name: 'LinkedIn', url: 'https://linkedin.com/company/linfairwool', enabled: true },
     { name: 'Pinterest', url: 'https://pinterest.com/linfairwool', enabled: true },
     { name: 'YouTube', url: 'https://youtube.com/@linfairwool', enabled: true },
-    { name: 'TikTok', url: 'https://tiktok.com/@linfairwool', enabled: false },
-    { name: 'Twitter/X', url: 'https://x.com/linfairwool', enabled: false },
+    { name: 'TikTok', url: 'https://tiktok.com/@linfairwool', enabled: true },
+    { name: 'Twitter/X', url: 'https://x.com/linfairwool', enabled: true },
   ],
   navItems: [
     { label: 'Home', path: '/', enabled: true },
