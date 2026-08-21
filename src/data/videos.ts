@@ -57,4 +57,14 @@ export const videos: Video[] = [
     category: 'Crew Neck Long Sleeve',
     date: '2026-08-17T00:00:00Z',
   },
+  {
+    id: 'video-4',
+    title: 'Women\'s Cashmere Blend V-Neck Sweater | Soft Long Sleeve Knit Pullover for Work & Fall Layering',
+    description: 'Review of our Women\'s Cashmere Blend V-Neck Sweater — soft, lightweight and endlessly versatile. A flattering V-neck, slim fitted silhouette and premium cashmere blend knit make it perfect for work, dates and everyday fall/winter wear.',
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/sqzngc8Ovv8',
+    thumbnail: 'https://img.youtube.com/vi/sqzngc8Ovv8/hqdefault.jpg',
+    category: 'V-Neck Sweater',
+    date: '2026-08-21T00:00:00Z',
+  },
 ]
