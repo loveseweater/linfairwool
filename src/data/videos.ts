@@ -35,7 +35,7 @@ export const videos: Video[] = [
     embedUrl: 'https://www.youtube.com/embed/V48ARUhrhDk',
     thumbnail: 'https://img.youtube.com/vi/V48ARUhrhDk/hqdefault.jpg',
     category: 'Drop Shoulder Knit Top',
-    date: 'August 17, 2026',
+    date: '2026-08-17T00:00:00Z',
   },
   {
     id: 'video-2',
@@ -45,7 +45,7 @@ export const videos: Video[] = [
     embedUrl: 'https://www.youtube.com/embed/L99hgeEhnDI',
     thumbnail: 'https://img.youtube.com/vi/L99hgeEhnDI/hqdefault.jpg',
     category: 'Drop Shoulder Knit Top',
-    date: 'August 17, 2026',
+    date: '2026-08-17T00:00:00Z',
   },
   {
     id: 'video-3',
@@ -55,6 +55,6 @@ export const videos: Video[] = [
     embedUrl: 'https://www.youtube.com/embed/cE232DKAfZk',
     thumbnail: 'https://img.youtube.com/vi/cE232DKAfZk/hqdefault.jpg',
     category: 'Crew Neck Long Sleeve',
-    date: 'August 17, 2026',
+    date: '2026-08-17T00:00:00Z',
   },
 ]
