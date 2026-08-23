@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/ui/SectionTitle'
 import Button from '../components/ui/Button'
-import HeroCarousel from '../components/ui/HeroCarousel'
 import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
@@ -39,13 +38,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[100svh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0">
-          <HeroCarousel images={hero.heroImages} className="opacity-30" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/95 to-primary/80" />
+          <img src={hero.image} alt="" className="w-full h-full object-cover opacity-40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/75" />
         </div>
 
         <div className="container-custom relative z-10 py-28 md:py-28 md:py-32">
-          <div className="grid lg:grid-cols-2 gap-10 md:gap-16 items-center">
-            <div>
+          <div className="flex justify-start">
+            <div className="max-w-2xl">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -89,21 +88,6 @@ export default function Home() {
                 </Button>
               </motion.div>
             </div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="relative hidden lg:block"
-            >
-              <div className="aspect-[3/4] rounded-full overflow-hidden border-8 border-accent/20">
-                <img
-                  src={hero.image}
-                  alt="Premium wool sweater"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </motion.div>
           </div>
         </div>
 
