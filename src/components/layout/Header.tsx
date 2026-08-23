@@ -49,7 +49,9 @@ const socialIcons: Record<string, JSX.Element> = {
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const langRef = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLDivElement>(null)
   const location = useLocation()
   const { siteContent } = useSiteData()
   const { t, lang, setLang } = useLang()
@@ -60,6 +62,9 @@ export default function Header() {
     function handleClick(e: MouseEvent) {
       if (langRef.current && !langRef.current.contains(e.target as Node)) {
         setLangOpen(false)
+      }
+      if (searchRef.current && !searchRef.current.contains(e.target as Node)) {
+        setSearchOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClick)
@@ -152,6 +157,25 @@ export default function Header() {
                 ))}
               </div>
             )}
+            {/* Search Button */}
+            <div className="relative" ref={searchRef}>
+              <button
+                onClick={() => setSearchOpen(!searchOpen)}
+                aria-label="Search"
+                title="Search"
+                className="w-8 h-8 rounded-full bg-primary/5 hover:bg-primary hover:text-warm flex items-center justify-center text-primary/50 transition-all duration-300"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+              </button>
+
+              <AnimatePresence>
+                {searchOpen && (
+                  <SearchPanel onClose={() => setSearchOpen(false)} />
+                )}
+              </AnimatePresence>
+            </div>
             <Link
               to="/contact"
               className="inline-flex items-center px-5 py-2.5 bg-primary text-warm text-sm font-medium rounded-full hover:bg-primary-light transition-colors duration-200"
@@ -283,5 +307,96 @@ export default function Header() {
         }
       `}</style>
     </header>
+  )
+}
+
+
+/* ─── Search Panel ─── */
+function SearchPanel({ onClose }: { onClose: () => void }) {
+  const { products, blogPosts } = useSiteData()
+  const { t } = useLang()
+  const [query, setQuery] = useState('')
+  const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
+  const q = query.trim().toLowerCase()
+  const hasQ = q.length > 0
+  const matchedProducts = hasQ ? products.filter((p) =>
+    [p.name, p.category, p.subcategory, p.description].some((v) => v && v.toLowerCase().includes(q))
+  ).slice(0, 4) : []
+  const matchedPosts = hasQ ? blogPosts.filter((p) =>
+    [p.title, p.category, p.excerpt].some((v) => v && v.toLowerCase().includes(q))
+  ).slice(0, 4) : []
+  const noResult = hasQ && matchedProducts.length === 0 && matchedPosts.length === 0
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      className="absolute right-0 top-full mt-2 w-[320px] md:w-[400px] bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+    >
+      <div className="p-3 border-b border-gray-100 flex items-center gap-2">
+        <svg className="w-4 h-4 text-text-light shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+        </svg>
+        <input
+          ref={inputRef}
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onKeyDown={(e) => e.key === 'Escape' && onClose()}
+          placeholder={t('search.placeholder')}
+          className="flex-1 text-sm text-primary placeholder:text-text-light/60 outline-none bg-transparent"
+        />
+        <button onClick={onClose} className="text-text-light hover:text-primary transition-colors p-1" aria-label="Close search">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="max-h-[320px] overflow-y-auto">
+        {!hasQ && (
+          <div className="p-6 text-center text-text-light text-sm">{t('search.empty')}</div>
+        )}
+        {hasQ && noResult && (
+          <div className="p-6 text-center text-text-light text-sm">{t('search.noResults')}</div>
+        )}
+
+        {matchedProducts.length > 0 && (
+          <div className="py-2">
+            <div className="px-4 py-1.5 text-[10px] uppercase tracking-wider text-text-light font-medium">{t('search.products')}</div>
+            {matchedProducts.map((p) => (
+              <Link key={p.id} to="/products" onClick={onClose} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                <img src={p.image} alt={p.name} className="w-9 h-9 rounded-lg object-cover bg-warm shrink-0" loading="lazy" />
+                <div className="min-w-0">
+                  <div className="text-sm text-primary font-medium truncate">{p.name}</div>
+                  <div className="text-xs text-text-light truncate">{p.category}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+
+        {matchedPosts.length > 0 && (
+          <div className="py-2 border-t border-gray-50">
+            <div className="px-4 py-1.5 text-[10px] uppercase tracking-wider text-text-light font-medium">{t('search.articles')}</div>
+            {matchedPosts.map((post) => (
+              <Link key={post.id} to={`/blog/${post.id}`} onClick={onClose} className="flex items-center gap-3 px-4 py-2 hover:bg-gray-50 transition-colors">
+                <img src={post.image} alt={post.title} className="w-9 h-9 rounded-lg object-cover bg-warm shrink-0" loading="lazy" />
+                <div className="min-w-0">
+                  <div className="text-sm text-primary font-medium truncate">{post.title}</div>
+                  <div className="text-xs text-text-light truncate">{post.category}</div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </div>
+    </motion.div>
   )
 }
