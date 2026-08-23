@@ -144,7 +144,7 @@ export const defaultSiteContent: SiteContent = {
       button1Link: '/products',
       button2Text: 'Request a Quote',
       button2Link: '/contact',
-      image: 'https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&q=80',
+      image: '/images/6008-LF2026008.Camel.jpg',
       heroImages: [
         '/images/6006-L2026006-IV.MAIN.jpg',
         '/images/6007-Ivory_1.jpg',
