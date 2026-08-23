@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/ui/Button'
 import HeroCarousel from '../components/ui/HeroCarousel'
@@ -7,7 +8,7 @@ import { useLang } from '../context/LanguageContext'
 
 export default function Products() {
   const { t } = useLang()
-  const { products, siteContent } = useSiteData()
+  const { products, blogPosts, siteContent } = useSiteData()
   const categories = ['All', ...(siteContent.categories || ['Women'])]
   const [activeCategory, setActiveCategory] = useState('All')
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null)
@@ -130,6 +131,63 @@ export default function Products() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+      {/* Latest Articles */}
+      <section className="py-16 md:py-24 bg-warm">
+        <div className="container-custom">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 md:mb-14">
+            <div>
+              <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{t('products.articlesSubtitle')}</span>
+              <h2 className="mt-2 text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-primary leading-tight">
+                {t('products.articlesTitle')}
+              </h2>
+            </div>
+            <Link to="/blog" className="text-accent text-sm font-medium hover:text-accent-dark transition-colors inline-flex items-center gap-2 shrink-0">
+              {t('products.viewAllArticles')}
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+            {blogPosts.slice(0, 3).map((post) => (
+              <Link
+                key={post.id}
+                to={`/blog/${post.id}`}
+                className="group bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                <div className="aspect-[16/10] overflow-hidden bg-warm">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy" decoding="async"
+                  />
+                </div>
+                <div className="p-5 md:p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    <span className="text-accent text-xs tracking-wider uppercase font-medium">{post.category}</span>
+                    <span className="text-text-light text-xs">|</span>
+                    <span className="text-text-light text-xs">{post.date}</span>
+                  </div>
+                  <h3 className="text-base md:text-lg font-display font-semibold text-primary leading-snug line-clamp-2">
+                    {post.title}
+                  </h3>
+                  <p className="mt-2 text-text-light text-sm leading-relaxed line-clamp-2">
+                    {post.excerpt}
+                  </p>
+                  <span className="mt-4 text-accent text-sm font-medium inline-flex items-center gap-2">
+                    {t('products.readArticle')}
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
     </>

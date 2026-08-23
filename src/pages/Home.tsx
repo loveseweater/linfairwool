@@ -43,8 +43,8 @@ export default function Home() {
         </div>
 
         <div className="container-custom relative z-10 py-28 md:py-28 md:py-32">
-          <div className="flex justify-center">
-            <div className="max-w-3xl text-center">
+          <div className="flex justify-start">
+            <div className="max-w-3xl text-left">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-5 md:mt-6 text-base md:text-lg text-warm/70 max-w-2xl mx-auto leading-relaxed"
+                className="mt-5 md:mt-6 text-base md:text-lg text-warm/70 max-w-2xl leading-relaxed"
               >
                 {hero.description}
               </motion.p>
@@ -78,7 +78,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4 justify-center"
+                className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4 justify-start"
               >
                 <Button to="/products" variant="accent">
                   {hero.button1Text}
