@@ -38,13 +38,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[100svh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0">
-          <img src={hero.image} alt="" className="w-full h-full object-cover opacity-40" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary via-primary/90 to-primary/75" />
+          <img src="/images/factory-production-floor.jpg" alt="LINFAIR Knitwear Factory" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/75 via-primary/45 to-primary/75" />
         </div>
 
         <div className="container-custom relative z-10 py-28 md:py-28 md:py-32">
-          <div className="flex justify-start">
-            <div className="max-w-2xl">
+          <div className="flex justify-center">
+            <div className="max-w-3xl text-center">
               <motion.span
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -69,7 +69,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
-                className="mt-5 md:mt-6 text-base md:text-lg text-warm/60 max-w-lg leading-relaxed"
+                className="mt-5 md:mt-6 text-base md:text-lg text-warm/70 max-w-2xl mx-auto leading-relaxed"
               >
                 {hero.description}
               </motion.p>
@@ -78,7 +78,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
-                className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4"
+                className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4 justify-center"
               >
                 <Button to="/products" variant="accent">
                   {hero.button1Text}
