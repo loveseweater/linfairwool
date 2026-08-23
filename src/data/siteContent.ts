@@ -167,7 +167,7 @@ export const defaultSiteContent: SiteContent = {
       ],
       buttonText: 'Our Story',
       buttonLink: '/about',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
+      image: '/images/factory-production-floor.jpg',
     },
     advantages: [
       {
