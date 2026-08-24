@@ -6,7 +6,7 @@
 //   description: 'Discover our premium cashmere blend sweaters - soft, durable and stylish.',
 //   type: 'product',            // product=产品实拍, brand=品牌宣传
 //   embedUrl: 'https://www.youtube.com/embed/VIDEO_ID',   // YouTube 嵌入链接
-//   thumbnail: 'https://img.youtube.com/vi/VIDEO_ID/hqdefault.jpg',  // 封面图（自动生成）
+//   thumbnail: '/images/video-thumbnails/video-1-VIDEO_ID.jpg',  // 封面图（本地图片）
 //   category: 'Product Collection',  // 产品系列或品牌主题
 //   date: 'August 16, 2026',
 // }
@@ -33,7 +33,7 @@ export const videos: Video[] = [
     description: 'Honest review of our Women\'s Drop Shoulder Crew Neck Short Sleeve Knit Top — soft, breathable and perfect for summer. Featuring a relaxed drop shoulder, premium knit fabric and versatile crew neck in multiple colors.',
     type: 'product',
     embedUrl: 'https://www.youtube.com/embed/V48ARUhrhDk',
-    thumbnail: 'https://img.youtube.com/vi/V48ARUhrhDk/hqdefault.jpg',
+    thumbnail: '/images/video-thumbnails/video-1-V48ARUhrhDk.jpg',
     category: 'Drop Shoulder Knit Top',
     date: '2026-08-17T00:00:00Z',
   },
@@ -43,7 +43,7 @@ export const videos: Video[] = [
     description: 'Another look at our Drop Shoulder Knit Top — soft, lightweight and ideal for summer and early fall. A relaxed silhouette, breathable premium knit and easy-to-style crew neck make it a wardrobe essential.',
     type: 'product',
     embedUrl: 'https://www.youtube.com/embed/L99hgeEhnDI',
-    thumbnail: 'https://img.youtube.com/vi/L99hgeEhnDI/hqdefault.jpg',
+    thumbnail: '/images/video-thumbnails/video-2-L99hgeEhnDI.jpg',
     category: 'Drop Shoulder Knit Top',
     date: '2026-08-17T00:00:00Z',
   },
@@ -53,7 +53,7 @@ export const videos: Video[] = [
     description: 'Discover our Women\'s Crew Neck Long Sleeve Knit Top — an ultra-soft, cozy layering essential for fall and winter. Skin-friendly fabric, comfortable crew neck and a slim fit perfect for layering or wearing solo.',
     type: 'product',
     embedUrl: 'https://www.youtube.com/embed/cE232DKAfZk',
-    thumbnail: 'https://img.youtube.com/vi/cE232DKAfZk/hqdefault.jpg',
+    thumbnail: '/images/video-thumbnails/video-3-cE232DKAfZk.jpg',
     category: 'Crew Neck Long Sleeve',
     date: '2026-08-17T00:00:00Z',
   },
@@ -63,7 +63,7 @@ export const videos: Video[] = [
     description: 'Review of our Women\'s Cashmere Blend V-Neck Sweater — soft, lightweight and endlessly versatile. A flattering V-neck, slim fitted silhouette and premium cashmere blend knit make it perfect for work, dates and everyday fall/winter wear.',
     type: 'product',
     embedUrl: 'https://www.youtube.com/embed/sqzngc8Ovv8',
-    thumbnail: 'https://img.youtube.com/vi/sqzngc8Ovv8/hqdefault.jpg',
+    thumbnail: '/images/video-thumbnails/video-4-sqzngc8Ovv8.jpg',
     category: 'V-Neck Sweater',
     date: '2026-08-21T00:00:00Z',
   },
@@ -73,7 +73,7 @@ export const videos: Video[] = [
     description: "Soft, lightweight and endlessly versatile — our Women's Cashmere Blend Short Sleeve Sweater with a relaxed drop shoulder. A breathable, premium cashmere blend knit that layers beautifully for work, weekends and business casual looks.",
     type: 'product',
     embedUrl: 'https://www.youtube.com/embed/AvDJ4YOMLSM',
-    thumbnail: 'https://img.youtube.com/vi/AvDJ4YOMLSM/hqdefault.jpg',
+    thumbnail: '/images/video-thumbnails/video-5-AvDJ4YOMLSM.jpg',
     category: 'Cashmere Blend Short Sleeve',
     date: '2026-08-24T00:00:00Z',
   },
