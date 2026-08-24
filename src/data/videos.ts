@@ -67,4 +67,14 @@ export const videos: Video[] = [
     category: 'V-Neck Sweater',
     date: '2026-08-21T00:00:00Z',
   },
+  {
+    id: 'video-5',
+    title: "Women's Cashmere Blend Short Sleeve Sweater Drop Shoulder Lightweight Knit Pullover Business Casual",
+    description: "Soft, lightweight and endlessly versatile — our Women's Cashmere Blend Short Sleeve Sweater with a relaxed drop shoulder. A breathable, premium cashmere blend knit that layers beautifully for work, weekends and business casual looks.",
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/AvDJ4YOMLSM',
+    thumbnail: 'https://img.youtube.com/vi/AvDJ4YOMLSM/hqdefault.jpg',
+    category: 'Cashmere Blend Short Sleeve',
+    date: '2026-08-24T00:00:00Z',
+  },
 ]
