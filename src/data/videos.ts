@@ -77,4 +77,14 @@ export const videos: Video[] = [
     category: 'Cashmere Blend Short Sleeve',
     date: '2026-08-24T00:00:00Z',
   },
+  {
+    id: 'video-6',
+    title: "Women's Cashmere Blend V Neck Sweater Long Sleeve Soft Lightweight Knit Pullover Work Fall Winter",
+    description: "Polished, cozy and endlessly flattering — our Women's Cashmere Blend V Neck Sweater in a slim long sleeve silhouette. The premium cashmere blend is soft, warm and breathable, ideal for work, weekend and fall-to-winter layering.",
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/-ddmt58exeE',
+    thumbnail: '/images/video-thumbnails/video-6--ddmt58exeE.jpg',
+    category: 'V Neck Sweater',
+    date: '2026-08-25T00:00:00Z',
+  },
 ]
