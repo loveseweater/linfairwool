@@ -87,4 +87,14 @@ export const videos: Video[] = [
     category: 'V Neck Sweater',
     date: '2026-08-25T00:00:00Z',
   },
+  {
+    id: 'video-7',
+    title: "Women's Fitted Crew Neck Short Sleeve Knit Top | Ribbed Summer Knit Top for Women | Short Sleeve Knit Top",
+    description: "Meet your new everyday essential — Women's Fitted Crew Neck Short Sleeve Knit Top. A soft, figure-flattering ribbed knit top with a clean crew neck — breathable, comfortable and perfect for work, brunch or a summer evening out.",
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/9Pha-VhIoU4',
+    thumbnail: '/images/video-thumbnails/video-7-9Pha-VhIoU4.jpg',
+    category: 'Crewneck Short Sleeve',
+    date: '2026-08-25T00:00:00Z',
+  },
 ]
