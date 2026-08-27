@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
@@ -9,9 +8,6 @@ import { useLang } from '../context/LanguageContext'
 export default function Blog() {
   const { t } = useLang()
   const { blogPosts, siteContent } = useSiteData()
-  const [visibleCount, setVisibleCount] = useState(6)
-  const visiblePosts = blogPosts.slice(0, visibleCount)
-  const hasMore = visibleCount < blogPosts.length
   return (
     <>
       {/* Hero */}
@@ -45,7 +41,7 @@ export default function Blog() {
       <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10">
-            {visiblePosts.map((post, index) => (
+            {blogPosts.map((post, index) => (
               <motion.article
                 key={post.id}
                 initial={{ opacity: 0, y: 30 }}
@@ -87,19 +83,6 @@ export default function Blog() {
             ))}
           </div>
 
-          {hasMore && (
-            <div className="mt-12 text-center">
-              <button
-                onClick={() => setVisibleCount(visibleCount + 6)}
-                className="inline-flex items-center gap-2 px-6 md:px-8 py-2.5 md:py-3 bg-primary text-warm text-sm font-medium rounded-full hover:bg-primary-light transition-colors touch-manipulation"
-              >
-                Load More Articles
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                </svg>
-              </button>
-            </div>
-          )}
         </div>
       </section>
 
