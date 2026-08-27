@@ -95,7 +95,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/41coY2FyM3L.jpg',
       'https://m.media-amazon.com/images/I/41wNa2BmGAL.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H1CRV14P',
+    amazonUrl: 'https://bit.ly/4qvu3R8',
   },
   {
     id: 'B0H1CJMZ96',
@@ -112,7 +112,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/41k-vlZvbiL.jpg',
       'https://m.media-amazon.com/images/I/41nzXaphdvL.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H1CJMZ96',
+    amazonUrl: 'https://bit.ly/46dbasD',
   },
   {
     id: 'B0H1C544DY',
@@ -129,7 +129,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/41N8OomGnvL.jpg',
       'https://m.media-amazon.com/images/I/51jYVpu1-QL.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H1C544DY',
+    amazonUrl: 'https://bit.ly/4goL0b8',
   },
   {
     id: 'B0H1BBK8Q8',
@@ -146,7 +146,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/41eKLOomSjL.jpg',
       'https://m.media-amazon.com/images/I/41zklg8Og5L.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H1BBK8Q8',
+    amazonUrl: 'https://bit.ly/4gvj8SS',
   },
   {
     id: 'LF-2026-01',
