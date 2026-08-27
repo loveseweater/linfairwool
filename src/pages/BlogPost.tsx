@@ -24,6 +24,11 @@ export default function BlogPost() {
     )
   }
 
+  // Find previous and next posts by array order for continuous reading
+  const postIndex = blogPosts.findIndex((p) => p.id === id)
+  const prevPost = postIndex > 0 ? blogPosts[postIndex - 1] : undefined
+  const nextPost = postIndex < blogPosts.length - 1 ? blogPosts[postIndex + 1] : undefined
+
   // Find related posts (same category, exclude current)
   const relatedPosts = blogPosts
     .filter((p) => p.category === post.category && p.id !== post.id)
@@ -193,6 +198,50 @@ export default function BlogPost() {
               <p className="text-text-light">{post.excerpt}</p>
             )}
           </motion.div>
+
+          {/* Previous / Next navigation for continuous reading */}
+          {(prevPost || nextPost) && (
+            <div className="max-w-3xl mx-auto mt-10">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {prevPost ? (
+                  <Link
+                    to={`/blog/${prevPost.id}`}
+                    className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-accent/40 hover:shadow-md transition-all flex flex-col gap-2"
+                  >
+                    <span className="text-accent text-xs tracking-wider uppercase font-medium inline-flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      </svg>
+                      Previous
+                    </span>
+                    <span className="text-sm font-display font-semibold text-primary leading-snug line-clamp-2 group-hover:text-accent transition-colors">
+                      {prevPost.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="hidden sm:block" />
+                )}
+                {nextPost ? (
+                  <Link
+                    to={`/blog/${nextPost.id}`}
+                    className="group bg-white rounded-xl border border-gray-100 p-5 hover:border-accent/40 hover:shadow-md transition-all flex flex-col gap-2 text-right sm:items-end"
+                  >
+                    <span className="text-accent text-xs tracking-wider uppercase font-medium inline-flex items-center gap-1">
+                      Next
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      </svg>
+                    </span>
+                    <span className="text-sm font-display font-semibold text-primary leading-snug line-clamp-2 group-hover:text-accent transition-colors">
+                      {nextPost.title}
+                    </span>
+                  </Link>
+                ) : (
+                  <div className="hidden sm:block" />
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Related Posts */}
           {relatedPosts.length > 0 && (
