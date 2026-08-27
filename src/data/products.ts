@@ -27,7 +27,7 @@ export const products: Product[] = [
       'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=70',
       'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=70',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H6P197CB',
+    amazonUrl: 'https://bit.ly/45RMWUM',
   },
   {
     id: 'B0H6PYH91S',
@@ -44,7 +44,7 @@ export const products: Product[] = [
       'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=70',
       'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=600&q=70',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H6PYH91S',
+    amazonUrl: 'https://bit.ly/4qIQgLB',
   },
   {
     id: 'B0H6GKDGVL',
@@ -61,7 +61,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/31idhCnAdCL.jpg',
       'https://m.media-amazon.com/images/I/41mUWoqbK6L.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H6GKDGVL',
+    amazonUrl: 'https://bit.ly/4xnOEtd',
   },
   {
     id: 'B0H6P12GM6',
@@ -78,7 +78,7 @@ export const products: Product[] = [
       'https://m.media-amazon.com/images/I/41Kaf559J9L.jpg',
       'https://m.media-amazon.com/images/I/31bC72xl5NL.jpg',
     ],
-    amazonUrl: 'https://www.amazon.com/dp/B0H6P12GM6',
+    amazonUrl: 'https://bit.ly/46pcEA7',
   },
   {
     id: 'B0H1CRV14P',
