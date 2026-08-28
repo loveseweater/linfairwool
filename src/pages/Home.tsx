@@ -46,7 +46,7 @@ export default function Home() {
           <div className="flex justify-start">
             <div className="max-w-3xl text-left">
               <motion.span
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="inline-block text-accent text-sm tracking-[0.2em] uppercase font-medium mb-6"
@@ -55,7 +55,7 @@ export default function Home() {
               </motion.span>
 
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-warm leading-tight"
@@ -66,7 +66,7 @@ export default function Home() {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.6 }}
                 className="mt-5 md:mt-6 text-base md:text-lg text-warm/70 max-w-2xl leading-relaxed"
@@ -75,7 +75,7 @@ export default function Home() {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.8 }}
                 className="mt-8 md:mt-10 flex flex-wrap gap-3 md:gap-4 justify-start"
@@ -114,7 +114,7 @@ export default function Home() {
             {stats.map((stat, index) => (
               <motion.div
                 key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -163,7 +163,7 @@ export default function Home() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
@@ -260,7 +260,7 @@ export default function Home() {
       <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}

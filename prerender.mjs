@@ -77,10 +77,25 @@ const inlineCss = (html) => {
   const cssPath = path.join(DIST, 'assets', 'index.css')
   if (!fs.existsSync(cssPath)) return html
   const css = fs.readFileSync(cssPath, 'utf-8')
-  return html.replace(
+  let out = html.replace(
     /<link rel="stylesheet"[^>]*href="\/assets\/index\.css"[^>]*>/,
     `<style>\n${css}\n</style>`
   )
+  // 修复：预渲染后 Google Fonts 的 onload 已把 rel 改为 stylesheet（渲染阻塞）。
+  // 删除所有 fonts.googleapis 的 CSS link（含 stylesheet/preload/noscript），统一重插为异步 preload + noscript
+  out = out.replace(
+    /<link rel="(?:stylesheet|preload)"[^>]*href="https:\/\/fonts\.googleapis\.com[^"]*"[^>]*>/g,
+    ''
+  )
+  out = out.replace(/<noscript><link[^>]*fonts\.googleapis[^>]*><\/noscript>/g, '')
+  const FONT_URL = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;display=swap'
+  out = out.replace(
+    /<link rel="preconnect" href="https:\/\/fonts\.gstatic\.com"[^>]*>/,
+    `<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="${FONT_URL}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="${FONT_URL}"></noscript>`
+  )
+  return out
 }
 let copied = 0
 function syncToPublic(dir) {
