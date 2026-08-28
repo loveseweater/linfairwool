@@ -72,6 +72,16 @@ server.close()
 
 // 将预渲染 HTML 同步到 public/（作为构建源，供 Cloudflare Pages 云端构建复制进 dist）
 // 注意：仅排除根目录 index.html（首页，vite 会与项目根 index.html 冲突），首页暂保持 SPA 空壳
+// 内联 CSS：消除渲染阻塞的 index.css 请求（index.css 无 url() 引用，可安全内联）
+const inlineCss = (html) => {
+  const cssPath = path.join(DIST, 'assets', 'index.css')
+  if (!fs.existsSync(cssPath)) return html
+  const css = fs.readFileSync(cssPath, 'utf-8')
+  return html.replace(
+    /<link rel="stylesheet"[^>]*href="\/assets\/index\.css"[^>]*>/,
+    `<style>\n${css}\n</style>`
+  )
+}
 let copied = 0
 function syncToPublic(dir) {
   const absDir = path.join(DIST, dir)
@@ -83,7 +93,9 @@ function syncToPublic(dir) {
     } else if (!(dir === '' && entry.name === 'index.html')) {
       const dst = path.join(__dirname, 'public', rel)
       fs.mkdirSync(path.dirname(dst), { recursive: true })
-      fs.copyFileSync(path.join(absDir, entry.name), dst)
+      let content = fs.readFileSync(path.join(absDir, entry.name))
+      if (entry.name.endsWith('.html')) content = Buffer.from(inlineCss(content.toString('utf-8')), 'utf-8')
+      fs.writeFileSync(dst, content)
       copied++
     }
   }
@@ -93,8 +105,9 @@ for (const sub of ['about', 'products', 'contact', 'blog', 'videos']) {
 }
 console.log(`PUBLIC sync done. copied files: ${copied}`)
 
-// 同步首页预渲染（供 vite.config.ts 的 injectPrerenderedHome 插件在构建时注入）
+// 同步首页预渲染（供 vite.config.ts 的 injectPrerenderedHome 插件在构建时注入），同样内联 CSS
 const homePre = path.join(__dirname, 'prerender-home.html')
-fs.copyFileSync(path.join(DIST, 'index.html'), homePre)
-console.log(`HOME prerender synced -> prerender-home.html (${fs.statSync(homePre).size} bytes)`)
+const homeContent = inlineCss(fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8'))
+fs.writeFileSync(homePre, homeContent, 'utf-8')
+console.log(`HOME prerender synced -> prerender-home.html (${fs.statSync(homePre).size} bytes, CSS inlined)`)
 console.log(`\nDONE. ok=${ok} fail=${fail}`)
