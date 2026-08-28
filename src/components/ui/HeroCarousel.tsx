@@ -43,6 +43,7 @@ export default function HeroCarousel({ images, className = '' }: HeroCarouselPro
             <button
               key={i}
               onClick={() => setCurrent(i)}
+              aria-label={`Go to slide ${i + 1}`}
               className={`w-2 h-2 rounded-full transition-all duration-300 ${
                 i === current ? 'bg-accent w-5' : 'bg-white/40 hover:bg-white/60'
               }`}

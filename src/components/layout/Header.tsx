@@ -147,6 +147,7 @@ export default function Header() {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={social.name}
                     title={social.name}
                     className="w-8 h-8 rounded-full bg-primary/5 hover:bg-primary hover:text-warm flex items-center justify-center text-primary/50 transition-all duration-300"
                   >
@@ -346,6 +347,7 @@ function SearchPanel({ onClose }: { onClose: () => void }) {
         <input
           ref={inputRef}
           type="text"
+          aria-label="Search products and articles"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => e.key === 'Escape' && onClose()}

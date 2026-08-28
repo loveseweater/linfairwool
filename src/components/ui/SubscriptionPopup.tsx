@@ -83,6 +83,7 @@ export default function SubscriptionPopup() {
             {/* Close button */}
             <button
               onClick={handleDismiss}
+              aria-label="Close"
               className="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full bg-[#1B2A4A]/10 hover:bg-[#1B2A4A]/20 text-[#1B2A4A]/60 hover:text-[#1B2A4A] transition-all z-10"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -123,6 +124,7 @@ export default function SubscriptionPopup() {
                 <form onSubmit={handleSubmit} className="space-y-3">
                   <input
                     type="email"
+                    aria-label="Email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="your@email.com"
