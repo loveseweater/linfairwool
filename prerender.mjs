@@ -92,4 +92,9 @@ for (const sub of ['about', 'products', 'contact', 'blog', 'videos']) {
   syncToPublic(sub)
 }
 console.log(`PUBLIC sync done. copied files: ${copied}`)
+
+// 同步首页预渲染（供 vite.config.ts 的 injectPrerenderedHome 插件在构建时注入）
+const homePre = path.join(__dirname, 'prerender-home.html')
+fs.copyFileSync(path.join(DIST, 'index.html'), homePre)
+console.log(`HOME prerender synced -> prerender-home.html (${fs.statSync(homePre).size} bytes)`)
 console.log(`\nDONE. ok=${ok} fail=${fail}`)
