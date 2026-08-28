@@ -38,7 +38,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[100svh] flex items-center bg-primary overflow-hidden">
         <div className="absolute inset-0">
-          <img src="/images/factory-production-floor.jpg" alt="LINFAIR Knitwear Factory" className="w-full h-full object-cover" />
+          <img src="/images/factory-production-floor.jpg" alt="LINFAIR Knitwear Factory" width="780" height="470" fetchPriority="high" className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-r from-primary/75 via-primary/45 to-primary/75" />
         </div>
 
