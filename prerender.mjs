@@ -1,0 +1,95 @@
+// LINFAIR 独立站 SPA 预渲染脚本
+// 用 puppeteer-core + 本机 Chrome 渲染所有路由，生成静态 HTML 到 dist/<route>/index.html
+// 运行：node prerender.mjs
+import puppeteer from 'puppeteer-core'
+import fs from 'fs'
+import path from 'path'
+import http from 'http'
+import { fileURLToPath } from 'url'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const DIST = path.join(__dirname, 'dist')
+const PORT = 8799
+const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
+
+// 从 sitemap 读取所有路由
+const sitemap = fs.readFileSync(path.join(__dirname, 'public', 'sitemap.xml'), 'utf-8')
+const routes = [...sitemap.matchAll(/<loc>https:\/\/www\.linfairwool\.cn([^<]*)<\/loc>/g)].map((m) => m[1])
+console.log('total routes:', routes.length)
+
+// 启动静态服务器（SPA fallback 到 index.html）
+const mime = {
+  '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css',
+  '.png': 'image/png', '.jpg': 'image/jpeg', '.jpeg': 'image/jpeg',
+  '.svg': 'image/svg+xml', '.json': 'application/json', '.xml': 'application/xml',
+  '.ico': 'image/x-icon', '.webp': 'image/webp', '.woff2': 'font/woff2', '.gif': 'image/gif',
+}
+const server = http.createServer((req, res) => {
+  let urlPath = decodeURIComponent(new URL(req.url, 'http://x').pathname)
+  if (urlPath === '/') urlPath = '/index.html'
+  let filePath = path.join(DIST, urlPath)
+  if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+    filePath = path.join(DIST, 'index.html')
+  }
+  fs.readFile(filePath, (err, data) => {
+    if (err) { res.writeHead(404); res.end('404'); return }
+    const ext = path.extname(filePath).toLowerCase()
+    res.writeHead(200, { 'Content-Type': mime[ext] || 'application/octet-stream' })
+    res.end(data)
+  })
+})
+await new Promise((r) => server.listen(PORT, r))
+
+const browser = await puppeteer.launch({
+  executablePath: CHROME,
+  headless: 'new',
+  args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
+})
+
+let ok = 0, fail = 0
+for (const route of routes) {
+  const url = `http://127.0.0.1:${PORT}${route}`
+  const page = await browser.newPage()
+  try {
+    await page.goto(url, { waitUntil: 'networkidle0', timeout: 60000 })
+    // 等待动画/字体/懒加载完成
+    await new Promise((r) => setTimeout(r, 1800))
+    const html = await page.content()
+    const outPath = path.join(DIST, route === '/' ? '' : route, 'index.html')
+    fs.mkdirSync(path.dirname(outPath), { recursive: true })
+    fs.writeFileSync(outPath, html)
+    ok++
+    console.log('OK  ', route, '->', html.length, 'bytes')
+  } catch (e) {
+    fail++
+    console.log('FAIL', route, e.message)
+  }
+  await page.close()
+}
+
+await browser.close()
+server.close()
+
+// 将预渲染 HTML 同步到 public/（作为构建源，供 Cloudflare Pages 云端构建复制进 dist）
+// 注意：仅排除根目录 index.html（首页，vite 会与项目根 index.html 冲突），首页暂保持 SPA 空壳
+let copied = 0
+function syncToPublic(dir) {
+  const absDir = path.join(DIST, dir)
+  if (!fs.existsSync(absDir)) return
+  for (const entry of fs.readdirSync(absDir, { withFileTypes: true })) {
+    const rel = path.join(dir, entry.name)
+    if (entry.isDirectory()) {
+      syncToPublic(rel)
+    } else if (!(dir === '' && entry.name === 'index.html')) {
+      const dst = path.join(__dirname, 'public', rel)
+      fs.mkdirSync(path.dirname(dst), { recursive: true })
+      fs.copyFileSync(path.join(absDir, entry.name), dst)
+      copied++
+    }
+  }
+}
+for (const sub of ['about', 'products', 'contact', 'blog', 'videos']) {
+  syncToPublic(sub)
+}
+console.log(`PUBLIC sync done. copied files: ${copied}`)
+console.log(`\nDONE. ok=${ok} fail=${fail}`)
