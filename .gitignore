@@ -7,3 +7,4 @@ dist/
 
 # 图片压缩前备份（本地回滚用，不进 git/不部署）
 _image_backup/
+_image_backup/
