@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle'
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/ui/SectionTitle'
 import Button from '../components/ui/Button'
@@ -6,6 +7,8 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function About() {
+    usePageTitle('About Us | LINFAIR — Premium Knitwear Manufacturer')
+
   const { siteContent } = useSiteData()
   const { t } = useLang()
   const { hero, intro, values, timeline, cta } = siteContent.about

@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
@@ -6,6 +7,8 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function Blog() {
+    usePageTitle('Blog & Knitwear Insights | LINFAIR')
+
   const { t } = useLang()
   const { blogPosts, siteContent } = useSiteData()
   return (

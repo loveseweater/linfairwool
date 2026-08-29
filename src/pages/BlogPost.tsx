@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
@@ -9,6 +10,7 @@ export default function BlogPost() {
   const { id } = useParams()
   const { blogPosts } = useSiteData()
   const post = blogPosts.find((p) => p.id === id)
+  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR')
 
   if (!post) {
     return (

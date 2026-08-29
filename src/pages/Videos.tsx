@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/ui/Button'
 import { useLang } from '../context/LanguageContext'
@@ -34,6 +35,8 @@ function VideoSchema({ list }: { list: Video[] }) {
 }
 
 export default function Videos() {
+    usePageTitle('Videos | LINFAIR — See Our Craft in Motion')
+
   const { t } = useLang()
   const [filter, setFilter] = useState<'all' | 'product' | 'brand'>('all')
   const [activeVideo, setActiveVideo] = useState<Video | null>(null)

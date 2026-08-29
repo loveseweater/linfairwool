@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
 import HeroCarousel from '../components/ui/HeroCarousel'
@@ -22,6 +23,8 @@ const initialForm: FormData = {
 }
 
 export default function Contact() {
+    usePageTitle('Contact Us | LINFAIR — Premium Knitwear Manufacturer')
+
   const { t } = useLang()
   const { siteContent } = useSiteData()
   const { contact } = siteContent

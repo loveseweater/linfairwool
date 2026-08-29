@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback } from 'react'
+import { usePageTitle } from '../hooks/usePageTitle'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '../components/ui/Button'
@@ -7,6 +8,8 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function Products() {
+    usePageTitle('Knitwear Collection | LINFAIR — Sweaters, Cardigans & Knit Tops')
+
   const { t } = useLang()
   const { products, blogPosts, siteContent } = useSiteData()
   const categories = ['All', ...(siteContent.categories || ['Women'])]

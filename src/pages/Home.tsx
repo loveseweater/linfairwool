@@ -1,3 +1,4 @@
+import { usePageTitle } from '../hooks/usePageTitle'
 import { motion } from 'framer-motion'
 import SectionTitle from '../components/ui/SectionTitle'
 import Button from '../components/ui/Button'
@@ -28,6 +29,8 @@ const iconPaths: Record<string, JSX.Element> = {
 }
 
 export default function Home() {
+    usePageTitle('LINFAIR | Premium Knitwear Manufacturer — Sweaters, Cardigans & Knit Tops')
+
   const { products, siteContent } = useSiteData()
   const { t } = useLang()
   const featuredProducts = products.slice(0, 4)
