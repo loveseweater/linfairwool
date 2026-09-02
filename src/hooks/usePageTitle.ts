@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const SITE_URL = 'https://www.linfairwool.cn'
+const SITE_URL = 'https://linfairwool.cn'
 
 /**
  * 设置当前页面的 document.title 和 canonical 链接（SEO 优化）

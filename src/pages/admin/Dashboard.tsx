@@ -88,7 +88,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
           summary: activeTab === 'products'
             ? `${products.length} products available on LINFAIR Wool`
             : `Check out our latest blog post on LINFAIR Wool`,
-          url: activeTab === 'products' ? 'https://www.linfairwool.cn/products' : 'https://www.linfairwool.cn/blog',
+          url: activeTab === 'products' ? 'https://linfairwool.cn/products' : 'https://linfairwool.cn/blog',
         }
         const result = await sendNotification(notification)
         if (result.success) {
@@ -1598,7 +1598,7 @@ function EmailConfigManager() {
       type: 'blog',
       title: 'Test Notification',
       summary: 'This is a test email from LINFAIR Wool website.',
-      url: 'https://www.linfairwool.cn/',
+      url: 'https://linfairwool.cn/',
     })
     setTestStatus(result.message)
     setTimeout(() => setTestStatus(''), 5000)
