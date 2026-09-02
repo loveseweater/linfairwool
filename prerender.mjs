@@ -14,7 +14,7 @@ const CHROME = 'C:/Program Files/Google/Chrome/Application/chrome.exe'
 
 // 从 sitemap 读取所有路由
 const sitemap = fs.readFileSync(path.join(__dirname, 'public', 'sitemap.xml'), 'utf-8')
-const routes = [...sitemap.matchAll(/<loc>https:\/\/www\.linfairwool\.cn([^<]*)<\/loc>/g)].map((m) => m[1])
+const routes = [...sitemap.matchAll(/<loc>https:\/\/(?:www\.)?linfairwool.cn([^<]*)<\/loc>/g)].map((m) => m[1])
 console.log('total routes:', routes.length)
 
 // 启动静态服务器（SPA fallback 到 index.html）
