@@ -107,4 +107,14 @@ export const videos: Video[] = [
     category: 'Crew Neck Sweater',
     date: '2026-09-02T00:00:00Z',
   },
+  {
+    id: 'video-9',
+    title: "This Knit Top Makes Any Outfit Look Effortless",
+    description: "A soft, versatile knit top that makes any outfit look effortless — easy to style, comfortable to wear and perfect for everyday looks.",
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/J1qewaSl12g',
+    thumbnail: '/images/video-thumbnails/video-9-J1qewaSl12g.jpg',
+    category: 'Knit Top',
+    date: '2026-09-02T00:00:00Z',
+  },
 ]
