@@ -97,4 +97,14 @@ export const videos: Video[] = [
     category: 'Crewneck Short Sleeve',
     date: '2026-08-25T00:00:00Z',
   },
+  {
+    id: 'video-8',
+    title: "Cozy & Cute: Crew Neck Sweater for Women | Perfect Fall Knitwear",
+    description: "Cozy and cute — our Women's Crew Neck Sweater is the perfect fall knitwear essential. A soft, warm crew neck pullover that layers beautifully and keeps you stylish as the weather cools.",
+    type: 'product',
+    embedUrl: 'https://www.youtube.com/embed/rRItH0M3Los',
+    thumbnail: '/images/video-thumbnails/video-8-rRItH0M3Los.jpg',
+    category: 'Crew Neck Sweater',
+    date: '2026-09-02T00:00:00Z',
+  },
 ]
