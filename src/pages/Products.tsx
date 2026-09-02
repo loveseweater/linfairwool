@@ -8,7 +8,7 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function Products() {
-    usePageTitle('Knitwear Collection | LINFAIR — Sweaters, Cardigans & Knit Tops')
+    usePageTitle('Knitwear Collection | LINFAIR — Sweaters, Cardigans & Knit Tops', '/products')
 
   const { t } = useLang()
   const { products, blogPosts, siteContent } = useSiteData()

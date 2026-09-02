@@ -23,7 +23,7 @@ const initialForm: FormData = {
 }
 
 export default function Contact() {
-    usePageTitle('Contact Us | LINFAIR — Premium Knitwear Manufacturer')
+    usePageTitle('Contact Us | LINFAIR — Premium Knitwear Manufacturer', '/contact')
 
   const { t } = useLang()
   const { siteContent } = useSiteData()

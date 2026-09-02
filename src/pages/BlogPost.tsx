@@ -10,7 +10,7 @@ export default function BlogPost() {
   const { id } = useParams()
   const { blogPosts } = useSiteData()
   const post = blogPosts.find((p) => p.id === id)
-  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR')
+  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR', post ? `/blog/${post.id}` : '/blog')
 
   if (!post) {
     return (

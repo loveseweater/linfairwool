@@ -35,7 +35,7 @@ function VideoSchema({ list }: { list: Video[] }) {
 }
 
 export default function Videos() {
-    usePageTitle('Videos | LINFAIR — See Our Craft in Motion')
+    usePageTitle('Videos | LINFAIR — See Our Craft in Motion', '/videos')
 
   const { t } = useLang()
   const [filter, setFilter] = useState<'all' | 'product' | 'brand'>('all')

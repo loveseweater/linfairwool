@@ -7,7 +7,7 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function About() {
-    usePageTitle('About Us | LINFAIR — Premium Knitwear Manufacturer')
+    usePageTitle('About Us | LINFAIR — Premium Knitwear Manufacturer', '/about')
 
   const { siteContent } = useSiteData()
   const { t } = useLang()

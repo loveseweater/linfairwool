@@ -29,7 +29,7 @@ const iconPaths: Record<string, JSX.Element> = {
 }
 
 export default function Home() {
-    usePageTitle('LINFAIR | Premium Knitwear Manufacturer — Sweaters, Cardigans & Knit Tops')
+    usePageTitle('LINFAIR | Premium Knitwear Manufacturer — Sweaters, Cardigans & Knit Tops', '/')
 
   const { products, siteContent } = useSiteData()
   const { t } = useLang()
