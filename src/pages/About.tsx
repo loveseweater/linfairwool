@@ -7,7 +7,8 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function About() {
-    usePageTitle('About Us | LINFAIR — Premium Knitwear Manufacturer', '/about')
+    usePageTitle('About Us | LINFAIR — Premium Knitwear Manufacturer', '/about',
+      'About LINFAIR (Dongguan Lingfei Textile): premium knitwear manufacturer in Dalang, Dongguan. Oeko-Tex certified OEM/ODM sweater production for global fashion brands.')
 
   const { siteContent } = useSiteData()
   const { t } = useLang()

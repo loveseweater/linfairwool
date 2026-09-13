@@ -1,16 +1,82 @@
+import { useEffect } from 'react'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
-import { useSiteData } from '../utils/useSiteData'
+import { useSiteData, type BlogPost as BlogPostData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
+
+// GEO: 从文章内容提取 FAQ 问答对（## FAQ 小节下 **问题** 行 + 答案段落）
+function extractFaqs(content: string): { q: string; a: string }[] {
+  const strip = (s: string) => s.replace(/\*\*/g, '').replace(/\[(.+?)\]\((.+?)\)/g, '$1').trim()
+  const faqs: { q: string; a: string }[] = []
+  let inFaq = false
+  let current: { q: string; a: string } | null = null
+  for (const line of content.split('\n')) {
+    if (line.startsWith('## ')) {
+      if (current) { faqs.push(current); current = null }
+      inFaq = line.replace('## ', '').trim().toLowerCase() === 'faq'
+      continue
+    }
+    if (!inFaq) continue
+    const q = line.match(/^\*\*(.+)\*\*$/)
+    if (q) {
+      if (current) faqs.push(current)
+      current = { q: strip(q[1]), a: '' }
+    } else if (current && line.trim() && !line.startsWith('#')) {
+      current.a += (current.a ? ' ' : '') + strip(line)
+    }
+  }
+  if (current) faqs.push(current)
+  return faqs.filter(f => f.q && f.a)
+}
+
+// GEO: 注入 Article + FAQPage 结构化数据（供搜索引擎与 AI 引擎抓取引用）
+function BlogPostSchema({ post }: { post: BlogPostData }) {
+  useEffect(() => {
+    const id = 'blogpost-jsonld'
+    const old = document.getElementById(id)
+    if (old) old.remove()
+    const d = new Date(post.date)
+    const iso = isNaN(d.getTime()) ? undefined : d.toISOString()
+    const img = post.image.startsWith('http') ? post.image : `https://linfairwool.cn${post.image}`
+    const article: Record<string, unknown> = {
+      '@type': 'Article',
+      headline: post.title,
+      description: post.excerpt,
+      image: img,
+      author: { '@type': 'Organization', name: 'LINFAIR Wool' },
+      publisher: { '@type': 'Organization', name: 'LINFAIR Wool', logo: { '@type': 'ImageObject', url: 'https://linfairwool.cn/logo.png' } },
+      mainEntityOfPage: `https://linfairwool.cn/blog/${post.id}`,
+    }
+    if (iso) { article.datePublished = iso; article.dateModified = iso }
+    const faqs = extractFaqs(post.content)
+    const graph: Record<string, unknown>[] = [article]
+    if (faqs.length > 0) {
+      graph.push({
+        '@type': 'FAQPage',
+        mainEntity: faqs.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+      })
+    }
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.id = id
+    script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })
+    document.head.appendChild(script)
+    return () => {
+      const el = document.getElementById(id)
+      if (el) el.remove()
+    }
+  }, [post])
+  return null
+}
 
 export default function BlogPost() {
   const { t } = useLang()
   const { id } = useParams()
   const { blogPosts } = useSiteData()
   const post = blogPosts.find((p) => p.id === id)
-  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR', post ? `/blog/${post.id}` : '/blog')
+  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR', post ? `/blog/${post.id}` : '/blog', post?.excerpt)
 
   if (!post) {
     return (
@@ -151,6 +217,7 @@ export default function BlogPost() {
 
   return (
     <>
+      <BlogPostSchema post={post} />
       {/* Hero */}
       <section className="relative py-16 md:py-24 bg-primary overflow-hidden">
         <div className="absolute inset-0">

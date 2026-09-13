@@ -4,10 +4,14 @@
 
 interface Env {
   LINFAIR_KV: KVNamespace
+  ADMIN_PASSWORD_HASH?: string
 }
 
 const KV_KEY = 'app_data'
-const ADMIN_PASSWORD = 'linfair2026'
+// 管理端认证只存密码的 SHA-256 哈希（不落明文）。
+// 轮换密码：在 Cloudflare Pages 环境变量设置 ADMIN_PASSWORD_HASH 即可覆盖内置回退值；
+// 或同步替换此处与 src/utils/api.ts 中的哈希。
+const FALLBACK_ADMIN_PASSWORD_HASH = '73073736437356429c9d71236fbd377592d7e2b6c83e758bc80a1b7e1fefb65e'
 
 export async function onRequest(context: { request: Request; env: Env }) {
   const { request, env } = context
@@ -44,10 +48,11 @@ export async function onRequest(context: { request: Request; env: Env }) {
 
     // ─── POST: Save data to KV ───
     if (request.method === 'POST') {
-      // Verify admin password
+      // Verify admin token (client sends SHA-256 hash of the password)
       const authHeader = request.headers.get('Authorization') || ''
       const token = authHeader.replace('Bearer ', '')
-      if (token !== ADMIN_PASSWORD) {
+      const expectedHash = env.ADMIN_PASSWORD_HASH || FALLBACK_ADMIN_PASSWORD_HASH
+      if (token !== expectedHash) {
         return new Response(JSON.stringify({ error: 'Unauthorized' }), {
           status: 401,
           headers: { 'Content-Type': 'application/json', ...corsHeaders },

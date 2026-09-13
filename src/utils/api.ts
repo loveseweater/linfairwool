@@ -6,7 +6,14 @@ const STORAGE_KEY_DATA = 'linfair_data'
 const STORAGE_KEY_CONTENT = 'linfair_siteContent'
 const STORAGE_KEY_AUTH = 'linfair_admin_auth'
 
-const ADMIN_PASSWORD = 'linfair2026'
+// 管理端认证只存密码的 SHA-256 哈希（不落明文）。轮换密码：同步替换此处与
+// functions/api/data.ts 的哈希，或在 Cloudflare Pages 设置 ADMIN_PASSWORD_HASH 环境变量。
+const ADMIN_PASSWORD_HASH = '73073736437356429c9d71236fbd377592d7e2b6c83e758bc80a1b7e1fefb65e'
+
+async function sha256Hex(text: string): Promise<string> {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
+}
 
 export interface Product {
   id: string
@@ -36,8 +43,9 @@ const API_BASE = '/api'
 
 // === Auth ===
 export async function login(password: string): Promise<boolean> {
-  if (password === ADMIN_PASSWORD) {
-    sessionStorage.setItem(STORAGE_KEY_AUTH, 'true')
+  const hash = await sha256Hex(password)
+  if (hash === ADMIN_PASSWORD_HASH) {
+    sessionStorage.setItem(STORAGE_KEY_AUTH, hash)
     return true
   }
   return false
@@ -48,7 +56,7 @@ export function logout() {
 }
 
 export function isLoggedIn(): boolean {
-  return sessionStorage.getItem(STORAGE_KEY_AUTH) === 'true'
+  return sessionStorage.getItem(STORAGE_KEY_AUTH) === ADMIN_PASSWORD_HASH
 }
 
 // === API helpers ===
@@ -69,7 +77,8 @@ async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T |
 }
 
 function getAuthHeader(): Record<string, string> {
-  return { 'Authorization': `Bearer ${ADMIN_PASSWORD}` }
+  // 客户端持哈希作为令牌；服务端比对同一哈希（或 env.ADMIN_PASSWORD_HASH 覆盖值）
+  return { 'Authorization': `Bearer ${sessionStorage.getItem(STORAGE_KEY_AUTH) || ''}` }
 }
 
 // === Products & Blog Data ===

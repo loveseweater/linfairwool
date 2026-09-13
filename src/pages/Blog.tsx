@@ -7,7 +7,8 @@ import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
 
 export default function Blog() {
-    usePageTitle('Blog & Knitwear Insights | LINFAIR', '/blog')
+    usePageTitle('Blog & Knitwear Insights | LINFAIR', '/blog',
+      'Knitwear manufacturing insights from LINFAIR: sourcing guides, MOQ and pricing breakdowns, wool vs cashmere comparisons, and fall/winter knitwear trends for fashion brands.')
 
   const { t } = useLang()
   const { blogPosts, siteContent } = useSiteData()

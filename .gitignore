@@ -12,3 +12,6 @@ _image_backup/
 # TypeScript 增量构建缓存
 tsconfig.tsbuildinfo
 *.bak
+
+# Mimosa 安全扫描工具状态（勿提交）
+.mimosa/

@@ -35,7 +35,8 @@ function VideoSchema({ list }: { list: Video[] }) {
 }
 
 export default function Videos() {
-    usePageTitle('Videos | LINFAIR — See Our Craft in Motion', '/videos')
+    usePageTitle('Videos | LINFAIR — See Our Craft in Motion', '/videos',
+      'Watch LINFAIR knitwear in motion — product videos of cashmere blend sweaters, cardigans and knit tops, plus factory and craftsmanship insights from our Dongguan facility.')
 
   const { t } = useLang()
   const [filter, setFilter] = useState<'all' | 'product' | 'brand'>('all')

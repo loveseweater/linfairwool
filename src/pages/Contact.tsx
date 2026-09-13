@@ -23,7 +23,8 @@ const initialForm: FormData = {
 }
 
 export default function Contact() {
-    usePageTitle('Contact Us | LINFAIR — Premium Knitwear Manufacturer', '/contact')
+    usePageTitle('Contact Us | LINFAIR — Premium Knitwear Manufacturer', '/contact',
+      'Contact LINFAIR for OEM/ODM knitwear quotes. Send your tech pack or reference photos — itemized FOB pricing, low MOQs from 100 pcs, production in Dalang, Dongguan.')
 
   const { t } = useLang()
   const { siteContent } = useSiteData()
