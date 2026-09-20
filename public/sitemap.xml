@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://linfairwool.cn/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://linfairwool.cn/" />
@@ -29,7 +29,7 @@
   </url>
   <url>
     <loc>https://linfairwool.cn/blog</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-20</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
@@ -312,6 +312,36 @@
   <url>
     <loc>https://linfairwool.cn/blog/blog-47</loc>
     <lastmod>2026-09-18</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/blog/blog-48</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/blog/blog-49</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/blog/blog-50</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/blog/blog-51</loc>
+    <lastmod>2026-09-20</lastmod>
+    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/blog/blog-52</loc>
+    <lastmod>2026-09-20</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
