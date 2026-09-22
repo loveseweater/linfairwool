@@ -155,7 +155,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       subcategory: 'Crew Neck',
       description: 'Product description',
       specs: ['Spec 1', 'Spec 2'],
-      image: 'https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=600&q=80',
+      image: '/images/blog/cover-knitwear-stack.jpg',
       gallery: [],
       video: '',
     }
@@ -181,7 +181,7 @@ export default function AdminDashboard({ onLogout }: { onLogout: () => void }) {
       content: 'Write your full article content here...',
       date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
       category: 'Fabric Guide',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&q=80',
+      image: '/images/blog/cover-knit-fabric.jpg',
     }
     setBlogPosts([...blogPosts, newBlog])
   }

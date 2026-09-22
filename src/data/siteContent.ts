@@ -216,7 +216,7 @@ export const defaultSiteContent: SiteContent = {
         { value: '25+', label: 'Export Countries' },
         { value: '150+', label: 'Brand Partners' },
       ],
-      image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?w=800&q=80',
+      image: '/images/blog/cover-wool-texture.jpg',
     },
     values: [
       {
