@@ -222,7 +222,7 @@ export default function Home() {
                   loading="lazy" decoding="async"
                 />
               </div>
-              <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-accent/20 rounded-full hidden md:block" />
+              <div className="absolute bottom-2 right-2 w-24 h-24 bg-accent/20 rounded-full hidden md:block pointer-events-none" />
             </motion.div>
           </div>
         </div>

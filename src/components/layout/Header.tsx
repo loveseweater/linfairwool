@@ -79,7 +79,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center">
-            <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-9 md:h-12 w-auto" />
+            <img src={siteContent.logo || '/logo.png?v=3'} alt="LINFAIR" className="h-9 md:h-12 w-auto" />
           </Link>
 
           {/* Desktop Nav */}

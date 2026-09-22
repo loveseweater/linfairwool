@@ -56,11 +56,11 @@ export default function Footer() {
   return (
     <footer className="bg-primary text-warm">
       <div className="container-custom py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10">
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src={siteContent.logo || '/logo.png?v=2'} alt="LINFAIR" className="h-10 md:h-14 w-auto" />
+              <img src={siteContent.logo || '/logo.png?v=3'} alt="LINFAIR" className="h-10 md:h-14 w-auto" />
             </div>
             <p className="text-warm/60 text-sm leading-relaxed mb-6">
               {t('footer.brandDesc')}
@@ -163,18 +163,18 @@ export default function Footer() {
             {/* Newsletter Subscribe */}
             <div className="mt-6">
               <h4 className="text-warm text-sm font-medium mb-2">Newsletter</h4>
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
                 <input
                   type="email"
                   aria-label="Email address"
                   value={subEmail}
                   onChange={(e) => setSubEmail(e.target.value)}
                   placeholder="your@email.com"
-                  className="flex-1 px-3 py-2 bg-white/10 border border-white/10 rounded-lg text-warm text-xs focus:outline-none focus:border-accent placeholder:text-warm/30"
+                  className="w-full min-w-0 flex-1 px-3 py-2 bg-white/10 border border-white/10 rounded-lg text-warm text-xs focus:outline-none focus:border-accent placeholder:text-warm/30"
                 />
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-accent text-primary text-xs font-medium rounded-lg hover:bg-accent/90 transition-colors"
+                  className="shrink-0 px-4 py-2 bg-accent text-primary text-xs font-medium rounded-lg hover:bg-accent/90 transition-colors"
                 >
                   Subscribe
                 </button>

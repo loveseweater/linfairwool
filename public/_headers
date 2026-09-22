@@ -1,17 +1,28 @@
-# Static assets - long cache (1 year)
+# ============================================================
+# LINFAIR 独立站 · Cloudflare Pages 响应头
+# 规则冲突时以下方为准（Cloudflare Pages 后者优先）
+# ============================================================
+
+# ---------- 静态资源：长期缓存（文件名固定，部署即刷新）----------
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Images - long cache (1 year)
 /images/*
   Cache-Control: public, max-age=31536000, immutable
 
-# Logo and favicon - long cache
 /logo.png
   Cache-Control: public, max-age=31536000, immutable
+
 /favicon.svg
   Cache-Control: public, max-age=31536000, immutable
 
-# HTML - no cache (always fresh)
+# ---------- 全局：安全头 + HTML 不缓存 ----------
 /*
   Cache-Control: public, max-age=0, must-revalidate
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  # CSP 先以 Report-Only 上线观察（不拦截，仅上报违规），确认无误伤后再改为强制模式
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://stats.g.doubleclick.net https://api.emailjs.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
