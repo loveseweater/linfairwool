@@ -5,7 +5,6 @@ import puppeteer from 'puppeteer-core'
 import fs from 'fs'
 import path from 'path'
 import http from 'http'
-import crypto from 'crypto'
 import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -71,24 +70,13 @@ for (const route of routes) {
 await browser.close()
 server.close()
 
-// 资源缓存破冰：vite 输出固定文件名（assets/index.js 无 content hash），
-// 若曾以长缓存下发（历史上 _headers 用过 immutable），访客浏览器会长期执行旧 bundle
-// ——表现为新文章水合后显示 "Post Not Found"（2026-09-24 实测事故）。
-// 这里按文件内容算出短 hash 追加为查询串，bundle 一变 URL 即变，绕过任何旧缓存。
-const ASSET_VERSION = (() => {
-  const h = crypto.createHash('sha256')
-  for (const f of fs.readdirSync(path.join(DIST, 'assets')).sort()) {
-    h.update(f).update(fs.readFileSync(path.join(DIST, 'assets', f)))
-  }
-  return h.digest('hex').slice(0, 10)
-})()
-console.log('asset version:', ASSET_VERSION)
-
-const stampAssets = (html) =>
-  html.replace(
-    /(<(?:script|link)\b[^>]*?\/assets\/[a-zA-Z0-9._-]+\.(?:js|css))(")/g,
-    `$1?v=${ASSET_VERSION}$2`
-  )
+// 注意：不要在 HTML 里给 /assets/*.js 追加 ?v=xxx 之类的查询串破缓存。
+// 入口若写成 /assets/index.js?v=xxx，而 chunk 内部的 import("./index.js") 不带查询串，
+// ES module 会按完整 URL 视为**两个模块实例**，导致 createContext 执行两次、
+// Provider 与 consumer 拿到不同的 Context，所有懒加载路由崩溃
+// （表现为 "Cannot destructure property 't' of 'F(...)' as it is null"，2026-09-24 实测事故）。
+// 缓存策略统一由 public/_headers 控制（已设为 must-revalidate）；若将来需要 hash 破缓存，
+// 正确做法是改 vite.config.ts 的 entryFileNames/chunkFileNames 让构建产物本身带 hash。
 
 // 将预渲染 HTML 同步到 public/（作为构建源，供 Cloudflare Pages 云端构建复制进 dist）
 // 注意：仅排除根目录 index.html（首页，vite 会与项目根 index.html 冲突），首页暂保持 SPA 空壳
@@ -129,7 +117,7 @@ function syncToPublic(dir) {
       const dst = path.join(__dirname, 'public', rel)
       fs.mkdirSync(path.dirname(dst), { recursive: true })
       let content = fs.readFileSync(path.join(absDir, entry.name))
-      if (entry.name.endsWith('.html')) content = Buffer.from(stampAssets(inlineCss(content.toString('utf-8'))), 'utf-8')
+      if (entry.name.endsWith('.html')) content = Buffer.from(inlineCss(content.toString('utf-8')), 'utf-8')
       fs.writeFileSync(dst, content)
       copied++
     }
@@ -142,7 +130,7 @@ console.log(`PUBLIC sync done. copied files: ${copied}`)
 
 // 同步首页预渲染（供 vite.config.ts 的 injectPrerenderedHome 插件在构建时注入），同样内联 CSS
 const homePre = path.join(__dirname, 'prerender-home.html')
-const homeContent = stampAssets(inlineCss(fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8')))
+const homeContent = inlineCss(fs.readFileSync(path.join(DIST, 'index.html'), 'utf-8'))
 fs.writeFileSync(homePre, homeContent, 'utf-8')
 console.log(`HOME prerender synced -> prerender-home.html (${fs.statSync(homePre).size} bytes, CSS inlined)`)
 console.log(`\nDONE. ok=${ok} fail=${fail}`)
