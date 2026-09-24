@@ -3,18 +3,23 @@
 # 规则冲突时以下方为准（Cloudflare Pages 后者优先）
 # ============================================================
 
-# ---------- 静态资源：长期缓存（文件名固定，部署即刷新）----------
+# ---------- 静态资源：必须校验 ----------
+# ⚠️ vite.config.ts 使用固定文件名（assets/index.js 无 content hash），
+#    且 public/ 内提交的预渲染 HTML 引用这些固定路径，因此这里**不能**用 immutable/max-age——
+#    否则访客浏览器会长期执行旧 bundle，新文章水合后显示 "Post Not Found"（2026-09-24 实测事故）。
 /assets/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
 
+# 图片同样使用稳定路径；新增图片是新文件名不受影响，但**替换同名图片必须加 ?v=N 破缓存**
+# （logo.png 曾因同名替换导致全站破图 + 浏览器一年期旧缓存）
 /images/*
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=86400
 
 /logo.png
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
 
 /favicon.svg
-  Cache-Control: public, max-age=31536000, immutable
+  Cache-Control: public, max-age=0, must-revalidate
 
 # ---------- 全局：安全头 + HTML 不缓存 ----------
 /*

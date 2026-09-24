@@ -90,7 +90,9 @@
     <meta name="p:domain_verify" content="0ad41f8db9b89e75daf9f073b959aa8d"/>
     <meta name="google-site-verification" content="" />
     <meta name="format-detection" content="telephone=no" />
-    <meta http-equiv="Cache-Control" content="public, max-age=31536000, immutable" />
+    <!-- 注意：此处不要放 <meta http-equiv="Cache-Control">。
+         HTML 的缓存策略统一由 public/_headers 控制（max-age=0, must-revalidate）；
+         meta 与响应头并存会造成策略冲突，并曾让 SPA 空壳被长期缓存。 -->
     <title>LINFAIR | Premium Knitwear Manufacturer — Sweaters, Cardigans & Knit Tops</title>
   </head>
   <body>
