@@ -1,3 +1,9 @@
+import blog58Content from './blog/blog-58.md?raw'
+import blog59Content from './blog/blog-59.md?raw'
+import blog60Content from './blog/blog-60.md?raw'
+import blog61Content from './blog/blog-61.md?raw'
+import blog62Content from './blog/blog-62.md?raw'
+
 export interface Product {
   id: string
   name: string
@@ -722,6 +728,51 @@ image: '/images/blog/blog-40-offseason.jpg',
     date: 'September 21, 2026',
     category: 'Sourcing Guide',
     image: '/images/blog/blog-57-seasonal-colour.jpg',
+  },
+  {
+    id: 'blog-58',
+    title: 'EU Compliance for Knitwear Brands: GPSR, PPWR, Digital Product Passport and Textile EPR',
+    excerpt: 'GPSR, PPWR, ESPR and textile EPR explained for knitwear brands — who is legally responsible, what applies when, and the data your factory must supply for EU market compliance.',
+    content: blog58Content,
+    date: 'September 24, 2026',
+    category: 'Compliance Guide',
+    image: '/images/blog/blog-58-eu-compliance.jpg',
+  },
+  {
+    id: 'blog-59',
+    title: 'Knitwear Gauge and Yarn Count Explained: GG, Nm, Ne and What 2/28 Means',
+    excerpt: 'What gauge, yarn count and ply actually mean on a knitwear spec sheet — GG, Nm, Ne, 2/28, GSM and moisture regain, and why two sweaters at the same gauge can feel completely different.',
+    content: blog59Content,
+    date: 'September 24, 2026',
+    category: 'Fabric Guide',
+    image: '/images/blog/blog-59-gauge-yarn.jpg',
+  },
+  {
+    id: 'blog-60',
+    title: 'Knitwear Lab Testing and AQL Inspection: Which Tests to Specify and Why',
+    excerpt: 'Which laboratory tests a knitwear order needs, what each ISO and AATCC standard proves, how AQL sampling and defect classification work, and why the care label must follow the test result.',
+    content: blog60Content,
+    date: 'September 24, 2026',
+    category: 'Quality Control',
+    image: '/images/blog/blog-60-lab-testing.jpg',
+  },
+  {
+    id: 'blog-61',
+    title: 'Retail-Ready Packing for Knitwear: Polybags, Barcodes, Cartons and Containers',
+    excerpt: 'How to specify retail-ready packing for knitwear — polybag and suffocation warning requirements, GTIN barcodes, flat pack versus hang pack, carton marks and container loading.',
+    content: blog61Content,
+    date: 'September 24, 2026',
+    category: 'Sourcing Guide',
+    image: '/images/blog/blog-61-packing.jpg',
+  },
+  {
+    id: 'blog-62',
+    title: 'Fleece-Lined Knitwear Manufacturing: Construction, Testing and Specification',
+    excerpt: 'How fleece-lined knitwear is actually constructed, why bonded and knit-in linings behave differently, the delamination risk to design out, and how to specify and test a lined programme.',
+    content: blog62Content,
+    date: 'September 24, 2026',
+    category: 'Manufacturing',
+    image: '/images/blog/blog-62-fleece-lined.jpg',
   },
 ]
 

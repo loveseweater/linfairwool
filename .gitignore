@@ -15,3 +15,6 @@ tsconfig.tsbuildinfo
 
 # Mimosa 安全扫描工具状态（勿提交）
 .mimosa/
+
+# 文章写作/校验临时工作目录（仅供本地草稿与验证脚本使用）
+_blog_work/
