@@ -18,6 +18,10 @@
 /logo.png
   Cache-Control: public, max-age=0, must-revalidate
 
+# logo.webp 为新文件名（显示用，og:image 仍用 PNG）；logo 变更时用新文件名而非覆盖
+/logo.webp
+  Cache-Control: public, max-age=86400
+
 /favicon.svg
   Cache-Control: public, max-age=0, must-revalidate
 

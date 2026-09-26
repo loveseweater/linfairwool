@@ -286,5 +286,5 @@ export const defaultSiteContent: SiteContent = {
     { label: 'Contact', path: '/contact', enabled: true },
   ],
   categories: ['Women', 'Men'],
-  logo: '/logo.png?v=3',
+  logo: '/logo.webp',
 }

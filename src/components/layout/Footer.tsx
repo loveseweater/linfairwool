@@ -60,7 +60,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <div className="mb-4">
-              <img src={siteContent.logo || '/logo.png?v=3'} alt="LINFAIR" className="h-10 md:h-14 w-auto" />
+              <img src={siteContent.logo || '/logo.webp'} alt="LINFAIR" className="h-10 md:h-14 w-auto" />
             </div>
             <p className="text-warm/60 text-sm leading-relaxed mb-6">
               {t('footer.brandDesc')}
