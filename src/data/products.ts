@@ -7,7 +7,7 @@ import blog62Content from './blog/blog-62.md?raw'
 export interface Product {
   id: string
   name: string
-  category: 'Men' | 'Women'
+  category: 'Men' | 'Women' | 'Accessories'
   subcategory: string
   description: string
   specs: string[]
@@ -15,6 +15,33 @@ export interface Product {
   gallery: string[]
   video?: string
   amazonUrl?: string
+  // ── 以下字段用于产品详情页与 AEO/GEO 结构化数据（新品系列） ──
+  /** URL slug，用于 /products/<slug> 独立详情页；缺省时回退到 id */
+  slug?: string
+  /** 产品大类（7 大品类之一），用于前台筛选与结构化数据分类 */
+  productType?: string
+  /** 答案优先长描述：首句即完整定义，便于 AI 引擎直接摘录 */
+  longDescription?: string
+  /** 材质 / 成分选项 —— 提供给 B2B 买家与 AI 的可验证事实 */
+  materials?: string[]
+  /** 工艺 / 结构说明 */
+  construction?: string[]
+  /** 可定制项 */
+  customization?: string[]
+  /** 起订量 */
+  moq?: string
+  /** 生产周期 */
+  leadTime?: string
+  /** 认证 */
+  certifications?: string[]
+  /** 洗护说明 */
+  careInstructions?: string[]
+  /** 应用场景 / 目标市场 */
+  applications?: string[]
+  /** 该产品专属 FAQ —— 同时渲染为页面 Q&A 与 FAQPage 结构化数据 */
+  faqs?: { q: string; a: string }[]
+  /** 关键词（用于详情页 meta keywords 与结构化数据） */
+  keywords?: string[]
 }
 
 export const products: Product[] = [
@@ -208,7 +235,19 @@ export const products: Product[] = [
   },
 ]
 
+// ── 新增产品系列（2026-09 扩容）：针织毛衣 / 打底衫 / 羊毛衫 / 围巾 / 帽子 / 手套 / 袜子 ──
+// 数据定义在 productsExt.ts；此处合并进 products，保持前台陈列顺序为「自营款在前，新品在后」。
+// productsExt.ts 仅以 `import type` 引用 Product，编译期擦除，不构成运行时循环依赖。
+import { productsExt, PRODUCT_TYPES, type ProductType } from './productsExt'
+products.push(...productsExt)
+export { productsExt, PRODUCT_TYPES, type ProductType }
+
 export const categories = ['Turtleneck', 'Mock Neck', 'Crew Neck', 'V-Neck', 'Short Sleeve']
+
+/** 按 slug 查产品（详情页用）；缺 slug 时回退 id 匹配 */
+export function findProductBySlug(slug: string): Product | undefined {
+  return products.find((p) => (p.slug ?? p.id) === slug)
+}
 
 export const AMAZON_STORE_URL = 'https://www.amazon.com/s?i=merchant-items&me=A3TGFVQN3GQ10O'
 

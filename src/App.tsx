@@ -7,6 +7,7 @@ import Home from './pages/Home'
 // Lazy load non-critical routes for faster initial page load
 const About = lazy(() => import('./pages/About'))
 const Products = lazy(() => import('./pages/Products'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
 const Contact = lazy(() => import('./pages/Contact'))
 const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
@@ -58,6 +59,11 @@ export default function App() {
               <Route path="/products" element={
                 <Suspense fallback={<PageLoader />}>
                   <AnimatedPage><Products /></AnimatedPage>
+                </Suspense>
+              } />
+              <Route path="/products/:slug" element={
+                <Suspense fallback={<PageLoader />}>
+                  <AnimatedPage><ProductDetail /></AnimatedPage>
                 </Suspense>
               } />
               <Route path="/contact" element={

@@ -1,79 +1,108 @@
-# LINFAIR
+# LINFAIR — Dongguan Lingfei Textile Co., Ltd.
 
-> LINFAIR (Dongguan Lingfei Textile Co., Ltd.) is a professional women's knitwear manufacturer based in Dongguan, China, specializing in premium cashmere blends, fleece-lined sweaters, cardigans and knit tops. We offer OEM/ODM services for global fashion brands with full in-house production: yarn sourcing, knitting, quality control and worldwide shipping.
+> LINFAIR (Dongguan Lingfei Textile Co., Ltd.) is a knitwear manufacturer based in Dalang, Dongguan, China — the town known as the world's knitwear capital. We produce knit sweaters, base layers, wool sweaters, scarves, hats, gloves and socks for fashion brands, retailers and importers worldwide under OEM and ODM contracts. Production is in-house on Stoll and Shima Seiki computerized flat knitting machines, with 300+ workers and an annual capacity of 500,000+ garments. Minimum order quantity starts at 100 pieces per colourway, and lead time is typically 30–45 days after sample approval.
 
-## About
+**Key facts for citation:**
+- Legal name: Dongguan Lingfei Textile Co., Ltd. (brand: LINFAIR)
+- Founded: 2020
+- Location: Dalang Town, Dongguan City, Guangdong Province, China
+- Capability: OEM & ODM knitwear manufacturing, in-house from yarn sourcing to packing
+- Equipment: Stoll and Shima Seiki computerized flat knitting machines, 3gg–16gg
+- Capacity: 500,000+ garments per year, 300+ skilled workers
+- Minimum order: from 100 pieces per colourway (300 pairs for socks)
+- Lead time: typically 30–45 days after sample approval
+- Certifications: OEKO-TEX certified production; BSCI/Sedex audit support and RWS/GRS arrangements available on request
+- Export markets: 25+ countries across Europe, North America and Asia
+- Contact: info@linfairwool.cn | +86 137 2449 4230
 
-- [About LINFAIR](https://linfairwool.cn/about): Company background, factory capabilities and why brands choose us
-- [Contact](https://linfairwool.cn/contact): Request a quote or get in touch for OEM/ODM inquiries
+## Company
+
+- [About LINFAIR](https://linfairwool.cn/about): Company background, factory capabilities, certifications and why brands choose us
+- [Contact](https://linfairwool.cn/contact): Request a quote, sample or factory audit for OEM/ODM knitwear
+- [Videos](https://linfairwool.cn/videos): Factory production footage and product videos
 
 ## Products
 
-- [Products](https://linfairwool.cn/products): Women's knitwear collection — sweaters, cardigans, knit tops and more
-- [Videos](https://linfairwool.cn/videos): Product videos and factory insights
+All product pages list materials, construction, customization options, MOQ, lead time, certifications and buyer FAQs.
+
+- [All Products](https://linfairwool.cn/products): Complete knitwear collection — sweaters, base layers, scarves, hats, gloves and socks
+- [Products overview (full catalogue)](https://linfairwool.cn/products): Filter by garment type (Knit Sweaters, Base Layers, Wool Sweaters, Scarves, Hats, Gloves, Socks) and by market (Women, Men, Accessories)
+
+### Knit Sweaters
+
+- [Women's Chunky Cable-Knit Crewneck Sweater](https://linfairwool.cn/products/cable-knit-crewneck-sweater): 5gg chunky cable knit in oatmeal cream wool, raised cable braid panel, MOQ 100 pieces
+- [Men's Ribbed Knit Crewneck Sweater](https://linfairwool.cn/products/mens-ribbed-crewneck-sweater): 12gg vertical rib crewneck in charcoal merino, available in crew, v-neck or quarter-zip
+- [Women's Fuzzy Mohair-Blend Sweater](https://linfairwool.cn/products/fuzzy-mohair-blend-sweater): 7gg brushed mohair-blend pullover with a soft fibre halo, mohair-free alternative available
+- [Women's Fisherman Ribbed Sweater](https://linfairwool.cn/products/fishermans-ribbed-sweater): 7gg fisherman rib in natural undyed ivory wool, deep horizontal ridges, GOTS cotton option
+
+### Base Layers
+
+- [Women's Fine-Gauge Merino Base Layer Top](https://linfairwool.cn/products/merino-base-layer-top): 16gg merino base layer, 18.5 micron, slim low-bulk layering profile
+- [Women's Ribbed Thermal Turtleneck Top](https://linfairwool.cn/products/ribbed-thermal-turtleneck): 14gg vertical rib thermal turtleneck with tall folded collar
+- [Men's Merino Thermal Crew Neck Base Layer](https://linfairwool.cn/products/mens-merino-thermal-crew): 16gg men's thermal crew in dark navy with flatlock seams
+
+### Wool Sweaters
+
+- [Women's Merino Wool Crewneck Sweater](https://linfairwool.cn/products/merino-wool-crewneck-sweater): 12gg 100% merino crewneck in camel, 19.5 micron, cashmere blend upgrade available
+- [Men's Lambswool V-Neck Sweater](https://linfairwool.cn/products/lambswool-vneck-sweater): 12gg lambswool v-neck in forest green, matched crew and cardigan available
+- [Women's Lambswool Button-Front Cardigan](https://linfairwool.cn/products/lambswool-button-cardigan): 12gg lambswool cardigan in dove grey, knitted front placket, round/v/shawl neckline options
+
+### Scarves
+
+- [Chunky Ribbed Merino Wool Scarf](https://linfairwool.cn/products/chunky-ribbed-merino-scarf): heavy-gauge rib knit scarf, approx. 35 × 190 cm, hand-twisted fringe
+- [Cashmere-Blend Woven Winter Scarf](https://linfairwool.cn/products/cashmere-blend-woven-scarf): loom-woven herringbone scarf with hand-rolled hem, jacquard logo option
+- [Cable Knit Fringed Wool Scarf](https://linfairwool.cn/products/cable-knit-fringed-scarf): medium-gauge cable knit scarf with full-length centre braid and cut fringe
+
+### Hats
+
+- [Ribbed Merino Wool Beanie](https://linfairwool.cn/products/ribbed-merino-beanie): one-size ribbed merino beanie with folded cuff, recycled wool blend available
+- [Cable Knit Bobble Hat with Pom-Pom](https://linfairwool.cn/products/cable-knit-bobble-hat): cable knit bobble hat with detachable yarn pom-pom option
+- [Fisherman Rolled-Cuff Wool Beanie](https://linfairwool.cn/products/fisherman-rolled-cuff-beanie): shallow fisherman beanie in dense navy knit with thick rolled cuff
+
+### Gloves
+
+- [Merino Wool Touchscreen Knit Gloves](https://linfairwool.cn/products/merino-touchscreen-gloves): fine-gauge merino gloves with conductive yarn knitted into the fingertips
+- [Fleece-Lined Cable Knit Mittens](https://linfairwool.cn/products/fleece-lined-cable-mittens): cable knit mittens with brushed fleece lining and thumb compartment
+- [Cashmere-Blend Ribbed Knit Gloves](https://linfairwool.cn/products/cashmere-blend-knit-gloves): 70/30 wool-cashmere gloves with long extended ribbed cuff
+
+### Socks
+
+- [Merino Wool Ribbed Crew Socks](https://linfairwool.cn/products/merino-ribbed-crew-socks): merino-nylon blend crew socks with reinforced heel and toe, MOQ 300 pairs
+- [Cashmere-Blend Plush Bed Socks](https://linfairwool.cn/products/cashmere-blend-bed-socks): plush cashmere-blend bed socks with soft folded cuff, gift packaging available
+
+## Buyer Questions
+
+**What is the minimum order quantity for custom knitwear from LINFAIR?**
+Custom sweaters, cardigans, base layers, scarves, hats and gloves start at 100 pieces per colourway. Socks start at 300 pairs per colourway. Because knitwear structures are programmed into the knitting machine rather than tooled, there is no separate pattern or mould cost — the MOQ is driven by yarn minimums and machine setup time.
+
+**How long does knitwear production take?**
+Standard lead time is 30–45 days after sample approval for sweaters and base layers, 25–40 days for scarves, and 20–35 days for beanies. Socks and gloves run 30–45 days. Sampling itself typically takes 7–15 days. For autumn/winter delivery, orders should be placed by June or early July because machine time in August and September books out early.
+
+**What is the difference between OEM and ODM knitwear manufacturing?**
+Under OEM, you supply the design and tech pack and we manufacture to your specification. Under ODM, our design team develops the style for you and you apply your own branding. LINFAIR offers both, plus design development support including pattern digitizing, yarn selection and colour matching.
+
+**What knitting machinery does LINFAIR use, and what gauges can you produce?**
+We run Stoll and Shima Seiki computerized flat knitting machines covering 3gg to 16gg. Lower gauge numbers mean thicker yarn and heavier garments — 3gg to 5gg for chunky cable knits, 7gg for fisherman rib, 12gg for mid-weight crewnecks and cardigans, and 14gg to 16gg for fine base layers and lightweight knit tops.
+
+**How do I verify the fibre composition of a knitwear order?**
+Ask for the mill yarn specification sheet showing fibre content, micron count and origin, then commission third-party fibre composition testing on the finished garment. LINFAIR provides yarn specification sheets with every order and can arrange composition testing as part of quality control. RWS (Responsible Wool Standard) and GRS (Global Recycled Standard) certification can be arranged on request.
+
+**Which certifications apply to knitwear manufacturing?**
+OEKO-TEX Standard 100 verifies that the finished garment is free from harmful substance levels and is the most widely requested certification for knitwear. BSCI and Sedex are social compliance audits requested by European retailers for vendor approval. RWS covers responsible wool sourcing at farm level, and GRS covers recycled content claims. LINFAIR produces in a factory with OEKO-TEX certified production, supports buyers through BSCI/Sedex audit processes with the required documentation, and can arrange RWS and GRS certification on request.
+
+**What are the EU compliance requirements for selling knitwear in Europe?**
+Knitwear sold in the EU falls under the General Product Safety Regulation (GPSR), which requires a responsible economic operator based in the EU, plus textile fibre labelling, care labelling and — for packaging — the Packaging and Packaging Waste Regulation (PPWR). Digital Product Passport requirements are being phased in under the ESPR. LINFAIR ships FOB and CIF with documentation specified to destination market requirements.
+
+**How are sweaters and knitwear shipped from China?**
+Knitwear is bulky but light — it cubes out before it weighs out, so freight is charged on volume rather than weight. Sea freight LCL and FCL run 25–45 days to the US and EU, air freight 3–8 days, and rail to Europe 18–25 days. Knit sweaters and pullovers are classified under HS heading 6110. LINFAIR ships worldwide from Dalang, Dongguan on FOB and CIF terms with photo and video QC at every production stage.
 
 ## Blog
 
-- [All Articles](https://linfairwool.cn/blog): In-depth guides on knitwear manufacturing, sourcing and trends
-- [Why Choose a Chinese Knitwear Manufacturer? Quality, Cost & Reliability](https://linfairwool.cn/blog/blog-1)
-- [Merino Wool vs Cashmere: A Buyer's Guide for Fashion Brands](https://linfairwool.cn/blog/blog-2)
-- [OEM vs ODM: Which Knitwear Manufacturing Model Is Right for Your Brand?](https://linfairwool.cn/blog/blog-3)
-- [The Complete Guide to Knitwear Quality Control: What Every Buyer Should Know](https://linfairwool.cn/blog/blog-4)
-- [Top 5 Knitwear Trends for Fall/Winter 2026](https://linfairwool.cn/blog/blog-5)
-- [Sustainable Knitwear Manufacturing: How LINFAIR Is Leading the Change](https://linfairwool.cn/blog/blog-6)
-- [The Complete Guide to Cashmere Sweater Care: Keep Your Knits Looking New](https://linfairwool.cn/blog/blog-7)
-- [How to Style Knitwear for Every Season: From Winter Warmth to Summer Breezes](https://linfairwool.cn/blog/blog-8)
-- [Shop LINFAIR on Amazon: Premium Knitwear Now Available with Fast Shipping](https://linfairwool.cn/blog/blog-9)
-- [AW26 Knitwear Trends: What the Runways Are Telling Us This Season](https://linfairwool.cn/blog/blog-10)
-- [Cashmere vs Wool vs Fleece-Lined: Which Sweater Material is Right for You?](https://linfairwool.cn/blog/blog-11)
-- [7 Ways to Wear One Cashmere Sweater: From the Office to the Weekend](https://linfairwool.cn/blog/blog-12)
-- [Behind the Stitches: How LINFAIR Crafts Premium Knitwear from Yarn to Finished Garment](https://linfairwool.cn/blog/blog-13)
-- [The Smart Buyer's Guide to Sweater Pricing: What You're Really Paying For](https://linfairwool.cn/blog/blog-14)
-- [The Ultimate Fall Sweater Capsule Wardrobe: 5 Pieces, 15 Outfits](https://linfairwool.cn/blog/blog-15)
-- [Why Fleece-Lined Sweaters Are the Secret to Surviving Winter in Style](https://linfairwool.cn/blog/blog-16)
-- [The Truth About Cashmere Blends: What 5% Cashmere Really Means](https://linfairwool.cn/blog/blog-17)
-- [Sweater Storage Solutions: How to Store Knitwear Without Ruining It](https://linfairwool.cn/blog/blog-18)
-- [Short-Sleeve Sweaters: The Underrated Piece Your Wardrobe Is Missing](https://linfairwool.cn/blog/blog-19)
-- [Why Your Sweater Pills (And What Actually Works to Stop It)](https://linfairwool.cn/blog/blog-20)
-- [Wool vs Cashmere vs Alpaca: A Knitwear Buyer's Real-World Comparison](https://linfairwool.cn/blog/blog-21)
-- [The Layering Guide: How to Wear Knitwear From 15°C to -10°C](https://linfairwool.cn/blog/blog-22)
-- [What Makes a Sweater "Premium"? Reading Between the Labels](https://linfairwool.cn/blog/blog-23)
-- [5 Fall Sweater Colors That Flatter Every Skin Tone](https://linfairwool.cn/blog/blog-24)
-- [Chunky, Cable, or Fine-Knit? How to Choose the Right Sweater](https://linfairwool.cn/blog/blog-25)
-- [How to Build a Winter Wardrobe on a Budget (Without Looking Cheap)](https://linfairwool.cn/blog/blog-26)
-- [Why Merino Wool Is the Most Underrated Sweater Fiber](https://linfairwool.cn/blog/blog-27)
-- [Sweater Trends for Fall 2026: What to Wear and What to Skip](https://linfairwool.cn/blog/blog-28)
-- [China Sweater & Knitwear Export Report 2025–2026: Volume, Value and Global Buyer Insights](https://linfairwool.cn/blog/blog-29)
-- [Fall/Winter 2026 Knitwear Trends: Pure Wool, Timeless Design and Size-Inclusive Fit](https://linfairwool.cn/blog/blog-30)
-- [Wool Yarn 2026: Smart Temperature-Regulating Yarns, Recycled Wool and a Growing Global Market](https://linfairwool.cn/blog/blog-31)
-- [How AI Rapid Garment-Making and Smart Knitting Are Transforming Knitwear Production in Dalang](https://linfairwool.cn/blog/blog-32)
-- [Top Knitwear & Sweater Search Terms on Google (2026): What Shoppers Are Actually Searching](https://linfairwool.cn/blog/blog-33)
-- [Circular Fashion 2026: Recycled Wool, Regenerated Yarns and the Green Future of Knitwear](https://linfairwool.cn/blog/blog-34)
-- [The Complete Sweater Care Guide: How to Wash, Dry, Store and Repair Wool, Cashmere & Blends](https://linfairwool.cn/blog/blog-35)
-- [Knitwear Wholesale Sourcing Guide 2026: MOQs, Pricing, Sampling and Choosing the Right Factory](https://linfairwool.cn/blog/blog-36)
-- [Fall/Winter 2026 Knitwear Trends: Playful Knits, Quiet Luxury and What Buyers Should Stock](https://linfairwool.cn/blog/blog-37)
-- [Smart Wool and AI Knitwear Production: How Dalang's 95th International Wool Conference Is Reshaping Manufacturing](https://linfairwool.cn/blog/blog-38)
-- [Dongguan Dalang: The Small Town Behind 1 in 5 Sweaters Sold Worldwide](https://linfairwool.cn/blog/blog-39)
-- [Off-Season Sourcing Is Booming: Why Smart Sweater Buyers Order in Summer](https://linfairwool.cn/blog/blog-40)
-- [How Much Does It Cost to Manufacture a Sweater in 2026? Wool Knitwear Cost Breakdown](https://linfairwool.cn/blog/blog-41)
-- [Low MOQ Sweater Manufacturing: How to Launch a Knitwear Brand with 100 Pieces](https://linfairwool.cn/blog/blog-42)
-- [Knitwear Certifications Explained: OEKO-TEX, BSCI, Sedex and RWS for Fashion Buyers](https://linfairwool.cn/blog/blog-43)
-- [China vs Vietnam vs India vs Turkey: Where to Manufacture Knitwear in 2026](https://linfairwool.cn/blog/blog-44)
-- [How to Write a Knitwear Tech Pack: The 12 Specs Every Factory Needs](https://linfairwool.cn/blog/blog-45)
-- [Knitwear Payment Terms Explained: T/T, L/C, Deposits and How to Protect Your Order](https://linfairwool.cn/blog/blog-46)
-- [Knitwear Size Charts and Grading: Getting Your Sweater Fit Right for US, EU and UK Markets](https://linfairwool.cn/blog/blog-47)
-- [Shipping Knitwear from China: Freight, Duties and Incoterms for Sweater Importers](https://linfairwool.cn/blog/blog-48)
-- [Who Owns Your Knitwear Design? IP Protection When Manufacturing in China](https://linfairwool.cn/blog/blog-49)
-- [Knitwear Production Timelines: How to Plan a Sweater Order That Ships on Time](https://linfairwool.cn/blog/blog-50)
-- [Reorder Strategy for Knitwear Brands: How to Size a Repeat Order Without Overstocking](https://linfairwool.cn/blog/blog-51)
-- [Sweater Labels and Care Tags: Compliance Rules for US, EU and UK Markets](https://linfairwool.cn/blog/blog-52)
-- [Cashmere Grades Explained: How to Tell Real Quality From Cheap Blends](https://linfairwool.cn/blog/blog-53)
-- [Sampling in Knitwear Sourcing: What Each Sample Stage Actually Proves](https://linfairwool.cn/blog/blog-54)
-- [Is Your Factory Actually Free? How to Read Knitwear Capacity Before You Order](https://linfairwool.cn/blog/blog-55)
-- [How to Vet a Knitwear Factory: A Buyer's Checklist Before You Place an Order](https://linfairwool.cn/blog/blog-56)
-- [Building a Knitwear Colour Range: How to Choose Colours That Sell Through](https://linfairwool.cn/blog/blog-57)
-- [EU Compliance for Knitwear Brands: GPSR, PPWR, Digital Product Passport and Textile EPR](https://linfairwool.cn/blog/blog-58)
-- [Knitwear Gauge and Yarn Count Explained: GG, Nm, Ne and What 2/28 Means](https://linfairwool.cn/blog/blog-59)
-- [Knitwear Lab Testing and AQL Inspection: Which Tests to Specify and Why](https://linfairwool.cn/blog/blog-60)
-- [Retail-Ready Packing for Knitwear: Polybags, Barcodes, Cartons and Containers](https://linfairwool.cn/blog/blog-61)
-- [Fleece-Lined Knitwear Manufacturing: Construction, Testing and Specification](https://linfairwool.cn/blog/blog-62)
+- [All Articles](https://linfairwool.cn/blog): 62 in-depth guides on knitwear manufacturing, fibre selection, sourcing, compliance and logistics
+
+## Optional
+
+- [Sitemap](https://linfairwool.cn/sitemap.xml): Full URL list
+- [Amazon Store](https://www.amazon.com/s?i=merchant-items&me=A3TGFVQN3GQ10O): LINFAIR direct-to-consumer knitwear on Amazon US
+- [LinkedIn](https://www.linkedin.com/in/linfairwool/): Company updates
+- [YouTube](https://www.youtube.com/@linfairwool): Factory and product videos

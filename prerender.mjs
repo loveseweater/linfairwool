@@ -123,6 +123,8 @@ function syncToPublic(dir) {
     }
   }
 }
+// syncToPublic 会递归处理子目录，因此 blog/blog-N 与 products/<slug> 一并同步
+// （仅根目录 index.html 例外：vite 会与项目根 index.html 冲突，首页走 prerender-home.html）
 for (const sub of ['about', 'products', 'contact', 'blog', 'videos']) {
   syncToPublic(sub)
 }

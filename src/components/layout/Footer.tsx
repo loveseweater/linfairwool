@@ -126,17 +126,19 @@ export default function Footer() {
             <h3 className="font-display text-lg font-semibold mb-4">{t('footer.collections')}</h3>
             <ul className="space-y-2.5">
               {[
-                { labelKey: 'footer.menSweaters' },
-                { labelKey: 'footer.womenSweaters' },
-                { labelKey: 'footer.cashmere' },
-                { labelKey: 'footer.merino' },
+                { label: 'Knit Sweaters', to: '/products/mens-ribbed-crewneck-sweater' },
+                { label: 'Wool Sweaters', to: '/products/merino-wool-crewneck-sweater' },
+                { label: 'Base Layers', to: '/products/merino-base-layer-top' },
+                { label: 'Scarves & Hats', to: '/products/chunky-ribbed-merino-scarf' },
+                { label: 'Gloves & Socks', to: '/products/merino-touchscreen-gloves' },
+                { label: t('footer.viewAll'), to: '/products' },
               ].map((item) => (
-                <li key={item.labelKey}>
+                <li key={item.to}>
                   <Link
-                    to="/products"
+                    to={item.to}
                     className="text-warm/50 hover:text-accent text-sm transition-colors duration-200"
                   >
-                    {t(item.labelKey)}
+                    {item.label}
                   </Link>
                 </li>
               ))}

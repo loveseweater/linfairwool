@@ -1,4 +1,65 @@
+# ══════════════════════════════════════════════════════════════
+# LINFAIR · robots.txt
+#
+# AEO/GEO: AI 引擎爬虫显式放行 —— 站点希望被 ChatGPT / Claude /
+# Perplexity / Gemini / Copilot 等引用，故对已知 AI 抓取 UA 单独声明 Allow。
+# 默认通配规则已允许全部；此处显式声明让引用授权意图清晰可查，
+# 也避免个别抓取器因通配规则歧义而降频。
+# ══════════════════════════════════════════════════════════════
+
 User-agent: *
+Allow: /
+
+# ── 检索/引用型 AI 爬虫（希望被收录并引用）──
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
 Allow: /
 
 Sitemap: https://linfairwool.cn/sitemap.xml

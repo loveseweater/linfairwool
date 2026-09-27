@@ -18,3 +18,7 @@ tsconfig.tsbuildinfo
 
 # 文章写作/校验临时工作目录（仅供本地草稿与验证脚本使用）
 _blog_work/
+
+# 产品图生成工作目录（raw/ 为 153MB 未压缩 PNG，仅本地保留；成品在 public/images/products/）
+_products_work/raw/
+_products_work/gen-result.json

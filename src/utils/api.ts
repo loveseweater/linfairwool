@@ -15,18 +15,10 @@ async function sha256Hex(text: string): Promise<string> {
   return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
 }
 
-export interface Product {
-  id: string
-  name: string
-  category: 'Men' | 'Women'
-  subcategory: string
-  description: string
-  specs: string[]
-  image: string
-  gallery: string[]
-  video?: string
-  amazonUrl?: string
-}
+// Product 复用数据层定义，避免两处 interface 漂移
+// （曾因 category 联合类型不同步导致 tsc 构建失败）
+export type { Product } from '../data/products'
+import type { Product } from '../data/products'
 
 export interface BlogPost {
   id: string

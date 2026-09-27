@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react'
+import { useState, useRef, useCallback, useEffect, useMemo } from 'react'
 import { usePageTitle } from '../hooks/usePageTitle'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -6,21 +6,110 @@ import Button from '../components/ui/Button'
 import HeroCarousel from '../components/ui/HeroCarousel'
 import { useSiteData } from '../utils/useSiteData'
 import { useLang } from '../context/LanguageContext'
+import { PRODUCT_TYPES } from '../data/products'
+
+const SITE_URL = 'https://linfairwool.cn'
+
+/**
+ * 采购常见问题 —— AEO 核心资产：
+ * 命中 B2B 买家在 AI 引擎里的高频提问（MOQ / 周期 / OEM-ODM / 认证 / 打样 / 运费）。
+ * 答案首句直接给出结论，便于 ChatGPT / Perplexity 等直接摘录引用。
+ * 同一份数据同时渲染为页面 Q&A 区块与 FAQPage 结构化数据。
+ */
+const SOURCING_FAQS = [
+  {
+    q: 'What is the minimum order quantity for custom knitwear?',
+    a: 'Custom knitwear starts at 100 pieces per colourway for sweaters, cardigans, base layers, scarves, hats and gloves, and 300 pairs per colourway for socks. There is no separate pattern or tooling cost, because knitwear structures are programmed into the knitting machine — the minimum is set by yarn minimums and machine setup time.',
+  },
+  {
+    q: 'How long does it take to produce a knitwear order?',
+    a: 'Standard lead time is 30–45 days after sample approval for sweaters and base layers, 25–40 days for scarves, 20–35 days for beanies, and 30–45 days for gloves and socks. Sampling itself takes 7–15 days. For autumn/winter delivery, place orders by June or early July.',
+  },
+  {
+    q: 'What is the difference between OEM and ODM knitwear manufacturing?',
+    a: 'Under OEM you supply the design and tech pack and we manufacture to your specification. Under ODM our design team develops the style and you apply your branding. LINFAIR offers both, plus pattern digitizing, yarn selection and colour matching support.',
+  },
+  {
+    q: 'Which certifications do you hold for knitwear production?',
+    a: 'LINFAIR produces in a factory with OEKO-TEX certified production. BSCI and Sedex are social compliance audits that European retailers commonly require for vendor approval, and we support buyers through those audit processes and provide the documentation they need. RWS (Responsible Wool Standard) and GRS (Global Recycled Standard) can be arranged on request. We also provide yarn specification sheets with every order so fibre content can be independently verified.',
+  },
+  {
+    q: 'Can you develop a sample before I commit to bulk production?',
+    a: 'Yes. We produce a physical sample for approval before any bulk run, typically in 7–15 days depending on yarn availability and pattern complexity. Sampling lets you verify hand-feel, fit, colour and construction, and the approved sample becomes the reference standard for the bulk order.',
+  },
+  {
+    q: 'Do you ship knitwear worldwide, and what are the freight terms?',
+    a: 'Yes. LINFAIR ships worldwide from Dalang, Dongguan on FOB and CIF terms with photo and video QC at every production stage. Knitwear is bulky but light, so it cubes out before it weighs out — sea freight LCL and FCL run 25–45 days to the US and EU, air freight 3–8 days, and rail to Europe 18–25 days.',
+  },
+  {
+    q: 'What knitting gauges and yarns can you produce?',
+    a: 'We run Stoll and Shima Seiki computerized flat knitting machines covering 3gg to 16gg, in merino, lambswool, cashmere blends, mohair blends, cotton and recycled wool. Lower gauge numbers mean thicker yarn and heavier garments — 3gg to 5gg for chunky cable knits, 7gg for fisherman rib, 12gg for mid-weight crewnecks, and 14gg to 16gg for fine base layers.',
+  },
+  {
+    q: 'Can you match a specific Pantone colour?',
+    a: 'Yes. We dye yarn to Pantone references and produce a colour dip sample for approval before knitting. Matching to a physical swatch or a previous order is also possible — send us the reference and we will confirm the closest achievable match and any tolerance.',
+  },
+]
 
 export default function Products() {
     usePageTitle('Knitwear Collection | LINFAIR — Sweaters, Cardigans & Knit Tops', '/products',
-      "Browse LINFAIR's women's knitwear collection — cashmere blend sweaters, fleece-lined knits, cardigans and knit tops. OEM/ODM customization available for fashion brands.")
+      "Browse LINFAIR's knitwear collection for fashion brands — cable knit sweaters, merino base layers, wool sweaters, scarves, hats and gloves. OEM/ODM with MOQ from 100 pieces.")
 
   const { t } = useLang()
   const { products, blogPosts, siteContent } = useSiteData()
   const categories = ['All', ...(siteContent.categories || ['Women'])]
   const [activeCategory, setActiveCategory] = useState('All')
+  const [activeType, setActiveType] = useState('All')
   const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null)
   const [selectedImage, setSelectedImage] = useState(0)
 
-  const filtered = activeCategory === 'All'
-    ? products
-    : products.filter((p) => p.category === activeCategory)
+  // 只有新品系列带 productType；据此决定是否显示品类筛选条
+  const availableTypes = useMemo(
+    () => PRODUCT_TYPES.filter((t) => products.some((p) => p.productType === t)),
+    [products]
+  )
+
+  const filtered = products.filter(
+    (p) => (activeCategory === 'All' || p.category === activeCategory) &&
+           (activeType === 'All' || p.productType === activeType)
+  )
+
+  // GEO: 列表页 ItemList 结构化数据 —— 让 AI 引擎发现全部产品详情页
+  // AEO: 同时注入 FAQPage —— 命中 B2B 采购意图问答
+  useEffect(() => {
+    const id = 'products-jsonld'
+    document.getElementById(id)?.remove()
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.id = id
+    script.textContent = JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'ItemList',
+          name: 'LINFAIR Knitwear Collection',
+          numberOfItems: products.length,
+          itemListElement: products.map((p, i) => ({
+            '@type': 'ListItem',
+            position: i + 1,
+            name: p.name,
+            url: `${SITE_URL}/products/${p.slug ?? p.id}`,
+          })),
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': `${SITE_URL}/products#faq`,
+          mainEntity: SOURCING_FAQS.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+          })),
+        },
+      ],
+    })
+    document.head.appendChild(script)
+    return () => void document.getElementById(id)?.remove()
+  }, [products])
 
   const openDetail = (product: typeof products[0]) => {
     setSelectedProduct(product)
@@ -62,10 +151,10 @@ export default function Products() {
       </section>
 
       {/* Product Grid */}
-      <section className="py-24 bg-warm">
+      <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
           {/* Category Filter */}
-          <div className="flex gap-2 md:gap-3 justify-center mb-10 md:mb-16 overflow-x-auto scrollbar-hide pb-2">
+          <div className="flex gap-2 md:gap-3 justify-center mb-4 md:mb-5 overflow-x-auto scrollbar-hide pb-2">
             {categories.map((cat) => (
               <button
                 key={cat}
@@ -80,6 +169,35 @@ export default function Products() {
               </button>
             ))}
           </div>
+
+          {/* Product Type Filter（7 大品类：针织毛衣/打底衫/羊毛衫/围巾/帽子/手套/袜子） */}
+          {availableTypes.length > 0 && (
+            <div className="flex gap-2 md:gap-3 justify-center mb-10 md:mb-16 overflow-x-auto scrollbar-hide pb-2">
+              <button
+                onClick={() => setActiveType('All')}
+                className={`px-3 md:px-4 py-1.5 md:py-2 text-[11px] md:text-xs font-medium tracking-wide transition-all duration-200 rounded-full shrink-0 border ${
+                  activeType === 'All'
+                    ? 'bg-accent text-white border-accent'
+                    : 'bg-transparent text-text-light border-black/10 hover:border-accent hover:text-accent'
+                }`}
+              >
+                All Types
+              </button>
+              {availableTypes.map((type) => (
+                <button
+                  key={type}
+                  onClick={() => setActiveType(type)}
+                  className={`px-3 md:px-4 py-1.5 md:py-2 text-[11px] md:text-xs font-medium tracking-wide transition-all duration-200 rounded-full shrink-0 border ${
+                    activeType === type
+                      ? 'bg-accent text-white border-accent'
+                      : 'bg-transparent text-text-light border-black/10 hover:border-accent hover:text-accent'
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Products Grid */}
           <motion.div layout className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
@@ -137,6 +255,21 @@ export default function Products() {
           </motion.div>
         </div>
       </section>
+      {/* Global sourcing FAQ — AEO: 命中 B2B 买家高频问题，注入 FAQPage 结构化数据 */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container-custom max-w-4xl">
+          <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">Sourcing Information</span>
+          <h2 className="mt-2 text-2xl md:text-3xl lg:text-4xl font-display font-semibold text-primary">
+            Knitwear Sourcing FAQ
+          </h2>
+          <div className="mt-8 space-y-3">
+            {SOURCING_FAQS.map((f, i) => (
+              <SourcingFaq key={i} question={f.q} answer={f.a} defaultOpen={i === 0} />
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Latest Articles */}
       <section className="py-16 md:py-24 bg-warm">
         <div className="container-custom">
@@ -230,7 +363,10 @@ function ProductCard({
     startAutoPlay()
   }
 
-  return (
+  // 带 slug 的产品进入独立详情页（可索引 URL）；其余（Amazon 在售款）沿用弹窗预览
+  const detailPath = product.slug ? `/products/${product.slug}` : null
+
+  const card = (
     <motion.div
       layout
       initial={{ opacity: 0, scale: 0.9 }}
@@ -238,7 +374,7 @@ function ProductCard({
       exit={{ opacity: 0, scale: 0.9 }}
       transition={{ duration: 0.3 }}
       className="group cursor-pointer"
-      onClick={() => onOpenDetail(product)}
+      onClick={detailPath ? undefined : () => onOpenDetail(product)}
     >
       {/* Image Carousel */}
       <div
@@ -302,9 +438,22 @@ function ProductCard({
         )}
       </div>
       <div className="mt-4 space-y-2">
-        <Button to="/contact" variant="outline" className="w-full text-[11px] md:text-xs py-2">
-          {t('products.inquire')}
-        </Button>
+        {detailPath ? (
+          <Link
+            to={detailPath}
+            onClick={(e) => e.stopPropagation()}
+            className="flex items-center justify-center gap-1.5 w-full py-2 bg-primary text-warm text-[11px] md:text-xs font-semibold rounded-xl hover:bg-primary/90 transition-all active:scale-[0.98]"
+          >
+            View Details
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </Link>
+        ) : (
+          <Button to="/contact" variant="outline" className="w-full text-[11px] md:text-xs py-2">
+            {t('products.inquire')}
+          </Button>
+        )}
         {product.amazonUrl && (
           <a
             href={product.amazonUrl}
@@ -321,6 +470,15 @@ function ProductCard({
         )}
       </div>
     </motion.div>
+  )
+
+  // 新品（带 slug）以整卡链接形式渲染，让爬虫抓到指向详情页的真实 <a href>
+  return detailPath ? (
+    <Link to={detailPath} className="block">
+      {card}
+    </Link>
+  ) : (
+    card
   )
 }
 
@@ -501,5 +659,42 @@ function ProductDetail({
         </div>
       </motion.div>
     </motion.div>
+  )
+}
+
+/* ─── Sourcing FAQ accordion (与 FAQPage schema 内容一致) ─── */
+function SourcingFaq({
+  question,
+  answer,
+  defaultOpen,
+}: {
+  question: string
+  answer: string
+  defaultOpen?: boolean
+}) {
+  const [open, setOpen] = useState(!!defaultOpen)
+  return (
+    <div className="bg-warm rounded-xl overflow-hidden">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+        className="w-full flex items-start justify-between gap-4 text-left px-5 py-4 hover:bg-black/[0.02] transition-colors"
+      >
+        <span className="text-sm md:text-base font-medium text-primary">{question}</span>
+        <svg
+          className={`w-5 h-5 text-accent shrink-0 mt-0.5 transition-transform duration-300 ${open ? 'rotate-45' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+        </svg>
+      </button>
+      {open && (
+        <div className="px-5 pb-5 -mt-1">
+          <p className="text-sm text-text-light leading-relaxed">{answer}</p>
+        </div>
+      )}
+    </div>
   )
 }

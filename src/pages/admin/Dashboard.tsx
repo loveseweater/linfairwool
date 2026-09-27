@@ -6,17 +6,8 @@ import { useLang } from '../../context/LanguageContext'
 import { getEmailConfig, saveEmailConfig, hasEmailConfig, sendNotification } from '../../utils/emailService'
 import type { NotificationPayload } from '../../utils/emailService'
 
-interface Product {
-  id: string
-  name: string
-  category: 'Men' | 'Women'
-  subcategory: string
-  description: string
-  specs: string[]
-  image: string
-  gallery: string[]
-  video?: string
-}
+// Product 复用数据层定义（含 slug/productType/FAQ 等新品字段），避免 interface 漂移
+import type { Product } from '../../data/products'
 
 interface BlogPost {
   id: string

@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://linfairwool.cn/</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>1.0</priority>
     <changefreq>weekly</changefreq>
     <xhtml:link rel="alternate" hreflang="en" href="https://linfairwool.cn/" />
@@ -17,403 +17,529 @@
   </url>
   <url>
     <loc>https://linfairwool.cn/about</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/products</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.9</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
+    <loc>https://linfairwool.cn/products/cable-knit-crewneck-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/mens-ribbed-crewneck-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/fuzzy-mohair-blend-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/fishermans-ribbed-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/merino-base-layer-top</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/ribbed-thermal-turtleneck</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/mens-merino-thermal-crew</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/merino-wool-crewneck-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/lambswool-vneck-sweater</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/lambswool-button-cardigan</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/chunky-ribbed-merino-scarf</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/cashmere-blend-woven-scarf</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/cable-knit-fringed-scarf</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/ribbed-merino-beanie</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/cable-knit-bobble-hat</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/fisherman-rolled-cuff-beanie</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/merino-touchscreen-gloves</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/fleece-lined-cable-mittens</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/cashmere-blend-knit-gloves</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/merino-ribbed-crew-socks</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://linfairwool.cn/products/cashmere-blend-bed-socks</loc>
+    <lastmod>2026-09-27</lastmod>
+    <priority>0.8</priority>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
     <loc>https://linfairwool.cn/blog</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.8</priority>
     <changefreq>weekly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-1</loc>
-    <lastmod>2026-06-01</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-2</loc>
-    <lastmod>2026-05-15</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-3</loc>
-    <lastmod>2026-04-28</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-4</loc>
-    <lastmod>2026-04-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-5</loc>
-    <lastmod>2026-03-22</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-6</loc>
-    <lastmod>2026-03-08</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-7</loc>
-    <lastmod>2026-06-29</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-8</loc>
-    <lastmod>2026-06-28</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-9</loc>
-    <lastmod>2026-06-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-10</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-11</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-12</loc>
-    <lastmod>2026-07-14</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-13</loc>
-    <lastmod>2026-07-12</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-14</loc>
-    <lastmod>2026-07-10</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-15</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-16</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-17</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-18</loc>
-    <lastmod>2026-07-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-19</loc>
-    <lastmod>2026-07-16</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-20</loc>
-    <lastmod>2026-07-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-21</loc>
-    <lastmod>2026-07-23</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-22</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-23</loc>
-    <lastmod>2026-07-19</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-24</loc>
-    <lastmod>2026-08-05</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-25</loc>
-    <lastmod>2026-08-03</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-26</loc>
-    <lastmod>2026-07-31</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-27</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-28</loc>
-    <lastmod>2026-07-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-29</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-30</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-31</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-32</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-33</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-34</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-35</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-36</loc>
-    <lastmod>2026-08-27</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-37</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-38</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-39</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-40</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-41</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-42</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-43</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-44</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-45</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-46</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-47</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-48</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-49</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-50</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-51</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-52</loc>
-    <lastmod>2026-09-20</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-53</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-54</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-55</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-56</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-57</loc>
-    <lastmod>2026-09-21</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-58</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-59</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-60</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-61</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/blog/blog-62</loc>
-    <lastmod>2026-09-24</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.7</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/contact</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>
   <url>
     <loc>https://linfairwool.cn/videos</loc>
-    <lastmod>2026-09-02</lastmod>
+    <lastmod>2026-09-27</lastmod>
     <priority>0.6</priority>
     <changefreq>monthly</changefreq>
   </url>

@@ -268,7 +268,11 @@ export const defaultSiteContent: SiteContent = {
     heroImages: ['/images/6034-1.jpg', '/images/kk222-1.jpg'],
   },
   blogHeroImages: ['/images/kk222-1.jpg', '/images/6034-1.jpg'],
-  productsHeroImages: ['/images/6007-Ivory_1.jpg', '/images/kk976-1.jpg', '/images/6006-L2026006-IV.MAIN.jpg'],
+  productsHeroImages: [
+    '/images/products/merino-wool-crewneck-sweater-1.jpg',
+    '/images/products/chunky-ribbed-merino-scarf-1.jpg',
+    '/images/6007-Ivory_1.jpg',
+  ],
   socialLinks: [
     { name: 'Facebook', url: 'https://www.facebook.com/linfairwool/', enabled: true },
     { name: 'Instagram', url: 'https://instagram.com/linfairwools', enabled: true },
@@ -285,6 +289,6 @@ export const defaultSiteContent: SiteContent = {
     { label: 'Blog', path: '/blog', enabled: true },
     { label: 'Contact', path: '/contact', enabled: true },
   ],
-  categories: ['Women', 'Men'],
+  categories: ['Women', 'Men', 'Accessories'],
   logo: '/logo.webp',
 }
