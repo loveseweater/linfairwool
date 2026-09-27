@@ -22,3 +22,22 @@ _blog_work/
 # 产品图生成工作目录（raw/ 为 153MB 未压缩 PNG，仅本地保留；成品在 public/images/products/）
 _products_work/raw/
 _products_work/gen-result.json
+
+# 图片核对/水印检测的中间产物（裁剪图、拼图、扫描临时件，仅本地调试用）
+_products_work/_*/
+_products_work/corners*/
+_products_work/v*/
+_products_work/w[0-9]*/
+_products_work/covers_raw/
+_products_work/covers_raw2/
+_products_work/wm_fixed/
+_products_work/wm_fixed2/
+_products_work/ck/
+_products_work/norm/
+_products_work/*.png
+_products_work/*.jpg
+_products_work/*.txt
+
+# 被替换下线的旧图备份（本地回滚用，不进 git/不部署）
+_image_backup/
+_products_work/*.json
