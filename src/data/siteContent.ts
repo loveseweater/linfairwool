@@ -148,7 +148,7 @@ export const defaultSiteContent: SiteContent = {
       heroImages: [
         '/images/6006-L2026006-IV.MAIN.jpg',
         '/images/6007-Ivory_1.jpg',
-        '/images/kk976-1.jpg',
+        '/images/kk976-1-r.jpg',
       ],
     },
     stats: [
@@ -200,8 +200,8 @@ export const defaultSiteContent: SiteContent = {
       title: 'Dongguan Lingfei',
       titleHighlight: 'Textile Co., Ltd.',
       description: 'Professional knitwear manufacturer based in Dalang, Dongguan — the world\'s knitwear capital. Serving global fashion brands since 2020.',
-      image: '/images/kk976-1.jpg',
-      heroImages: ['/images/kk976-1.jpg', '/images/6034-1.jpg'],
+      image: '/images/kk976-1-r.jpg',
+      heroImages: ['/images/kk976-1-r.jpg', '/images/6034-1.jpg'],
     },
     intro: {
       title: 'Premium Knitwear',
@@ -265,9 +265,9 @@ export const defaultSiteContent: SiteContent = {
     whatsapp: '+8613724494230',
     whatsappMessage: 'Hi LINFAIR, I am interested in your knitwear products.',
     heroImage: '/images/6034-1.jpg',
-    heroImages: ['/images/6034-1.jpg', '/images/kk222-1.jpg'],
+    heroImages: ['/images/6034-1.jpg', '/images/kk222-1-r.jpg'],
   },
-  blogHeroImages: ['/images/kk222-1.jpg', '/images/6034-1.jpg'],
+  blogHeroImages: ['/images/kk222-1-r.jpg', '/images/6034-1.jpg'],
   productsHeroImages: [
     '/images/products/merino-wool-crewneck-sweater-1.jpg',
     '/images/products/chunky-ribbed-merino-scarf-1.jpg',

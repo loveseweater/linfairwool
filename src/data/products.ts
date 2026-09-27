@@ -42,6 +42,8 @@ export interface Product {
   faqs?: { q: string; a: string }[]
   /** 关键词（用于详情页 meta keywords 与结构化数据） */
   keywords?: string[]
+  /** 可选颜色（真实拍摄款会列出实际拍摄到的配色） */
+  colorOptions?: string[]
 }
 
 export const products: Product[] = [
@@ -239,8 +241,11 @@ export const products: Product[] = [
 // 数据定义在 productsExt.ts；此处合并进 products，保持前台陈列顺序为「自营款在前，新品在后」。
 // productsExt.ts 仅以 `import type` 引用 Product，编译期擦除，不构成运行时循环依赖。
 import { productsExt, PRODUCT_TYPES, type ProductType } from './productsExt'
+import { productsReal } from './productsReal'
+// 自有实拍款排在 AI 生成款之前 —— 真实照片优先展示（B2B 买家更看重可验证的真实样衣）
+products.push(...productsReal)
 products.push(...productsExt)
-export { productsExt, PRODUCT_TYPES, type ProductType }
+export { productsExt, productsReal, PRODUCT_TYPES, type ProductType }
 
 export const categories = ['Turtleneck', 'Mock Neck', 'Crew Neck', 'V-Neck', 'Short Sleeve']
 

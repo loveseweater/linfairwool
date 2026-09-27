@@ -41,3 +41,15 @@ _products_work/*.txt
 # 被替换下线的旧图备份（本地回滚用，不进 git/不部署）
 _image_backup/
 _products_work/*.json
+
+# 旋转修正的原始备份 + 体检中间产物
+_products_work/rotated/
+_products_work/_neck/
+_products_work/_rot*/
+_products_work/_usable/
+_products_work/_dmgsheet/
+_products_work/_kk*/
+_products_work/_montage/
+_products_work/_check/
+_products_work/_rotverify/
+_products_work/usable-real-photos.json

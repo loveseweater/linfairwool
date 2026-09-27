@@ -11,6 +11,7 @@ const TODAY = new Date().toISOString().slice(0, 10)
 
 const productsSrc = fs.readFileSync(path.join(ROOT, 'src/data/products.ts'), 'utf-8')
 const extSrc = fs.readFileSync(path.join(ROOT, 'src/data/productsExt.ts'), 'utf-8')
+const realSrc = fs.readFileSync(path.join(ROOT, 'src/data/productsReal.ts'), 'utf-8')
 
 // ── 采集产品 slug（优先 slug，回退 id）＋ 是否新品（带完整详情）──
 const collect = (src) => {
@@ -27,7 +28,7 @@ const collect = (src) => {
   return out
 }
 
-const productSlugs = [...new Set([...collect(productsSrc), ...collect(extSrc)])]
+const productSlugs = [...new Set([...collect(productsSrc), ...collect(extSrc), ...collect(realSrc)])]
 
 // ── 采集博客 id ──
 const blogIds = [...new Set([...productsSrc.matchAll(/id:\s*'(blog-\d+)'/g)].map((m) => m[1]))]
