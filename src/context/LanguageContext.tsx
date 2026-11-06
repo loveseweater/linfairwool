@@ -157,7 +157,7 @@ const translations: Record<Lang, Record<string, string>> = {
     'admin.addProduct': '+ Add Product',
     'admin.addBlog': '+ Add Article',
     'admin.saveSuccess': 'Saved successfully!',
-    'admin.saveLocal': 'Saved to local storage.',
+    'admin.saveLocal': 'Saved locally only — NOT published online. Set ADMIN_PASSWORD on Cloudflare Pages and redeploy.',
     'admin.loading': 'Loading...',
     'admin.import': 'Import',
     'admin.galleryImages': 'Gallery Images ({count} / 5)',

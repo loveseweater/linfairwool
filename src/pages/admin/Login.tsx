@@ -23,7 +23,7 @@ export default function AdminLogin({ onLogin }: LoginPageProps) {
     if (result === 'ok') {
       onLogin()
     } else if (result === 'unconfigured') {
-      setError('服务端尚未配置 ADMIN_PASSWORD_HASH 环境变量，暂无法登录（请联系管理员在 Cloudflare Pages 设置）')
+      setError('服务端尚未配置管理密码：请在 Cloudflare Pages 的环境变量里添加 ADMIN_PASSWORD（直接填明文密码即可），保存后重新部署')
     } else if (result === 'network') {
       setError('网络错误，请稍后重试')
     } else {

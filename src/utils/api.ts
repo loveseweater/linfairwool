@@ -6,17 +6,11 @@ const STORAGE_KEY_DATA = 'linfair_data'
 const STORAGE_KEY_CONTENT = 'linfair_siteContent'
 const STORAGE_KEY_AUTH = 'linfair_admin_auth'
 
-// 管理端认证（2026-11-06 重构，修复周检 S1）：
-// 前端 bundle 不再包含任何口令哈希。登录时把「密码的 SHA-256」作为 Bearer token
-// 发给 /api/auth 由服务端验证；服务端哈希存于 Cloudflare Pages 环境变量
-// ADMIN_PASSWORD_HASH（详见 functions/api/data.ts 与 functions/api/auth.ts）。
-// ⚠️ 旧版把哈希硬编码在此文件中（已泄露），部署本版后必须轮换密码并设置新的
-//    ADMIN_PASSWORD_HASH 环境变量。
-
-async function sha256Hex(text: string): Promise<string> {
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
-  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2, '0')).join('')
-}
+// 管理端认证（2026-11-06 二次重构，最简配置）：
+// 登录时把明文密码经 HTTPS 提交给 /api/auth，服务端与 Cloudflare Pages 环境变量
+// ADMIN_PASSWORD 比对，成功后签发 8 小时会话 token。前端 bundle 不含任何密码或
+// 哈希，sessionStorage 里存的是会话 token 而非密码本身。
+// 详见 functions/api/auth.ts 与 functions/api/data.ts。
 
 // Product 复用数据层定义，避免两处 interface 漂移
 // （曾因 category 联合类型不同步导致 tsc 构建失败）
@@ -40,16 +34,20 @@ const API_BASE = '/api'
 export type LoginResult = 'ok' | 'invalid' | 'unconfigured' | 'network'
 
 export async function login(password: string): Promise<LoginResult> {
-  const hash = await sha256Hex(password)
   try {
-    // 由服务端验证哈希（/api/auth），前端不持有正确答案
+    // 明文密码只在 HTTPS 请求体里出现一次，服务端验证后返回短期会话 token
     const res = await fetch(`${API_BASE}/auth`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${hash}` },
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ password }),
     })
     if (res.ok) {
-      sessionStorage.setItem(STORAGE_KEY_AUTH, hash)
-      return 'ok'
+      const data = await res.json().catch(() => null)
+      if (data?.token) {
+        sessionStorage.setItem(STORAGE_KEY_AUTH, data.token)
+        return 'ok'
+      }
+      return 'network'
     }
     if (res.status === 503) return 'unconfigured'
     return 'invalid'
@@ -85,7 +83,7 @@ async function apiFetch<T>(endpoint: string, options?: RequestInit): Promise<T |
 }
 
 function getAuthHeader(): Record<string, string> {
-  // 客户端持哈希作为令牌；服务端比对同一哈希（或 env.ADMIN_PASSWORD_HASH 覆盖值）
+  // 客户端持 /api/auth 签发的会话 token（8 小时有效），不是密码、也不是哈希
   return { 'Authorization': `Bearer ${sessionStorage.getItem(STORAGE_KEY_AUTH) || ''}` }
 }
 
@@ -133,18 +131,20 @@ export async function saveData(data: { products?: Product[]; blogPosts?: BlogPos
     saveToLocalStorage(current)
   } catch { return false }
 
-  // Try API save to Cloudflare KV (data available to all visitors instantly)
+  // 只有成功写入 Cloudflare KV 才算真正发布给所有访客。API 失败必须如实返回
+  // false，避免后台显示「保存成功」而内容其实只在管理员本机 localStorage 里。
   try {
     const fullData = getStoredData() || { products: staticProducts, blogPosts: staticBlogPosts }
     const content = getStoredSiteContent() || defaultSiteContent
-    await apiFetch('/data', {
+    const result = await apiFetch<{ success?: boolean }>('/data', {
       method: 'POST',
       headers: getAuthHeader(),
       body: JSON.stringify({ ...fullData, siteContent: content }),
     })
-  } catch { /* API save is optional */ }
-
-  return true
+    return result?.success === true
+  } catch {
+    return false
+  }
 }
 
 export async function resetData(): Promise<boolean> {
@@ -191,17 +191,18 @@ export async function saveSiteContent(content: SiteContent): Promise<boolean> {
     localStorage.setItem(STORAGE_KEY_CONTENT, JSON.stringify(content))
   } catch { return false }
 
-  // Try API save (data available to all visitors instantly)
+  // 同 saveData：KV 写入失败时如实返回 false，不再伪装成发布成功
   try {
     const fullData = getStoredData() || { products: staticProducts, blogPosts: staticBlogPosts }
-    await apiFetch('/data', {
+    const result = await apiFetch<{ success?: boolean }>('/data', {
       method: 'POST',
       headers: getAuthHeader(),
       body: JSON.stringify({ ...fullData, siteContent: content }),
     })
-  } catch { /* API save is optional */ }
-
-  return true
+    return result?.success === true
+  } catch {
+    return false
+  }
 }
 
 export async function resetSiteContent(): Promise<boolean> {
