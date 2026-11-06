@@ -19,9 +19,13 @@ export default function AdminLogin({ onLogin }: LoginPageProps) {
     // Simulate a short delay
     await new Promise(resolve => setTimeout(resolve, 300))
 
-    const success = await login(password)
-    if (success) {
+    const result = await login(password)
+    if (result === 'ok') {
       onLogin()
+    } else if (result === 'unconfigured') {
+      setError('服务端尚未配置 ADMIN_PASSWORD_HASH 环境变量，暂无法登录（请联系管理员在 Cloudflare Pages 设置）')
+    } else if (result === 'network') {
+      setError('网络错误，请稍后重试')
     } else {
       setError('密码错误')
     }

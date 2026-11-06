@@ -5,5 +5,15 @@
 /sitemap.xml  /sitemap.xml  200
 /robots.txt   /robots.txt   200
 
-# SPA fallback - all routes return index.html with 200 status for SEO
-/* /index.html 200
+# 管理后台是纯 SPA 路由（无预渲染文件），显式回退到应用入口
+/admin        /index.html 200
+/admin/*      /index.html 200
+
+# ⚠️ 2026-11-06 修复周检 M1（软 404）：
+# 已移除原来的 `/* /index.html 200` SPA 兜底——它让任意未知 URL 都返回 200
+# 首页壳，搜索引擎会收录大量空白页。
+# 现在 93 个正式路由全部有预渲染静态资产（public/<route>/index.html），
+# 无需兜底；未匹配任何资产/规则的路径由 Cloudflare Pages 提供
+# public/404.html，返回真实 404 状态码。
+# 注意：新增正式页面时，跑 `npm run build && node prerender.mjs` 生成预渲染
+# 文件即可被资产直出，无需改本文件；只有 /admin 这类纯 SPA 路由才需要显式规则。

@@ -6,9 +6,12 @@ const STORAGE_KEY_DATA = 'linfair_data'
 const STORAGE_KEY_CONTENT = 'linfair_siteContent'
 const STORAGE_KEY_AUTH = 'linfair_admin_auth'
 
-// 管理端认证只存密码的 SHA-256 哈希（不落明文）。轮换密码：同步替换此处与
-// functions/api/data.ts 的哈希，或在 Cloudflare Pages 设置 ADMIN_PASSWORD_HASH 环境变量。
-const ADMIN_PASSWORD_HASH = '73073736437356429c9d71236fbd377592d7e2b6c83e758bc80a1b7e1fefb65e'
+// 管理端认证（2026-11-06 重构，修复周检 S1）：
+// 前端 bundle 不再包含任何口令哈希。登录时把「密码的 SHA-256」作为 Bearer token
+// 发给 /api/auth 由服务端验证；服务端哈希存于 Cloudflare Pages 环境变量
+// ADMIN_PASSWORD_HASH（详见 functions/api/data.ts 与 functions/api/auth.ts）。
+// ⚠️ 旧版把哈希硬编码在此文件中（已泄露），部署本版后必须轮换密码并设置新的
+//    ADMIN_PASSWORD_HASH 环境变量。
 
 async function sha256Hex(text: string): Promise<string> {
   const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text))
@@ -34,13 +37,25 @@ export interface BlogPost {
 const API_BASE = '/api'
 
 // === Auth ===
-export async function login(password: string): Promise<boolean> {
+export type LoginResult = 'ok' | 'invalid' | 'unconfigured' | 'network'
+
+export async function login(password: string): Promise<LoginResult> {
   const hash = await sha256Hex(password)
-  if (hash === ADMIN_PASSWORD_HASH) {
-    sessionStorage.setItem(STORAGE_KEY_AUTH, hash)
-    return true
+  try {
+    // 由服务端验证哈希（/api/auth），前端不持有正确答案
+    const res = await fetch(`${API_BASE}/auth`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${hash}` },
+    })
+    if (res.ok) {
+      sessionStorage.setItem(STORAGE_KEY_AUTH, hash)
+      return 'ok'
+    }
+    if (res.status === 503) return 'unconfigured'
+    return 'invalid'
+  } catch {
+    return 'network'
   }
-  return false
 }
 
 export function logout() {
@@ -48,7 +63,8 @@ export function logout() {
 }
 
 export function isLoggedIn(): boolean {
-  return sessionStorage.getItem(STORAGE_KEY_AUTH) === ADMIN_PASSWORD_HASH
+  // 本地只判断是否持有 token；token 是否有效由服务端在每次写入时校验
+  return !!sessionStorage.getItem(STORAGE_KEY_AUTH)
 }
 
 // === API helpers ===

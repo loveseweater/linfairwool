@@ -30,7 +30,7 @@ export default function About() {
           >
             <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{hero.subtitle}</span>
             <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-tight">
-              {hero.title}
+              {hero.title}{' '}
               <br />
               <span className="text-accent">{hero.titleHighlight}</span>
             </h1>

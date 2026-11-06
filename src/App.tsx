@@ -13,6 +13,7 @@ const Blog = lazy(() => import('./pages/Blog'))
 const BlogPost = lazy(() => import('./pages/BlogPost'))
 const Videos = lazy(() => import('./pages/Videos'))
 const AdminPage = lazy(() => import('./pages/admin'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 const pageVariants = {
   initial: { opacity: 0, y: 20 },
@@ -84,6 +85,12 @@ export default function App() {
               <Route path="/videos" element={
                 <Suspense fallback={<PageLoader />}>
                   <AnimatedPage><Videos /></AnimatedPage>
+                </Suspense>
+              } />
+              {/* 客户端兜底：线上真实 404 由 Cloudflare Pages 404.html 提供（真实 404 状态码） */}
+              <Route path="*" element={
+                <Suspense fallback={<PageLoader />}>
+                  <AnimatedPage><NotFound /></AnimatedPage>
                 </Suspense>
               } />
             </Routes>

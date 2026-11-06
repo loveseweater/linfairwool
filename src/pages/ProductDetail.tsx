@@ -22,7 +22,21 @@ export default function ProductDetail() {
   const [activeImage, setActiveImage] = useState(0)
 
   useEffect(() => {
-    if (!product) return
+    if (!product) {
+      // 周检 M1：未找到的商品（200 空态页）注入 noindex 并移除残留 canonical
+      document.title = 'Product Not Found | LINFAIR'
+      let robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]')
+      if (!robots) {
+        robots = document.createElement('meta')
+        robots.setAttribute('name', 'robots')
+        document.head.appendChild(robots)
+      }
+      robots.setAttribute('content', 'noindex, nofollow')
+      document.querySelector('link[rel="canonical"]')?.remove()
+      return
+    }
+    // 恢复正常索引状态（同一 SPA 实例可能先渲染过空态）
+    document.querySelector('meta[name="robots"]')?.remove()
     document.title = `${product.name} | Custom Manufacturer | LINFAIR`
     const path = `/products/${product.slug ?? product.id}`
     let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')

@@ -63,7 +63,7 @@ export default function Home() {
                 transition={{ duration: 0.6, delay: 0.4 }}
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold text-warm leading-tight"
               >
-                {hero.title}
+                {hero.title}{' '}
                 <br />
                 <span className="text-accent">{hero.titleHighlight}</span>
               </motion.h1>

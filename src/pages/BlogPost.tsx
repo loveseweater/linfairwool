@@ -76,7 +76,8 @@ export default function BlogPost() {
   const { id } = useParams()
   const { blogPosts } = useSiteData()
   const post = blogPosts.find((p) => p.id === id)
-  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR', post ? `/blog/${post.id}` : '/blog', post?.excerpt)
+  // 周检 M1：未找到的文章注入 noindex（200 空态页不收录）
+  usePageTitle(post ? `${post.title} | LINFAIR` : 'Article | LINFAIR', post ? `/blog/${post.id}` : '/blog', post?.excerpt, !post)
 
   if (!post) {
     return (
