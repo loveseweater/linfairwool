@@ -5,15 +5,18 @@
 /sitemap.xml  /sitemap.xml  200
 /robots.txt   /robots.txt   200
 
-# 管理后台是纯 SPA 路由（无预渲染文件），显式回退到应用入口
-/admin        /index.html 200
-/admin/*      /index.html 200
+# 管理后台（2026-11-06 二次修复）：
+# 这里刻意不写任何 /admin rewrite 规则。Cloudflare Pages 会把 /index.html
+# 规范化 308 到 /，因此形如 `/admin /index.html 200` 的规则会把浏览器送到
+# 首页，React Router 拿不到 /admin 路径，登录页永远渲染不出来。
+# 现在 /admin 是真实静态资产 public/admin/index.html，与其余预渲染页一样：
+# /admin 由 CF pretty-URL 自动 308 到 /admin/ 后资产直出，URL 保持在 /admin 下。
+# 后台内部是单页 tab 切换，没有子路由，因此不需要 /admin/* 兜底。
+# 若将来新增后台子路由，应为其生成对应静态资产，切勿再 rewrite 到 /index.html。
 
 # ⚠️ 2026-11-06 修复周检 M1（软 404）：
 # 已移除原来的 `/* /index.html 200` SPA 兜底——它让任意未知 URL 都返回 200
 # 首页壳，搜索引擎会收录大量空白页。
-# 现在 93 个正式路由全部有预渲染静态资产（public/<route>/index.html），
+# 现在所有正式路由都有预渲染静态资产（public/<route>/index.html），
 # 无需兜底；未匹配任何资产/规则的路径由 Cloudflare Pages 提供
 # public/404.html，返回真实 404 状态码。
-# 注意：新增正式页面时，跑 `npm run build && node prerender.mjs` 生成预渲染
-# 文件即可被资产直出，无需改本文件；只有 /admin 这类纯 SPA 路由才需要显式规则。
