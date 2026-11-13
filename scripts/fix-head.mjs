@@ -99,6 +99,35 @@ function pageType(route) {
   return 'website'
 }
 
+/**
+ * Hero 图预加载（2026-11-14）：各页第 2 个 <img> 都是首屏 hero（第 1 个是 header logo），
+ * 它通常就是 LCP 元素。预渲染 HTML 里没有 preload，浏览器要等 CSS 解析完才发现它，
+ * 实测 /blog 的 LCP 因此拖到 2.9–4.8s。这里补 fetchpriority=high 的 preload。
+ */
+function preloadHeroImage(html) {
+  const imgs = [...html.matchAll(/<img[^>]+src="(\/images\/[^"]+\.(?:jpg|jpeg|png|webp))"/g)].map(m => m[1])
+  const hero = imgs.find(u => !/logo/i.test(u))
+  if (!hero) return html
+  if (new RegExp(`rel="preload"[^>]*href="${hero.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}"`).test(html)) return html
+  const tag = `<link rel="preload" href="${hero}" as="image" fetchpriority="high">`
+  return html.replace(/<head([^>]*)>/, `<head$1>${tag}`)
+}
+
+/**
+ * 清掉「预加载了但本页根本没用到」的图片。
+ * 首页 hero 的 preload 写在全局 head 模板里，预渲染后 92 个内页都继承了它，
+ * 于是每次进内页都白下 45KB 的首页工厂图（2026-11-14 修复）。
+ */
+function pruneUnusedImagePreloads(html) {
+  const re = /<link rel="preload" href="(\/images\/[^"]+)" as="image"[^>]*>/g
+  let out = html
+  for (const m of html.matchAll(re)) {
+    const href = m[1]
+    if (!out.includes(`src="${href}"`)) out = out.replace(m[0], '')
+  }
+  return out
+}
+
 const dirs = walk(PUBLIC)
 const rows = []
 let changedCount = 0
@@ -150,6 +179,8 @@ for (const dir of dirs) {
   // 于是「preload 转 stylesheet」的非阻塞写法被序列化成阻塞 stylesheet，
   // 而 preload 节点还在 → 同一份 Google Fonts CSS 请求两次、且其中一次阻塞首屏。
   html = dedupeFontLinks(html)
+  html = preloadHeroImage(html)
+  html = pruneUnusedImagePreloads(html)
   const setMeta = (key, attr, value) => {
     const re = new RegExp(`<meta ${attr}="${key}" content="[^"]*">`)
     if (re.test(html)) html = html.replace(re, `<meta ${attr}="${key}" content="${escAttr(value)}">`)
@@ -197,6 +228,8 @@ const bad = rows.filter(r => r.ok === false)
     const title = (html.match(/<title>([\s\S]*?)<\/title>/) || [])[1]
     const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1]
     html = dedupeFontLinks(html)
+    html = preloadHeroImage(html)
+    html = pruneUnusedImagePreloads(html)
     if (title && desc) {
       const titleCapped = capTitle(title)
       const descCapped = capDesc(desc)
