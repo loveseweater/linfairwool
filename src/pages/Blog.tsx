@@ -31,6 +31,8 @@ export default function Blog() {
             <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{t('blog.heroSubtitle')}</span>
             <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-[1.1]">
               {t('blog.heroTitle')}
+              {/* 空格文本节点：避免爬虫读到粘连的 "Insights &Trends" */}
+              {' '}
               <br />
               <span className="text-accent">{t('blog.heroHighlight')}</span>
             </h1>

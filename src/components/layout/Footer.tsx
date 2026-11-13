@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSiteData } from '../../utils/useSiteData'
 import { useLang } from '../../context/LanguageContext'
+import { subscribeEmail } from '../../utils/api'
 
 const socialIcons: Record<string, JSX.Element> = {
   Facebook: (
@@ -34,23 +35,21 @@ export default function Footer() {
   const [subEmail, setSubEmail] = useState('')
   const [subMsg, setSubMsg] = useState('')
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!subEmail.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(subEmail)) {
       setSubMsg('Please enter a valid email')
       return
     }
-    try {
-      const raw = localStorage.getItem('linfair_subscribers')
-      const subs = raw ? JSON.parse(raw) : []
-      subs.push({ id: `sub-${Date.now()}`, email: subEmail, createdAt: new Date().toISOString() })
-      localStorage.setItem('linfair_subscribers', JSON.stringify(subs))
+    // 2026-11-13（周检 M7）：服务端落库，失败不谎报成功
+    const result = await subscribeEmail(subEmail.trim(), 'footer')
+    if (result === 'ok') {
       setSubMsg('Subscribed! Thank you.')
       setSubEmail('')
-      setTimeout(() => setSubMsg(''), 3000)
-    } catch {
-      setSubMsg('Failed to subscribe')
+    } else {
+      setSubMsg(result === 'invalid' ? 'Please enter a valid email' : 'Subscription failed. Try info@linfairwool.cn')
     }
+    setTimeout(() => setSubMsg(''), 4000)
   }
 
   return (

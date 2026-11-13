@@ -11,6 +11,7 @@
 //    /assets/index.js 中长达 10 周。服务端会主动拒绝该值。
 
 interface Env {
+  LINFAIR_KV: KVNamespace
   ADMIN_PASSWORD?: string
   ADMIN_PASSWORD_HASH?: string
 }
@@ -21,6 +22,50 @@ const SESSION_TTL_MS = 8 * 60 * 60 * 1000
 const enc = new TextEncoder()
 
 const jsonHeaders = { 'Content-Type': 'application/json' }
+
+// ── 暴力破解限速（2026-11-13 修复周检 M1）──
+// 旧实现允许无限次尝试，8 连/12 连错误密码全部 401 且无任何节流，
+// 对固定密码后台等于给了离线爆破的在线通道。现在按 IP 记失败次数：
+// 10 分钟窗口内 5 次失败后一律 429 + Retry-After，成功登录即清零。
+// 计数存 KV（跨 isolate 有效），键自带 TTL，不做全局清理。
+const RL_PREFIX = 'auth:rl:'
+const RL_MAX_FAILS = 5
+const RL_WINDOW_SEC = 600
+
+function clientIp(request: Request): string {
+  return request.headers.get('CF-Connecting-IP')
+    || request.headers.get('X-Forwarded-For')?.split(',')[0]?.trim()
+    || 'unknown'
+}
+
+async function readFails(env: Env, ip: string): Promise<{ fails: number; first: number; ttl: number }> {
+  try {
+    const raw = await env.LINFAIR_KV.get(RL_PREFIX + ip, 'text')
+    if (!raw) return { fails: 0, first: 0, ttl: 0 }
+    const v = JSON.parse(raw)
+    const first = Number(v.first || 0)
+    const ageSec = Math.floor((Date.now() - first) / 1000)
+    const ttl = Math.max(0, RL_WINDOW_SEC - ageSec)
+    if (ttl <= 0) return { fails: 0, first: 0, ttl: 0 }
+    return { fails: Number(v.fails || 0), first, ttl }
+  } catch {
+    return { fails: 0, first: 0, ttl: 0 }   // KV 异常时 fail-open 到"无计数"，不锁死后台
+  }
+}
+
+async function bumpFails(env: Env, ip: string, prev: { fails: number; first: number }): Promise<void> {
+  const now = Date.now()
+  const first = prev.fails > 0 && prev.first ? prev.first : now
+  try {
+    await env.LINFAIR_KV.put(RL_PREFIX + ip, JSON.stringify({ fails: prev.fails + 1, first }), {
+      expirationTtl: Math.max(1, RL_WINDOW_SEC - Math.floor((now - first) / 1000)),
+    })
+  } catch { /* 计数失败不阻断登录流程 */ }
+}
+
+async function clearFails(env: Env, ip: string): Promise<void> {
+  try { await env.LINFAIR_KV.delete(RL_PREFIX + ip) } catch {}
+}
 
 // 常数时间字符串比较（避免逐字符短路造成的时序差异）
 function timingSafeEqual(a: string, b: string): boolean {
@@ -100,12 +145,24 @@ export async function onRequest(context: { request: Request; env: Env }) {
     if (typeof body?.password === 'string') password = body.password
   } catch { /* 空 body 视为错误密码 */ }
 
+  const ip = clientIp(request)
+  const rl = await readFails(env, ip)
+  if (rl.fails >= RL_MAX_FAILS) {
+    return new Response(JSON.stringify({ error: 'Too many failed attempts. Try again later.' }), {
+      status: 429,
+      headers: { ...jsonHeaders, 'Retry-After': String(Math.max(1, rl.ttl)) },
+    })
+  }
+
   if (!password || !(await passwordMatches(env, password))) {
+    await bumpFails(env, ip, rl)
     return new Response(JSON.stringify({ error: 'Unauthorized' }), {
       status: 401,
       headers: jsonHeaders,
     })
   }
+
+  await clearFails(env, ip)
 
   const exp = String(Date.now() + SESSION_TTL_MS)
   const sig = await hmacHex(secret, exp)

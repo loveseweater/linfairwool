@@ -108,7 +108,10 @@ export default function Contact() {
           >
             <span className="text-accent text-xs tracking-[0.2em] uppercase font-medium">{contact.subtitle}</span>
             <h1 className="mt-3 text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm leading-[1.1]">
+              {/* 保留一个空格文本节点：爬虫读到的 h1 是 "Let's Discuss Your Collection"
+                  而不是粘连的 "DiscussYour"（周检 L 项修复）；视觉上仍分两行 */}
               {contact.title}
+              {' '}
               <br />
               <span className="text-accent">{contact.titleHighlight}</span>
             </h1>

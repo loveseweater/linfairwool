@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLocation } from 'react-router-dom'
+import { subscribeEmail } from '../../utils/api'
 
 export default function SubscriptionPopup() {
   const [show, setShow] = useState(false)
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [msg, setMsg] = useState('')
+  const [submitting, setSubmitting] = useState(false)
   const location = useLocation()
 
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function SubscriptionPopup() {
     return () => clearTimeout(timer)
   }, [location.pathname])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       setStatus('error')
@@ -35,16 +37,13 @@ export default function SubscriptionPopup() {
       return
     }
 
-    try {
-      const raw = localStorage.getItem('linfair_subscribers')
-      const subs = raw ? JSON.parse(raw) : []
-      subs.push({
-        id: `sub-${Date.now()}`,
-        email: email.trim(),
-        createdAt: new Date().toISOString(),
-        source: 'popup',
-      })
-      localStorage.setItem('linfair_subscribers', JSON.stringify(subs))
+    // 2026-11-13（周检 M7）：改为服务端落库，只有写入成功才提示成功
+    setStatus('idle')
+    setMsg('')
+    setSubmitting(true)
+    const result = await subscribeEmail(email.trim(), 'popup')
+    setSubmitting(false)
+    if (result === 'ok') {
       setStatus('success')
       setMsg('Thank you for subscribing!')
       sessionStorage.setItem('linfair_popup_dismissed', 'true')
@@ -52,10 +51,10 @@ export default function SubscriptionPopup() {
         setShow(false)
         setStatus('idle')
       }, 2000)
-    } catch {
-      setStatus('error')
-      setMsg('Something went wrong. Please try again.')
+      return
     }
+    setStatus('error')
+    setMsg(result === 'invalid' ? 'Please enter a valid email' : 'Subscription failed. Please try again or email info@linfairwool.cn')
   }
 
   const handleDismiss = () => {
@@ -132,9 +131,10 @@ export default function SubscriptionPopup() {
                   />
                   <button
                     type="submit"
-                    className="w-full py-3 bg-[#1B2A4A] text-white text-sm font-medium rounded-xl hover:bg-[#1B2A4A]/90 transition-all active:scale-[0.98]"
+                    disabled={submitting}
+                    className="w-full py-3 bg-[#1B2A4A] text-white text-sm font-medium rounded-xl hover:bg-[#1B2A4A]/90 transition-all active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Subscribe
+                    {submitting ? 'Subscribing…' : 'Subscribe'}
                   </button>
                 </form>
               )}

@@ -248,3 +248,44 @@ export function importDataFile(file: File): Promise<{ products: Product[]; blogP
     reader.readAsText(file)
   })
 }
+
+// === Newsletter Subscription ===
+// 2026-11-13 修复周检 M7：订阅必须落到服务端 KV，否则线索只存在访客自己的
+// 浏览器里（清缓存即丢，站点方永远拿不到）。这里如实返回三态：
+//   'ok'       服务端已写入（或该邮箱已订阅）
+//   'invalid'  邮箱格式不合法（前端已先校验，服务端二次校验兜底）
+//   'error'    网络/服务端异常——调用方必须显示失败，不得提示成功
+export type SubscribeResult = 'ok' | 'invalid' | 'error'
+
+export async function subscribeEmail(email: string, source: 'popup' | 'footer' = 'footer'): Promise<SubscribeResult> {
+  try {
+    const res = await fetch(`${API_BASE}/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, source }),
+    })
+    if (res.ok) return 'ok'
+    if (res.status === 400) return 'invalid'
+    return 'error'
+  } catch {
+    return 'error'
+  }
+}
+
+export interface SubscriberRecord {
+  email: string
+  source?: string
+  createdAt: string
+  country?: string
+}
+
+export async function fetchSubscribers(): Promise<SubscriberRecord[] | null> {
+  try {
+    const res = await fetch(`${API_BASE}/subscribe`, { headers: getAuthHeader() })
+    if (!res.ok) return null
+    const data = await res.json().catch(() => null)
+    return Array.isArray(data?.subscribers) ? data.subscribers : null
+  } catch {
+    return null
+  }
+}

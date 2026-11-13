@@ -25,6 +25,10 @@
 /favicon.svg
   Cache-Control: public, max-age=0, must-revalidate
 
+# 真实 favicon.ico（2026-11-13 新增，此前直访 404）；内容极少变更，可缓存一天
+/favicon.ico
+  Cache-Control: public, max-age=86400
+
 # ---------- 全局：安全头 + HTML 不缓存 ----------
 /*
   Cache-Control: public, max-age=0, must-revalidate

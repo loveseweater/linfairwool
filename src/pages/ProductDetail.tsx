@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
 import { products, findProductBySlug } from '../data/products'
 import { useLang } from '../context/LanguageContext'
+import { syncSocialMeta, setRobotsMeta } from '../hooks/usePageTitle'
 
 const SITE_URL = 'https://linfairwool.cn'
 
@@ -25,20 +26,15 @@ export default function ProductDetail() {
     if (!product) {
       // 周检 M1：未找到的商品（200 空态页）注入 noindex 并移除残留 canonical
       document.title = 'Product Not Found | LINFAIR'
-      let robots = document.querySelector<HTMLMetaElement>('meta[name="robots"]')
-      if (!robots) {
-        robots = document.createElement('meta')
-        robots.setAttribute('name', 'robots')
-        document.head.appendChild(robots)
-      }
-      robots.setAttribute('content', 'noindex, nofollow')
+      setRobotsMeta('noindex, nofollow')
       document.querySelector('link[rel="canonical"]')?.remove()
       return
     }
     // 恢复正常索引状态（同一 SPA 实例可能先渲染过空态）
-    document.querySelector('meta[name="robots"]')?.remove()
+    setRobotsMeta('index, follow')
     document.title = `${product.name} | Custom Manufacturer | LINFAIR`
-    const path = `/products/${product.slug ?? product.id}`
+    // 带尾斜杠才是 200 版本（无斜杠会 308 一跳），与预渲染 HTML 保持一致
+    const path = `/products/${product.slug ?? product.id}/`
     let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
     if (!link) {
       link = document.createElement('link')
@@ -65,6 +61,17 @@ export default function ProductDetail() {
       }
       kw.setAttribute('content', product.keywords.join(', '))
     }
+
+    // OG/Twitter 跟随商品页自身，而不是继承首页通用文案；
+    // og:description 与 meta description 保持同一文案（fix-head 校验脚本按此对齐）
+    const pageDesc = product.longDescription?.slice(0, 300) ?? product.description ?? ''
+    syncSocialMeta({
+      url: `${SITE_URL}${path}`,
+      title: `${product.name} | Custom Manufacturer | LINFAIR`,
+      description: pageDesc,
+      type: 'product',
+      image: product.image?.startsWith('http') ? product.image : product.image ? `${SITE_URL}${product.image}` : undefined,
+    })
   }, [product])
 
   // ── 结构化数据：Product + FAQPage + BreadcrumbList ──
@@ -73,7 +80,7 @@ export default function ProductDetail() {
     document.getElementById(id)?.remove()
     if (!product) return
 
-    const path = `/products/${product.slug ?? product.id}`
+    const path = `/products/${product.slug ?? product.id}/`
     const images = (product.gallery?.length ? product.gallery : [product.image]).map((img) =>
       img.startsWith('http') ? img : `${SITE_URL}${img}`
     )

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
-import { fetchData, saveData, resetData, logout, downloadDataFile, importDataFile, fetchSiteContent, saveSiteContent, resetSiteContent } from '../../utils/api'
+import { fetchData, saveData, resetData, logout, downloadDataFile, importDataFile, fetchSiteContent, saveSiteContent, resetSiteContent, fetchSubscribers } from '../../utils/api'
+import type { SubscriberRecord } from '../../utils/api'
 import { motion } from 'framer-motion'
 import type { SiteContent } from '../../data/siteContent'
 import { useLang } from '../../context/LanguageContext'
@@ -1474,24 +1475,31 @@ function AnalyticsDashboard() {
 /* ─── Subscription Manager ─── */
 function SubscriptionManager() {
   const { t } = useLang()
-  const [subscribers, setSubscribers] = useState<any[]>([])
+  const [subscribers, setSubscribers] = useState<SubscriberRecord[]>([])
   const [loading, setLoading] = useState(true)
+  const [err, setErr] = useState('')
 
+  // 2026-11-13（周检 M7）：订阅已改为服务端 KV 落库，这里从 /api/subscribe 拉取；
+  // 旧版本读 localStorage 只能看到管理员自己浏览器里的记录（实际为空）。
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem('linfair_subscribers')
-      if (raw) setSubscribers(JSON.parse(raw))
-    } catch {}
-    setLoading(false)
+    let alive = true
+    fetchSubscribers().then((list) => {
+      if (!alive) return
+      if (list === null) setErr('读取失败：登录会话可能已过期，请重新登录')
+      else setSubscribers(list)
+      setLoading(false)
+    })
+    return () => { alive = false }
   }, [])
 
   const exportSubscribers = () => {
-    const csv = 'Email,Date\n' + subscribers.map(s => `${s.email},${s.createdAt}`).join('\n')
+    const csv = 'Email,Source,Date,Country\n'
+      + subscribers.map(s => `${s.email},${s.source || ''},${s.createdAt},${s.country || ''}`).join('\n')
     const blob = new Blob([csv], { type: 'text/csv' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = url
-    a.download = 'subscribers.csv'
+    a.download = `linfair-subscribers-${new Date().toISOString().slice(0, 10)}.csv`
     a.click()
     URL.revokeObjectURL(url)
   }
@@ -1509,21 +1517,29 @@ function SubscriptionManager() {
         )}
       </div>
 
+      {err && (
+        <div className="mb-4 px-4 py-3 bg-red-500/10 border border-red-500/30 rounded-lg text-red-300 text-sm">{err}</div>
+      )}
+
       {subscribers.length === 0 ? (
-        <div className="text-center py-12 text-gray-500 text-sm">暂无订阅用户</div>
+        <div className="text-center py-12 text-gray-500 text-sm">
+          {err ? '无法读取订阅列表' : '暂无订阅用户'}
+        </div>
       ) : (
         <div className="bg-white/5 rounded-xl border border-white/10 overflow-hidden">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/10">
                 <th className="text-left px-4 py-3 text-xs text-gray-500 font-medium">{t('admin.email')}</th>
+                <th className="text-left px-4 py-3 text-xs text-gray-500 font-medium">来源</th>
                 <th className="text-left px-4 py-3 text-xs text-gray-500 font-medium">订阅时间</th>
               </tr>
             </thead>
             <tbody>
               {subscribers.map((sub, i) => (
-                <tr key={sub.id || i} className="border-b border-white/5 hover:bg-white/5">
+                <tr key={sub.email || i} className="border-b border-white/5 hover:bg-white/5">
                   <td className="px-4 py-3 text-white text-sm">{sub.email}</td>
+                  <td className="px-4 py-3 text-gray-400 text-sm">{sub.source || '—'}</td>
                   <td className="px-4 py-3 text-gray-400 text-sm">{new Date(sub.createdAt).toLocaleString()}</td>
                 </tr>
               ))}
