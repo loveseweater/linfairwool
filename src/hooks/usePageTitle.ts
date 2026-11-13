@@ -20,6 +20,34 @@ function pageType(path: string): string {
   return 'website'
 }
 
+// SERP 展示预算：title≈60 字符 / description≈160 字符，超出部分被截断且权重极低。
+// 与 scripts/fix-head.mjs 的静态裁剪保持同一规则（2026-11-13 第二批）。
+function trimSeg(s: string, max: number): string {
+  if (s.length <= max) return s
+  let c = s.slice(0, max)
+  const sp = c.lastIndexOf(' ')
+  if (sp > max * 0.5) c = c.slice(0, sp)
+  return c.replace(/[\s,;:.\-–—&/|]+$/, '')
+}
+
+export function capTitle(raw: string, max = 60): string {
+  if (raw.length <= max) return raw
+  const segs = raw.split(' | ')
+  let out = segs[0]
+  for (let i = 1; i < segs.length; i++) {
+    const cand = out + ' | ' + segs[i]
+    if (cand.length <= max) { out = cand; continue }
+    const room = max - out.length - 3
+    if (room >= 15 && i === segs.length - 1) out = out + ' | ' + trimSeg(segs[i], room)
+    break
+  }
+  return trimSeg(out, max)
+}
+
+export function capDesc(raw: string, max = 160): string {
+  return trimSeg(raw, max)
+}
+
 /** 统一维护 robots meta：正常页 index, follow；空态页 noindex, nofollow。
  * 旧逻辑直接 remove() 会把模板里的 robots meta 从预渲染 DOM 里删掉（2026-11-13 修复）。 */
 export function setRobotsMeta(content: 'index, follow' | 'noindex, nofollow') {
@@ -72,7 +100,9 @@ export function syncSocialMeta(opts: { url: string; title?: string; description?
  */
 export function usePageTitle(title: string, path = '/', description?: string, noindex = false, image?: string) {
   useEffect(() => {
-    document.title = title
+    const titleUse = capTitle(title)
+    const descUse = description ? capDesc(description) : undefined
+    document.title = titleUse
     if (noindex) {
       setRobotsMeta('noindex, nofollow')
       document.querySelector('link[rel="canonical"]')?.remove()
@@ -96,13 +126,13 @@ export function usePageTitle(title: string, path = '/', description?: string, no
         meta.setAttribute('name', 'description')
         document.head.appendChild(meta)
       }
-      meta.setAttribute('content', description)
+      meta.setAttribute('content', capDesc(description))
     }
     // hreflang 只在首页有意义：SPA 内页会继承首页模板里的 hreflang，
     // 那等于把每一篇内页都声明成"首页的语言版本"，属错误标注。
     if (normalized !== '/') {
       document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove())
     }
-    syncSocialMeta({ url, title, description, type: pageType(normalized), image: image ? `${SITE_URL}${image}` : undefined })
+    syncSocialMeta({ url, title: titleUse, description: descUse, type: pageType(normalized), image: image ? `${SITE_URL}${image}` : undefined })
   }, [title, path, description, noindex, image])
 }

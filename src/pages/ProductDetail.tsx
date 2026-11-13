@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import Button from '../components/ui/Button'
 import { products, findProductBySlug } from '../data/products'
 import { useLang } from '../context/LanguageContext'
-import { syncSocialMeta, setRobotsMeta } from '../hooks/usePageTitle'
+import { syncSocialMeta, setRobotsMeta, capTitle, capDesc } from '../hooks/usePageTitle'
 
 const SITE_URL = 'https://linfairwool.cn'
 
@@ -32,7 +32,7 @@ export default function ProductDetail() {
     }
     // 恢复正常索引状态（同一 SPA 实例可能先渲染过空态）
     setRobotsMeta('index, follow')
-    document.title = `${product.name} | Custom Manufacturer | LINFAIR`
+    document.title = capTitle(`${product.name} | Custom Manufacturer | LINFAIR`)
     // 带尾斜杠才是 200 版本（无斜杠会 308 一跳），与预渲染 HTML 保持一致
     const path = `/products/${product.slug ?? product.id}/`
     let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]')
@@ -64,10 +64,10 @@ export default function ProductDetail() {
 
     // OG/Twitter 跟随商品页自身，而不是继承首页通用文案；
     // og:description 与 meta description 保持同一文案（fix-head 校验脚本按此对齐）
-    const pageDesc = product.longDescription?.slice(0, 300) ?? product.description ?? ''
+    const pageDesc = capDesc(product.longDescription ?? product.description ?? '')
     syncSocialMeta({
       url: `${SITE_URL}${path}`,
-      title: `${product.name} | Custom Manufacturer | LINFAIR`,
+      title: capTitle(`${product.name} | Custom Manufacturer | LINFAIR`),
       description: pageDesc,
       type: 'product',
       image: product.image?.startsWith('http') ? product.image : product.image ? `${SITE_URL}${product.image}` : undefined,
