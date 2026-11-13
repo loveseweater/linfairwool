@@ -64,13 +64,20 @@ export default function ProductDetail() {
 
     // OG/Twitter 跟随商品页自身，而不是继承首页通用文案；
     // og:description 与 meta description 保持同一文案（fix-head 校验脚本按此对齐）
+    // 社交平台对 WebP 支持不一致（LinkedIn/WhatsApp 会取不到图），
+    // 故 og:image 走同名 JPEG，站内 <img> 仍用 WebP（2026-11-14 商品图本地化）
     const pageDesc = capDesc(product.longDescription ?? product.description ?? '')
+    const ogImage = product.image?.startsWith('http')
+      ? product.image
+      : product.image
+        ? `${SITE_URL}${product.image.replace(/\.webp$/i, '.jpg')}`
+        : undefined
     syncSocialMeta({
       url: `${SITE_URL}${path}`,
       title: capTitle(`${product.name} | Custom Manufacturer | LINFAIR`),
       description: pageDesc,
       type: 'product',
-      image: product.image?.startsWith('http') ? product.image : product.image ? `${SITE_URL}${product.image}` : undefined,
+      image: ogImage,
     })
   }, [product])
 

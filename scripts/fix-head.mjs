@@ -61,6 +61,33 @@ function capDesc(raw, max = 160) {
   return encodeEnt(trimSeg(dec, max))
 }
 
+/**
+ * Google Fonts 只保留一条非阻塞引用。
+ * 预渲染快照里常见「preload as=style onload 转 stylesheet」+「已转好的 stylesheet」
+ * 并存（前者是原写法，后者是抓取时 onload 已执行的结果），导致重复请求 + 渲染阻塞。
+ */
+function dedupeFontLinks(html) {
+  const linkRe = /<link[^>]+fonts\.googleapis\.com\/css2\?[^>]*>/g
+  const all = html.match(linkRe) || []
+  if (all.length === 0) return html
+  const hrefOf = (tag) => (tag.match(/href="([^"]*)"/) || [])[1]
+  const isPreload = (tag) => /as="style"/.test(tag) && /onload=/.test(tag)
+  const preload = all.find(isPreload)
+  const blocking = all.filter(t => !isPreload(t))
+  if (blocking.length === 0) return html
+  if (preload) {
+    // 已有非阻塞版本 → 删掉阻塞版本（含其 noscript 之外的其他重复）
+    for (const tag of blocking) html = html.replace(tag, '')
+  } else {
+    // 只有阻塞版本 → 改写成非阻塞 + noscript 回退
+    const href = hrefOf(blocking[0])
+    html = html.replace(blocking[0],
+      `<link rel="preload" href="${href}" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="${href}"></noscript>`)
+    for (const tag of blocking.slice(1)) html = html.replace(tag, '')
+  }
+  return html
+}
+
 function expectedUrl(route) {
   if (route === '/') return SITE + '/'
   return SITE + route + '/'
@@ -107,9 +134,22 @@ for (const dir of dirs) {
   const ogImage = (html.match(/"image":\s*"(https:\/\/linfairwool\.cn\/[^"]+\.(?:jpg|jpeg|png|webp))"/) || [])[1]
     || (html.match(/<meta property="og:image" content="([^"]*)"/) || [])[1]
 
+  // 社交平台对 WebP 支持不一致：若存在同名 JPEG 则 og:image 用 JPEG
+  let ogImageUse = ogImage
+  if (ogImage && ogImage.endsWith('.webp')) {
+    const jpgUrl = ogImage.replace(/\.webp$/i, '.jpg')
+    const localJpg = path.join(PUBLIC, jpgUrl.replace(SITE + '/', ''))
+    if (fs.existsSync(localJpg)) ogImageUse = jpgUrl
+  }
+
   const setLink = (rel, href) => {
     html = html.replace(new RegExp(`<link rel="${rel}" href="[^"]*">`), `<link rel="${rel}" href="${href}">`)
   }
+
+  // 字体 CSS 去重（2026-11-14）：prerender 抓取的是 onload 已触发的 DOM，
+  // 于是「preload 转 stylesheet」的非阻塞写法被序列化成阻塞 stylesheet，
+  // 而 preload 节点还在 → 同一份 Google Fonts CSS 请求两次、且其中一次阻塞首屏。
+  html = dedupeFontLinks(html)
   const setMeta = (key, attr, value) => {
     const re = new RegExp(`<meta ${attr}="${key}" content="[^"]*">`)
     if (re.test(html)) html = html.replace(re, `<meta ${attr}="${key}" content="${escAttr(value)}">`)
@@ -121,10 +161,10 @@ for (const dir of dirs) {
   setMeta('og:description', 'property', descUse)
   setMeta('og:url', 'property', url)
   setMeta('og:type', 'property', type)
-  if (ogImage) setMeta('og:image', 'property', ogImage)
+  if (ogImageUse) setMeta('og:image', 'property', ogImageUse)
   setMeta('twitter:title', 'name', titleUse)
   setMeta('twitter:description', 'name', descUse)
-  if (ogImage) setMeta('twitter:image', 'name', ogImage)
+  if (ogImageUse) setMeta('twitter:image', 'name', ogImageUse)
 
   // hreflang 只在首页有意义；内页保留会把每页都声明成首页语言版本
   if (route !== '/') {
@@ -156,6 +196,7 @@ const bad = rows.filter(r => r.ok === false)
     const before = html
     const title = (html.match(/<title>([\s\S]*?)<\/title>/) || [])[1]
     const desc = (html.match(/<meta name="description" content="([^"]*)"/) || [])[1]
+    html = dedupeFontLinks(html)
     if (title && desc) {
       const titleCapped = capTitle(title)
       const descCapped = capDesc(desc)
